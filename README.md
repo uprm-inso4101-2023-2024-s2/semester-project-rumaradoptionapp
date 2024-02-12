@@ -16,6 +16,6 @@ Welcome to the RUMAR Adoption Website project! This web application is designed 
 
 1. **Clone the Repository:**
 
-   git clone: https://github.com/uprm-inso4101-2023-2024-s2/RUMAR-Adoption-Website.git
+   git clone: https://github.com/uprm-inso4101-2023-2024-s2/semester-project-rumaradoptionapp.git
    
 Feel free to explore the codebase, contribute to the project, and help make a positive impact on the lives of animals in need!
