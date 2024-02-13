@@ -1,0 +1,314 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/Loopple/loopple-public-assets@main/motion-tailwind/motion-tailwind.css" rel="stylesheet">
+
+    <title>Project</title>
+</head>
+<body>
+    <!-- component -->  
+        <div class="container flex flex-col mx-auto ">
+           
+            <div class="relative flex flex-wrap items-center justify-between w-full bg-white group py-7 shrink-0">
+                <div>
+                    <img class="h-20" src="https://cdn.discordapp.com/attachments/1205163379702890506/1205719557239480400/305770488_1423830978111230_2118068422940495596_n.png?ex=65d964d7&is=65c6efd7&hm=089d272347fadd1553227ef2cd777cdb285b37b0878571c2e2d15ed57e832fbb&">
+                </div>
+                <div class="items-center justify-between hidden gap-12 text-black md:flex">
+                    <a class="text-sm font-normal text-lime-700 hover:text-lime-200" href="javascript:void(0)">Home</a>
+                    <a class="text-sm font-normal text-lime-700 hover:text-lime-200" href="javascript:void(0)">About</a>
+                    <a class="text-sm font-normal text-lime-700 hover:text-lime-200" href="javascript:void(0)">Reviews</a>
+                    <a class="text-sm font-normal text-lime-700 hover:text-lime-200" href="javascript:void(0)">Comunity</a>
+                </div>
+                <div class="items-center hidden gap-8 md:flex">
+                    <button class="flex items-center text-sm font-normal text-gray-800 hover:text-gray-900 transition duration-300">Log In</button>
+                    <button class="flex items-center px-4 py-2 text-sm font-bold rounded-xl bg-lime-100 text-lime-600 hover:bg-lime-600 hover:text-white transition duration-300">
+                        Sign Up
+                    </button>
+                    
+                </div>
+                <button onclick="(() => { this.closest('.group').classList.toggle('open')})()" class="flex md:hidden">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none">
+                        <path d="M3 8H21C21.2652 8 21.5196 7.89464 21.7071 7.70711C21.8946 7.51957 22 7.26522 22 7C22 6.73478 21.8946 6.48043 21.7071 6.29289C21.5196 6.10536 21.2652 6 21 6H3C2.73478 6 2.48043 6.10536 2.29289 6.29289C2.10536 6.48043 2 6.73478 2 7C2 7.26522 2.10536 7.51957 2.29289 7.70711C2.48043 7.89464 2.73478 8 3 8ZM21 16H3C2.73478 16 2.48043 16.1054 2.29289 16.2929C2.10536 16.4804 2 16.7348 2 17C2 17.2652 2.10536 17.5196 2.29289 17.7071C2.48043 17.8946 2.73478 18 3 18H21C21.2652 18 21.5196 17.8946 21.7071 17.7071C21.8946 17.5196 22 17.2652 22 17C22 16.7348 21.8946 16.4804 21.7071 16.2929C21.5196 16.1054 21.2652 16 21 16ZM21 11H3C2.73478 11 2.48043 11.1054 2.29289 11.2929C2.10536 11.4804 2 11.7348 2 12C2 12.2652 2.10536 12.5196 2.29289 12.7071C2.48043 12.8946 2.73478 13 3 13H21C21.2652 13 21.5196 12.8946 21.7071 12.7071C21.8946 12.5196 22 12.2652 22 12C22 11.7348 21.8946 11.4804 21.7071 11.2929C21.5196 11.1054 21.2652 11 21 11Z" fill="black"></path>
+                    </svg>
+                </button>
+                <div class="absolute flex md:hidden transition-all duration-300 ease-in-out flex-col items-start shadow-main justify-center w-full gap-3 overflow-hidden bg-white max-h-0 group-[.open]:py-4 px-4 rounded-2xl group-[.open]:max-h-64 top-full">
+                    <a class="text-sm font-normal text-dark-grey-600 hover:text-dark-grey-900" href="javascript:void(0)">Home</a>
+                    <a class="text-sm font-normal text-dark-grey-700 hover:text-dark-grey-900" href="javascript:void(0)">About</a>
+                    <a class="text-sm font-normal text-dark-grey-700 hover:text-dark-grey-900" href="javascript:void(0)">Reviews</a>
+                    <a class="text-sm font-normal text-dark-grey-700 hover:text-dark-grey-900" href="javascript:void(0)">Comunity</a>
+                    <button class="flex items-center text-sm font-normal text-black">Log In</button>
+                    <button class="flex items-center px-4 py-2 text-sm font-bold rounded-xl bg-lime-100 text-lime-600 hover:bg-lime-600 hover:text-white transition duration-300">Sign Up</button>
+                </div>
+            </div>
+            <div class="grid w-full grid-cols-1 my-auto mt-12 mb-8 md:grid-cols-2 xl:gap-14 md:gap-5">
+                <div class="flex flex-col justify-center col-span-1 text-center lg:text-start">
+                    <div class="flex items-center justify-center mb-4 lg:justify-normal">
+                        <img class="h-5" src="https://cdn.discordapp.com/attachments/1205163379702890506/1205719557239480400/305770488_1423830978111230_2118068422940495596_n.png?ex=65d964d7&is=65c6efd7&hm=089d272347fadd1553227ef2cd777cdb285b37b0878571c2e2d15ed57e832fbb&" alt="logo">
+                        <h4 class="ml-2 text-sm font-bold tracking-widest text-lime-600 uppercase">RUMAR ANIMAL RESCUE SERVICE</h4>
+                    </div>
+                    <h1 class="mb-8 text-4xl font-extrabold leading-tight lg:text-6xl text-lime-500">Find Your Furry Friend Today</h1>
+                    <p id="SecondText" class="mb-6 text-base font-normal leading-7 lg:w-3/4 text-black-900">
+                        Say farewell to endless searching for your perfect pet match. Experience the quickest, most heartwarming, and trendiest adoption solution available. Seriously simplify your journey to finding your new furry companion.
+                        
+                    </p>
+                    <div class="flex flex-col items-center gap-4 lg:flex-row">
+                        <a href="mailto:palr12202000@gmail.com" class="flex items-center py-4 text-sm font-bold text-black px-7  bg-lime-100 text-lime-600 hover:bg-lime-600 hover:text-white transition duration-300 rounded-xl">Get started now</a>
+                        <a href=""  class="flex items-center py-4 text-sm font-medium px-7 text-dark-grey-700 hover:text-dark-grey-900 transition duration-300 rounded-2xl">
+                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="w-5 h-5 mr-2">
+                                <path fill-rule="evenodd" d="M1.5 4.5a3 3 0 013-3h1.372c.86 0 1.61.586 1.819 1.42l1.105 4.423a1.875 1.875 0 01-.694 1.955l-1.293.97c-.135.101-.164.249-.126.352a11.285 11.285 0 006.697 6.697c.103.038.25.009.352-.126l.97-1.293a1.875 1.875 0 011.955-.694l4.423 1.105c.834.209 1.42.959 1.42 1.82V19.5a3 3 0 01-3 3h-2.25C8.552 22.5 1.5 15.448 1.5 6.75V4.5z" clip-rule="evenodd"></path>
+                            </svg>
+                            Book a free call
+                        </a>
+                    </div>
+                </div>
+                
+                <div class="items-center justify-center  md:flex">
+                    <img class="rounded-md h-90 md:w-auto" src="https://hips.hearstapps.com/goodhousekeeping/assets/17/30/pembroke-welsh-corgi.jpg" alt="header image">
+                </div>
+            </div>
+        </div>
+        <!-- component -->
+<div id="services" class="section relative pt-20 pb-8 md:pt-16 md:pb-0 bg-white">
+    <div class="container xl:max-w-6xl mx-auto px-4">
+        <!-- Heading start -->
+        <header class="text-center mx-auto mb-12 lg:px-20">
+            <h2 class="text-2xl leading-normal mb-2 font-bold text-black">What We Do</h2>
+            <svg version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" viewBox="0 0 100 60" style="margin: 0 auto;height: 35px;" xml:space="preserve">
+                <circle cx="50.1" cy="30.4" r="5" class="stroke-primary" style="fill: transparent;stroke-width: 2;stroke-miterlimit: 10;"></circle>
+                <line x1="55.1" y1="30.4" x2="100" y2="30.4" class="stroke-primary" style="stroke-width: 2;stroke-miterlimit: 10;"></line>
+                <line x1="45.1" y1="30.4" x2="0" y2="30.4" class="stroke-primary" style="stroke-width: 2;stroke-miterlimit: 10;"></line>
+            </svg>
+            <p class="text-gray-500 leading-relaxed font-light text-xl mx-auto pb-2">Save time managing advertising &amp; Content for your business.</p>
+        </header>
+        <!-- End heading -->
+        <!-- row -->
+        <div class="flex flex-wrap flex-row -mx-4 text-center">
+            <div class="flex-shrink px-4 max-w-full w-full sm:w-1/2 lg:w-1/3 lg:px-6 wow fadeInUp" data-wow-duration="1s" style="visibility: visible; animation-duration: 1s; animation-name: fadeInUp;">
+                <!-- service block -->
+                <div class="py-8 px-12 mb-12 bg-gray-50 border-b border-gray-100 transform transition duration-300 ease-in-out hover:-translate-y-2">
+                    <div class="inline-block text-gray-900 mb-4">
+                        <!-- icon -->
+                        <svg xmlns="http://www.w3.org/2000/svg" width="2rem" height="2rem" fill="currentColor" class="bi bi-list-check" viewBox="0 0 16 16">
+                            <path fill-rule="evenodd" d="M5 11.5a.5.5 0 0 1 .5-.5h9a.5.5 0 0 1 0 1h-9a.5.5 0 0 1-.5-.5m0-4a.5.5 0 0 1 .5-.5h9a.5.5 0 0 1 0 1h-9a.5.5 0 0 1-.5-.5m0-4a.5.5 0 0 1 .5-.5h9a.5.5 0 0 1 0 1h-9a.5.5 0 0 1-.5-.5M3.854 2.146a.5.5 0 0 1 0 .708l-1.5 1.5a.5.5 0 0 1-.708 0l-.5-.5a.5.5 0 1 1 .708-.708L2 3.293l1.146-1.147a.5.5 0 0 1 .708 0m0 4a.5.5 0 0 1 0 .708l-1.5 1.5a.5.5 0 0 1-.708 0l-.5-.5a.5.5 0 1 1 .708-.708L2 7.293l1.146-1.147a.5.5 0 0 1 .708 0m0 4a.5.5 0 0 1 0 .708l-1.5 1.5a.5.5 0 0 1-.708 0l-.5-.5a.5.5 0 0 1 .708-.708l.146.147 1.146-1.147a.5.5 0 0 1 .708 0"/>
+                          </svg>
+                    </div>
+                    <h3 class="text-lg leading-normal mb-2 font-semibold text-black">Pet Adoption Listings</h3>
+                    <p class="text-gray-500">Providing a comprehensive database of dogs and cats available for adoption, including detailed profiles, photos, and adoption requirements.</p>
+                </div>
+                <!-- end service block -->
+            </div>
+            <div class="flex-shrink px-4 max-w-full w-full sm:w-1/2 lg:w-1/3 lg:px-6 wow fadeInUp" data-wow-duration="1s" data-wow-delay=".1s" style="visibility: visible; animation-duration: 1s; animation-delay: 0.1s; animation-name: fadeInUp;">
+                <!-- service block -->
+                <div class="py-8 px-12 mb-12 bg-gray-50 border-b border-gray-100 transform transition duration-300 ease-in-out hover:-translate-y-2">
+                    <div class="inline-block text-gray-900 mb-4">
+                        <!-- icon -->
+                        <svg xmlns="http://www.w3.org/2000/svg" width="2rem" height="2rem" fill="currentColor" class="bi bi-heart" viewBox="0 0 16 16">
+                            <path d="m8 2.748-.717-.737C5.6.281 2.514.878 1.4 3.053c-.523 1.023-.641 2.5.314 4.385.92 1.815 2.834 3.989 6.286 6.357 3.452-2.368 5.365-4.542 6.286-6.357.955-1.886.838-3.362.314-4.385C13.486.878 10.4.28 8.717 2.01zM8 15C-7.333 4.868 3.279-3.04 7.824 1.143q.09.083.176.171a3 3 0 0 1 .176-.17C12.72-3.042 23.333 4.867 8 15"/>
+                          </svg>
+                    </div>
+                    <h3 class="text-lg leading-normal mb-2 font-semibold text-black">Matchmaking</h3>
+                    <p class="text-gray-500">Offering a matchmaking service to help potential adopters find the perfect pet based on factors such as lifestyle, preferences, and compatibility.</p>
+                </div>
+                <!-- end service block -->
+            </div>
+            <div class="flex-shrink px-4 max-w-full w-full sm:w-1/2 lg:w-1/3 lg:px-6 wow fadeInUp" data-wow-duration="1s" data-wow-delay=".3s" style="visibility: visible; animation-duration: 1s; animation-delay: 0.3s; animation-name: fadeInUp;">
+                <!-- service block -->
+                <div class="py-8 px-12 mb-12 bg-gray-50 border-b border-gray-100 transform transition duration-300 ease-in-out hover:-translate-y-2">
+                    <div class="inline-block text-gray-900 mb-4">
+                        <!-- icon -->
+                        <svg xmlns="http://www.w3.org/2000/svg" width="2rem" height="2rem" fill="currentColor" class="bi bi-calendar-event" viewBox="0 0 16 16">
+                            <path d="M11 6.5a.5.5 0 0 1 .5-.5h1a.5.5 0 0 1 .5.5v1a.5.5 0 0 1-.5.5h-1a.5.5 0 0 1-.5-.5z"/>
+                            <path d="M3.5 0a.5.5 0 0 1 .5.5V1h8V.5a.5.5 0 0 1 1 0V1h1a2 2 0 0 1 2 2v11a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2V3a2 2 0 0 1 2-2h1V.5a.5.5 0 0 1 .5-.5M1 4v10a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1V4z"/>
+                          </svg>
+                          
+                    </div>
+                    <h3 class="text-lg leading-normal mb-2 font-semibold text-black">Adoption Events</h3>
+                    <p class="text-gray-500"> Organizing adoption events, both virtual and in-person, to showcase available pets and encourage adoptions.</p>
+                </div>
+                <!-- end service block -->
+            </div>
+            <div class="flex-shrink px-4 max-w-full w-full sm:w-1/2 lg:w-1/3 lg:px-6 wow fadeInUp" data-wow-duration="1s" style="visibility: visible; animation-duration: 1s; animation-name: fadeInUp;">
+                <!-- service block -->
+                <div class="py-8 px-12 mb-12 bg-gray-50 border-b border-gray-100 transform transition duration-300 ease-in-out hover:-translate-y-2">
+                    <div class="inline-block text-gray-900 mb-4">
+                        <!-- icon -->
+                        <svg xmlns="http://www.w3.org/2000/svg" width="2rem" height="2rem" fill="currentColor" class="bi bi-hospital" viewBox="0 0 16 16">
+                            <path d="M8.5 5.034v1.1l.953-.55.5.867L9 7l.953.55-.5.866-.953-.55v1.1h-1v-1.1l-.953.55-.5-.866L7 7l-.953-.55.5-.866.953.55v-1.1zM13.25 9a.25.25 0 0 0-.25.25v.5c0 .138.112.25.25.25h.5a.25.25 0 0 0 .25-.25v-.5a.25.25 0 0 0-.25-.25zM13 11.25a.25.25 0 0 1 .25-.25h.5a.25.25 0 0 1 .25.25v.5a.25.25 0 0 1-.25.25h-.5a.25.25 0 0 1-.25-.25zm.25 1.75a.25.25 0 0 0-.25.25v.5c0 .138.112.25.25.25h.5a.25.25 0 0 0 .25-.25v-.5a.25.25 0 0 0-.25-.25zm-11-4a.25.25 0 0 0-.25.25v.5c0 .138.112.25.25.25h.5A.25.25 0 0 0 3 9.75v-.5A.25.25 0 0 0 2.75 9zm0 2a.25.25 0 0 0-.25.25v.5c0 .138.112.25.25.25h.5a.25.25 0 0 0 .25-.25v-.5a.25.25 0 0 0-.25-.25zM2 13.25a.25.25 0 0 1 .25-.25h.5a.25.25 0 0 1 .25.25v.5a.25.25 0 0 1-.25.25h-.5a.25.25 0 0 1-.25-.25z"/>
+                            <path d="M5 1a1 1 0 0 1 1-1h4a1 1 0 0 1 1 1v1a1 1 0 0 1 1 1v4h3a1 1 0 0 1 1 1v7a1 1 0 0 1-1 1H1a1 1 0 0 1-1-1V8a1 1 0 0 1 1-1h3V3a1 1 0 0 1 1-1zm2 14h2v-3H7zm3 0h1V3H5v12h1v-3a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1zm0-14H6v1h4zm2 7v7h3V8zm-8 7V8H1v7z"/>
+                          </svg>
+                    </div>
+                    <h3 class="text-lg leading-normal mb-2 font-semibold text-black">Pet Insurance</h3>
+                    <p class="text-gray-500">Offering information and resources on pet insurance options, helping adopters protect their pets against unexpected medical expenses.</p>
+                </div>
+                <!-- end service block -->
+            </div>
+            <div class="flex-shrink px-4 max-w-full w-full sm:w-1/2 lg:w-1/3 lg:px-6 wow fadeInUp" data-wow-duration="1s" data-wow-delay=".1s" style="visibility: visible; animation-duration: 1s; animation-delay: 0.1s; animation-name: fadeInUp;">
+                <!-- service block -->
+                <div class="py-8 px-12 mb-12 bg-gray-50 border-b border-gray-100 transform transition duration-300 ease-in-out hover:-translate-y-2">
+                    <div class="inline-block text-gray-900 mb-4">
+                        <!-- icon -->
+                        <svg xmlns="http://www.w3.org/2000/svg" width="2rem" height="2rem" fill="currentColor" class="bi bi-coin" viewBox="0 0 16 16">
+                            <path d="M5.5 9.511c.076.954.83 1.697 2.182 1.785V12h.6v-.709c1.4-.098 2.218-.846 2.218-1.932 0-.987-.626-1.496-1.745-1.76l-.473-.112V5.57c.6.068.982.396 1.074.85h1.052c-.076-.919-.864-1.638-2.126-1.716V4h-.6v.719c-1.195.117-2.01.836-2.01 1.853 0 .9.606 1.472 1.613 1.707l.397.098v2.034c-.615-.093-1.022-.43-1.114-.9zm2.177-2.166c-.59-.137-.91-.416-.91-.836 0-.47.345-.822.915-.925v1.76h-.005zm.692 1.193c.717.166 1.048.435 1.048.91 0 .542-.412.914-1.135.982V8.518z"/>
+                            <path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14m0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16"/>
+                            <path d="M8 13.5a5.5 5.5 0 1 1 0-11 5.5 5.5 0 0 1 0 11m0 .5A6 6 0 1 0 8 2a6 6 0 0 0 0 12"/>
+                          </svg>
+                    </div>
+                    <h3 class="text-lg leading-normal mb-2 font-semibold text-black">Donation Support</h3>
+                    <p class="text-gray-500"> Accepting donations to support the organization's efforts in rescuing, caring for, and rehoming dogs and cats in need.</p>
+                </div>
+                <!-- end service block -->
+            </div>
+            <div class="flex-shrink px-4 max-w-full w-full sm:w-1/2 lg:w-1/3 lg:px-6 wow fadeInUp" data-wow-duration="1s" data-wow-delay=".3s" style="visibility: visible; animation-duration: 1s; animation-delay: 0.3s; animation-name: fadeInUp;">
+                <!-- service block -->
+                <div class="py-8 px-12 mb-12 bg-gray-50 border-b border-gray-100 transform transition duration-300 ease-in-out hover:-translate-y-2">
+                    <div class="inline-block text-gray-900 mb-4">
+                        <!-- icon -->
+                        <svg xmlns="http://www.w3.org/2000/svg" width="2rem" height="2rem" fill="currentColor" class="bi bi-funnel" viewBox="0 0 16 16">
+                            <path d="M1.5 1.5A.5.5 0 0 1 2 1h12a.5.5 0 0 1 .5.5v2a.5.5 0 0 1-.128.334L10 8.692V13.5a.5.5 0 0 1-.342.474l-3 1A.5.5 0 0 1 6 14.5V8.692L1.628 3.834A.5.5 0 0 1 1.5 3.5v-2zm1 .5v1.308l4.372 4.858A.5.5 0 0 1 7 8.5v5.306l2-.666V8.5a.5.5 0 0 1 .128-.334L13.5 3.308V2h-11z"></path>
+                        </svg>
+                    </div>
+                    <h3 class="text-lg leading-normal mb-2 font-semibold text-black">Pet Training Programs</h3>
+                    <p class="text-gray-500">Offering online training programs and resources to help adopters train their pets in basic obedience, behavior modification, and socialization.</p>
+                </div>
+                <!-- end service block -->
+            </div>
+        </div>
+        <!-- end row -->
+    </div>
+</div>
+
+<section class="flex items-center py-16 font-poppins">
+    <div class="container p-4 mx-auto">
+        <h2 class="pb-4 text-4xl font-bold text-center text-gray-900 dark:text-gray-900">
+            Our Pets
+        </h2>
+        <div class="mx-auto mb-10 border-b border-red-700 w-44 dark:border-gray-400"></div>
+        <div class="grid grid-cols-1 mt-8 lg:grid-cols-4 md:grid-cols-2">
+            <div class="relative overflow-hidden shadow-lg group">
+                <img src="https://www.southernliving.com/thmb/WHH7cdFT3YMJlJN4y7y3lsAKvJ8=/1500x0/filters:no_upscale():max_bytes(150000):strip_icc()/gettyimages-114166947-1-268128f97e5c415baede328c1fe32f55.jpg"
+                    class="group-hover:origin-center group-hover:scale-105 transition inset-0 object-cover object-center  duration-500 w-full h-[350px]"
+                    alt="">
+                <div class="absolute inset-0 z-0 group-hover:bg-black opacity-60"></div>
+                <div class="absolute hidden p-4 text-center content left-4 bottom-4 right-4 group-hover:block">
+                    <a href="#" class="mb-2 text-2xl font-semibold text-gray-200 dark:text-white ">
+                        Apollo</a>
+                    <h2 class="mb-0 text-sm font-light text-gray-300 dark:text-gray-300 ">
+                        Apollo is a confident and regal dog.
+                         He carries himself with pride and is protective of his family. 
+                        This dog is loyal, intelligent,
+                         and has a strong presence.</h2>
+                </div>
+            </div>
+            <div class="relative overflow-hidden shadow-lg group">
+                <img src="https://media.wired.com/photos/65651b7225ccbd8cc7d5403c/16:9/w_2400,h_1350,c_limit/Science-Life-Extension-Drug-for-Big-Dogs-Is-Getting-Closer-1330545769.jpg"
+                    class="group-hover:origin-center group-hover:scale-105 transition inset-0 object-cover object-center  duration-500 w-full h-[350px]"
+                    alt="">
+                <div class="absolute inset-0 z-0 group-hover:bg-black opacity-60"></div>
+                <div class="absolute hidden p-4 text-center content left-4 bottom-4 right-4 group-hover:block">
+                    <a href="#" class="mb-2 text-2xl font-semibold text-gray-200 dark:text-white ">
+                        Luna</a>
+                    <h2 class="mb-0 text-sm font-light text-gray-300 dark:text-gray-300 ">
+                        Luna is a gentle and loving female dog. 
+                        She is graceful in her movements and has a nurturing nature.
+                         Luna is sociable and enjoys spending time with both people and other dogs.</h2>
+                </div>
+            </div>
+            <div class="relative overflow-hidden shadow-lg group">
+                <img src="https://www.pbs.org/wnet/nature/files/2014/09/ExtraordinaryCats-Main.jpg"
+                    class="group-hover:origin-center group-hover:scale-105 transition inset-0 object-cover object-center  duration-500 w-full h-[350px]"
+                    alt="">
+                <div class="absolute inset-0 z-0 group-hover:bg-black opacity-60"></div>
+                <div class="absolute hidden p-4 text-center content left-4 bottom-4 right-4 group-hover:block">
+                    <a href="#" class="mb-2 text-2xl font-semibold text-gray-200 dark:text-white ">
+                        Oliver</a>
+                    <h2 class="mb-0 text-sm font-light text-gray-300 dark:text-gray-300 ">
+                        Oliver is a sophisticated and independent cat.
+                         He carries himself with an air of elegance and enjoys spending quiet moments alone.
+                          Oliver is intelligent, observant,
+                           and may have a bit of a mysterious side.</h2>
+                </div>
+            </div>
+            <div class="relative overflow-hidden shadow-lg group">
+                <img src="https://www.pitpat.com/wp-content/uploads/2020/07/Dog_-rights_MS_outdoors_stationary_sitting-on-path-in-woods_golden-retriever_meganwilliams-1024x683.jpg"
+                    class="group-hover:origin-center group-hover:scale-105 transition inset-0 object-cover object-center  duration-500 w-full h-[350px]"
+                    alt="">
+                <div class="absolute inset-0 z-0 group-hover:bg-black opacity-60"></div>
+                <div class="absolute hidden p-4 text-center content left-4 bottom-4 right-4 group-hover:block">
+                    <a href="#" class="mb-2 text-2xl font-semibold text-gray-200 dark:text-white ">
+                        Maximus</a>
+                    <h2 class="mb-0 text-sm font-light text-gray-300 dark:text-gray-300 ">
+                        Maximus is a powerful and protective dog. 
+                        He is brave, loyal, and always ready to defend his loved ones.
+                         Maximus thrives on physical activities and enjoys being active and strong.</h2>
+                </div>
+            </div>
+            <div class="relative overflow-hidden shadow-lg group">
+                <img src="https://www.princeton.edu/sites/default/files/styles/1x_full_2x_half_crop/public/images/2022/02/KOA_Nassau_2697x1517.jpg?itok=Bg2K7j7J"
+                    class="group-hover:origin-center group-hover:scale-105 transition inset-0 object-cover object-center  duration-500 w-full h-[350px]"
+                    alt="">
+                <div class="absolute inset-0 z-0 group-hover:bg-black opacity-60"></div>
+                <div class="absolute hidden p-4 text-center content left-4 bottom-4 right-4 group-hover:block">
+                    <a href="#" class="mb-2 text-2xl font-semibold text-gray-200 dark:text-white ">
+                        Ares</a>
+                    <h2 class="mb-0 text-sm font-light text-gray-300 dark:text-gray-300 ">
+                        Ares is a sweet and playful dog. Full of energy, 
+                        she loves to run, play fetch, 
+                        and engage in various activities. 
+                        Ares is friendly, with a warm and affectionate personality.</h2>
+                </div>
+            </div>
+            <div class="relative overflow-hidden shadow-lg group">
+                <img src="https://hips.hearstapps.com/hmg-prod/images/small-dog-breeds-659dd5cce053b.jpeg?crop=0.669xw:1.00xh;0.166xw,0&resize=640:*"
+                    class="group-hover:origin-center group-hover:scale-105 transition inset-0 object-cover object-center  duration-500 w-full h-[350px]"
+                    alt="">
+                <div class="absolute inset-0 z-0 group-hover:bg-black opacity-60"></div>
+                <div class="absolute hidden p-4 text-center content left-4 bottom-4 right-4 group-hover:block">
+                    <a href="#" class="mb-2 text-2xl font-semibold text-gray-200 dark:text-white ">
+                        Zara</a>
+                    <h2 class="mb-0 text-sm font-light text-gray-300 dark:text-gray-300 ">
+                        Zara is a stylish and outgoing dog. 
+                        She attracts attention with her unique appearance and friendly demeanor.
+                         Zara is sociable, enjoying the company of both humans and other pets.</h2>
+                </div>
+            </div>
+            <div class="relative overflow-hidden shadow-lg group">
+                <img src="https://med.stanford.edu/content/dam/sm-news/images/2021/09/cat_by-Kateryna-T-Unsplash.jpg"
+                    class="group-hover:origin-center group-hover:scale-105 transition inset-0 object-cover object-center  duration-500 w-full h-[350px]"
+                    alt="">
+                <div class="absolute inset-0 z-0 group-hover:bg-black opacity-60"></div>
+                <div class="absolute hidden p-4 text-center content left-4 bottom-4 right-4 group-hover:block">
+                    <a href="#" class="mb-2 text-2xl font-semibold text-gray-200 dark:text-white ">
+                        Misty</a>
+                    <h2 class="mb-0 text-sm font-light text-gray-300 dark:text-gray-300 ">
+                        Misty is a gentle and mysterious cat. 
+                        She moves with a quiet grace and often finds cozy spots to curl up in. 
+                        Misty is affectionate but may have a reserved nature, 
+                        preferring a calm and serene environment.</h2>
+                </div>
+            </div>
+            <div class="relative overflow-hidden shadow-lg group">
+                <img src="https://www.thesprucepets.com/thmb/hxWjs7evF2hP1Fb1c1HAvRi_Rw0=/2765x0/filters:no_upscale():strip_icc()/chinese-dog-breeds-4797219-hero-2a1e9c5ed2c54d00aef75b05c5db399c.jpg"
+                    class="group-hover:origin-center group-hover:scale-105 transition inset-0 object-cover object-center  duration-500 w-full h-[350px]"
+                    alt="">
+                <div class="absolute inset-0 z-0 group-hover:bg-black opacity-60"></div>
+                <div class="absolute hidden p-4 text-center content left-4 bottom-4 right-4 group-hover:block">
+                    <a href="#" class="mb-2 text-2xl font-semibold text-gray-200 dark:text-white ">
+                        Rocky</a>
+                    <h2 class="mb-0 text-sm font-light text-gray-300 dark:text-gray-300 ">
+                        Rocky is a rugged and adventurous dog. 
+                        Always ready for a hike or an outdoor adventure,
+                         he has a boundless energy. Rocky is friendly,
+                          outgoing, and loves exploring new places.</h2>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+    
+</body>
+
+
+</html>

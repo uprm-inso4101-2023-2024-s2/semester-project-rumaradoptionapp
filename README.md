@@ -14,8 +14,26 @@ Welcome to the RUMAR Adoption Website project! This web application is designed 
 
 ## Getting Started
 
-1. **Clone the Repository:**
+1. **Download Node.js**
+
+   Node.js: https://nodejs.org/en
+
+   verify that you have installed Node and npm by opening the comand prompt and type: node -v and npm -v
+
+2. **Clone the Repository:**
 
    git clone: https://github.com/uprm-inso4101-2023-2024-s2/semester-project-rumaradoptionapp.git
    
 Feel free to explore the codebase, contribute to the project, and help make a positive impact on the lives of animals in need!
+
+3. **Run some commands in your respective ide terminal**
+
+   In the terminal write: npm install
+
+4. **Locally run the webpage**
+
+   After everything has finished installing in the terminal run the command: npm run start
+
+   Then go to your browser and search: localhost:3000 or 127.0.0.1:3000
+
+   This should redirect you to our RUMAR landing page
