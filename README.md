@@ -37,3 +37,5 @@ Feel free to explore the codebase, contribute to the project, and help make a po
    Then go to your browser and search: localhost:3000 or 127.0.0.1:3000
 
    This should redirect you to our RUMAR landing page
+Note:
+views Folder is everything that the user sees. That is where the landing page is located.
