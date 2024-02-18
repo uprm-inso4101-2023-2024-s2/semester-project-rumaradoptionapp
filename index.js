@@ -1,12 +1,17 @@
 const express = require('express');
 const bodyParser = require('body-parser');
 const path = require('path');
+const cors = require('cors')
+const usercontroller = require('./backend/controller/users')
 
 const app = express();
 
 // Body parser middleware
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
+app.use(cors())
+
+
 
 // Set EJS as the view engine
 app.set('view engine', 'ejs');
@@ -18,6 +23,12 @@ app.set('views', path.join(__dirname, 'views'));
 app.get('/', (req, res) => {
     res.render('Home', { title: 'Express with EJS' });
 });
+
+// Route Example (Temporary)
+app.get('/example',async (request,response) => {
+
+    response.json(await usercontroller.getAllUsers())
+})
 
 // Start server
 const PORT = process.env.PORT || 3000;
