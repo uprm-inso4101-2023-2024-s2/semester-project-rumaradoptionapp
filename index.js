@@ -24,6 +24,14 @@ app.get('/', (req, res) => {
     res.render('Home', { title: 'Express with EJS' });
 });
 
+app.get("/login", (req, res) => {
+    res.render("login.ejs", {title: 'Login'});
+});
+
+app.get("/signup", (req, res) => {
+    res.render("signup.ejs", {title: 'Signup'});
+});
+
 // Route Example (Temporary)
 app.get('/example',async (request,response) => {
 
