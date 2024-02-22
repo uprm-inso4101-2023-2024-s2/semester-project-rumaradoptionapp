@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Pet Profile</title>
+  <style>
+    body {
+        background-color: green;
+    }
+    #imageContainer {
+      width: 100%;
+      height: auto;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      overflow: hidden;
+    }
+    img {
+      max-width: 80%; /* Adjust the size of the images */
+      max-height: 80vh; /* Adjust the maximum height of the images */
+      object-fit: contain;
+    }
+    .sliderBtn {
+      position: absolute;
+      top: 50%;
+      transform: translateY(-50%);
+      background-color: rgba(0, 0, 0, 0.5);
+      color: #fff;
+      border: none;
+      border-radius: 5px;
+      padding: 10px 15px;
+      font-size: 18px;
+      cursor: pointer;
+    }
+    #previousBtn {
+      left: 550px;
+    }
+    #nextBtn {
+      right: 583px;
+    }
+    #petName {
+      text-align: center;
+      font-size: 50px; /* Adjust font size */
+      font-weight: bold;
+      color: white;
+      font-family: 'Chewy', cursive;
+    }
+    #petInfo {
+      text-align: center;
+      font-size: 18px;
+      color: white;
+      margin-top: 20px;
+    }
+  </style>
+</head>
+<body>
+
+<div id="imageContainer">
+  <!-- Images will be dynamically added here -->
+</div>
+
+<div id="petName">
+    petName
+</div>
+<div id="petInfo">
+    Gender: Female | Age: 6 years | Size: Large | Personality: Playful, Friendly
+</div>
+<button id="previousBtn" class="sliderBtn" onclick="previousImage()">&#8249; Previous</button>
+<button id="nextBtn" class="sliderBtn" onclick="nextImage()">Next &#8250;</button>
+
+<script>
+  let currentImageIndex = 0;
+  const images = [
+    "IMG_2481.jpg",
+    "IMG_5442.jpg",
+    "NOHO8799.jpg"
+  ];
+  const totalImages = images.length;
+
+  function showImage(index) {
+    const imageContainer = document.getElementById('imageContainer');
+    imageContainer.innerHTML = ''; // Clear previous images
+    const img = document.createElement('img');
+    img.src = images[index];
+    img.alt = 'Image ' + (index + 1);
+    imageContainer.appendChild(img);
+  }
+
+  function nextImage() {
+    currentImageIndex = (currentImageIndex + 1) % totalImages;
+    showImage(currentImageIndex);
+  }
+
+  function previousImage() {
+    currentImageIndex = (currentImageIndex - 1 + totalImages) % totalImages;
+    showImage(currentImageIndex);
+  }
+  let pet_name = "LUNA"
+  let pet_info = "Gender: Female | Age: 6 years | Size: Large | Personality: Playful, Friendly"
+  document.getElementById('petName').innerText = pet_name;
+  document.getElementById('petInfo').innerText = pet_info;
+
+  // Show the first image initially
+  showImage(currentImageIndex);
+</script>
+
+</body>
+</html>
