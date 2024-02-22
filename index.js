@@ -40,6 +40,21 @@ app.get('/pets', async (req, res) => {
     }
 });
 
+app.get("/signup", (req, res) => {
+    res.render("signup.ejs", {title: 'Signup'});
+});
+
+app.get("/login", (req, res) => {
+    res.render("login.ejs", {title: 'Login'});
+});
+
+//Route responsible for the signup (The location of the route could be changed sometime in the future)
+app.post('/signup', async (request,response) =>{
+
+    response.json(await usercontroller.signup(request.body))
+
+})
+
 // Start server
 const PORT = process.env.PORT || 3000;
 app.listen(PORT, () => console.log("port running;" + PORT));
