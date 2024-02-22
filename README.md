@@ -34,6 +34,23 @@ Feel free to explore the codebase, contribute to the project, and help make a po
 
    After everything has finished installing in the terminal run the command: npm run start
 
+
+
+## Possible Error with node_modules Fix
+
+   Error:  return process.dlopen(module, path.toNamespacedPath(filename)); 
+   
+   Fix #1 Run the commands:
+      npm cache clean --force
+      Remove-Item -Recurse -Force node_modules
+      npm install
+
+   Fix #2 Delete the node_modules folder and run npm install
+
+   
+
+   
+
    Then go to your browser and search: localhost:3000 or 127.0.0.1:3000
 
    This should redirect you to our RUMAR landing page
