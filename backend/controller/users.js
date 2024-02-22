@@ -1,5 +1,5 @@
 const dao = require('../dao/users')
-
+const argon2 = require('argon2')
 
 
 // Function responsible of obtaining all of the users in databse. Currently used as an example.
@@ -25,7 +25,24 @@ const signup = async (credentials) => {
 
 }
 
+const login = async (user_info) =>{
+
+    const unhashed_password = user_info.password
+    result = await dao.login(user_info)
+
+    if(await argon2.verify(result.password, unhashed_password)){
+
+        return JSON.stringify("Success")
+
+    }else{
+
+        return JSON.stringify("Failure")
+
+    }
+}
+
 module.exports={
     getAllUsers,
-    signup
+    signup,
+    login
 }
