@@ -3,6 +3,7 @@ const bodyParser = require('body-parser');
 const path = require('path');
 const cors = require('cors')
 const usercontroller = require('./backend/controller/users')
+const petcontroller = require('./backend/controller/pets');
 
 const app = express();
 
@@ -29,6 +30,15 @@ app.get('/example',async (request,response) => {
 
     response.json(await usercontroller.getAllUsers())
 })
+
+app.get('/pets', async (req, res) => {
+    try {
+        const pets = await petsController.getAllPets();
+        res.json(pets);
+    } catch (error) {
+        res.status(500).json({ message: 'Internal server error' });
+    }
+});
 
 // Start server
 const PORT = process.env.PORT || 3000;
