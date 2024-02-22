@@ -3,7 +3,6 @@ const bodyParser = require('body-parser');
 const path = require('path');
 const cors = require('cors')
 const usercontroller = require('./backend/controller/users')
-
 const app = express();
 
 // Body parser middleware
@@ -42,6 +41,11 @@ app.get("/login", (req, res) => {
 app.post('/signup', async (request,response) =>{
 
     response.json(await usercontroller.signup(request.body))
+
+})
+app.post('/login', async (request, response) =>{
+
+    response.json(await usercontroller.login(request.body))
 
 })
 
