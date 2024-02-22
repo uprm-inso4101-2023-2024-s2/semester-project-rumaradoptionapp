@@ -30,6 +30,14 @@ app.get('/example',async (request,response) => {
     response.json(await usercontroller.getAllUsers())
 })
 
+app.get("/signup", (req, res) => {
+    res.render("signup.ejs", {title: 'Signup'});
+});
+
+app.get("/login", (req, res) => {
+    res.render("login.ejs", {title: 'Login'});
+});
+
 //Route responsible for the signup (The location of the route could be changed sometime in the future)
 app.post('/signup', async (request,response) =>{
 
