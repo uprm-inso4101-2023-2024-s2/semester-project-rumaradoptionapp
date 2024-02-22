@@ -25,6 +25,7 @@ const signup = async (credentials) => {
 
 }
 
+// Function responsible of calling the query that will check that the user has a valid password and username and it will also manage the result
 const login = async (user_info) =>{
 
     const unhashed_password = user_info.password
