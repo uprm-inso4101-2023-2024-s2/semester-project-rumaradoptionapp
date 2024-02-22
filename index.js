@@ -30,12 +30,14 @@ app.get('/example',async (request,response) => {
     response.json(await usercontroller.getAllUsers())
 })
 
-//Route responsible for the signup (The location of the route could be changed sometime in the future)
-app.post('/signup', async (request,response) =>{
+//Route responsible for the signup & login (The location of the route could be changed sometime in the future)
+app.get("/signup", (req, res) => {
+    res.render("signup.ejs", {title: 'Signup'});
+});
 
-    response.json(await usercontroller.signup(request.body))
-
-})
+app.get("/login", (req, res) => {
+    res.render("login.ejs", {title: 'Login'});
+});
 
 // Start server
 const PORT = process.env.PORT || 3000;
