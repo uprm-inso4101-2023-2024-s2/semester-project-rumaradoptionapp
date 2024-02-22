@@ -41,9 +41,9 @@ Feel free to explore the codebase, contribute to the project, and help make a po
    Error:  return process.dlopen(module, path.toNamespacedPath(filename)); 
    
    Fix #1 Run the commands:
-      npm cache clean --force
-      Remove-Item -Recurse -Force node_modules
-      npm install
+   1. **npm cache clean --force**
+   2. **Remove-Item -Recurse -Force node_modules**
+   3.  **npm install**
 
    Fix #2 Delete the node_modules folder and run npm install
 
