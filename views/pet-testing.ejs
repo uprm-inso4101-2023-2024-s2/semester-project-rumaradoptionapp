@@ -1,0 +1,42 @@
+<!-- FILEPATH: /c:/Users/aleja/Desktop/Spring 2024/Introduction to Software Engineering/Rumar Adoption App/semester-project-rumaradoptionapp/views/pet-testing.ejs -->
+
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Pet Table</title>
+    <style>
+        table {
+            border-collapse: collapse;
+            width: 100%;
+        }
+        th, td {
+            border: 1px solid black;
+            padding: 8px;
+            text-align: left;
+        }
+    </style>
+</head>
+<body>
+    <h1>Pet Table</h1>
+    <table>
+        <thead>
+            <tr>
+                <th>Name</th>
+                <th>Age</th>
+                <th>Breed</th>
+                <th>Color</th>
+            </tr>
+        </thead>
+        <tbody>
+            <% pets.forEach(function(pet) { %>
+                <tr>
+                    <td><%= pet.name %></td>
+                    <td><%= pet.age %></td>
+                    <td><%= pet.breed %></td>
+                    <td><%= pet.color %></td>
+                </tr>
+            <% }); %>
+        </tbody>
+    </table>
+</body>
+</html>

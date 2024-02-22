@@ -1,15 +1,16 @@
-// pets.js
+// petsController.js
+const express = require('express');
+const router = express.Router();
+const petsDAO = require('../dao/petsDAO');
 
-const petsDao = require('../dao/pets');
+router.get('/', async (req, res) => {
+    const pets = await petsDAO.getPets();
+    res.json(pets);
+});
 
-const getAllPets = async () => {
-    try {
-        const pets = await petsDao.getAllPets();
-        return pets;
-    } catch (error) {
-        console.error('Error fetching pets:', error.message);
-        throw error;
-    }
-};
+router.get('/:id', async (req, res) => {
+    const pet = await petsDAO.getPetById(req.params.id);
+    res.json(pet);
+});
 
-module.exports = { getAllPets };
+module.exports = router;

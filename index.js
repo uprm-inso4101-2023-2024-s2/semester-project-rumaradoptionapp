@@ -31,21 +31,18 @@ app.get('/example',async (request,response) => {
     response.json(await usercontroller.getAllUsers())
 })
 
-app.get('/pets', async (req, res) => {
-    try {
-        const pets = await petsController.getAllPets();
-        res.json(pets);
-    } catch (error) {
-        res.status(500).json({ message: 'Internal server error' });
-    }
-});
-
+// signup and login routes
 app.get("/signup", (req, res) => {
     res.render("signup.ejs", {title: 'Signup'});
 });
 
 app.get("/login", (req, res) => {
     res.render("login.ejs", {title: 'Login'});
+});
+
+// pet routes
+app.get("/pet-testing", (req, res) => {
+    res.render('pet-testing', {title: 'pet-testing'});
 });
 
 //Route responsible for the signup (The location of the route could be changed sometime in the future)
