@@ -22,13 +22,21 @@ const getUsers = async (request,response) => {
 const addNewUser = async (request,response) =>{
 
     //Here we will obtain all of the data in resquest.body (blank text boxes in the frontend)
-    const {firstName,lastName,username,email,location,gender,foster} = request
+    const {firstname,lastname,username,email,location,gender} = request
+    foster = false
+
+    if(request.foster=='on'){
+       foster= true
+    }
+    else{
+        foster=false
+    }
 
 
     //argon2.hash() will be responsible of hashing the password. It only needs the original value as input and it will generate the hash. 
     const password = await argon2.hash(request.password)
     
-    const result = await db.pool.query('insert into users (firstname,lastname,username,email,password,location,gender,foster) values ($1,$2,$3,$4,$5,$6,$7,$8) returning user_id',[firstName,lastName,username,email,password,location,gender,foster])
+    const result = await db.pool.query('insert into users (firstname,lastname,username,email,password,location,gender,foster) values ($1,$2,$3,$4,$5,$6,$7,$8) returning user_id',[firstname,lastname,username,email,password,location,gender,foster])
 
 
    return result.rows[0]
