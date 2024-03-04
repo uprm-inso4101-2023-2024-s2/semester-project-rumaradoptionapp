@@ -43,17 +43,6 @@ const signup = async (credentials) => {
         return "The username and email already exist"
     }
 
-    // result = await dao.addNewUser(credentials)
-
-    // if(result.user_id){
-
-    //     return "User created Succesfully"
-    // }
-
-    // else{
-    //     return "Failure to create user"
-    // }
-
 }
 
 // Function responsible of calling the query that will check that the user has a valid password and username and it will also manage the result
