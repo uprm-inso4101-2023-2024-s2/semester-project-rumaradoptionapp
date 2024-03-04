@@ -52,9 +52,24 @@ const login = async(request, response) =>{
     return result.rows[0]
 }
 
+const checkUsername = async(request,response) =>{
+
+    const username = request.username
+    const result = await db.pool.query('select username from users where username =$1', [username])
+    return result.rows[0]
+}
+
+const checkEmail = async(request,response) =>{
+    const email = request.email
+    const result =await db.pool.query('select email from users where email = $1', [email])
+    return result.rows[0]
+}
+
 
 module.exports={
     getUsers,
     addNewUser,
-    login
+    login,
+    checkUsername,
+    checkEmail
 }
