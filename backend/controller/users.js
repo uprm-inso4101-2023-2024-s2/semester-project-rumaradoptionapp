@@ -31,14 +31,19 @@ const login = async (user_info) =>{
     const unhashed_password = user_info.password
     result = await dao.login(user_info)
 
-    if(await argon2.verify(result.password, unhashed_password)){
+    
+    if(result){
+        if(await argon2.verify(result.password, unhashed_password)){
 
         return JSON.stringify("Success")
 
+        }else{
+
+            return JSON.stringify("Failure wrong password")
+
+        }
     }else{
-
-        return JSON.stringify("Failure")
-
+        return JSON.stringify("Failure wrong username")
     }
 }
 
