@@ -32,7 +32,7 @@ const signup = async (credentials) => {
     
     else if(!usernameCheck && emailCheck){
 
-        return "The email already exist"
+        return ("The email already exist")
     }
 
     else if(!emailCheck && usernameCheck){
