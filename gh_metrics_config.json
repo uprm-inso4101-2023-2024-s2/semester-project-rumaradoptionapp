@@ -3,7 +3,7 @@
     "managers": ["evnd04, rukitoyordan"],
     "milestoneName": "Milestone #2",
     "projectedMilestoneGroupGrade": 100.0,
-    "milestoneStartDate": "2024-02-23",
+    "milestoneStartDate": "2024-02-27",
     "milestoneEndDate":  "2024-03-21",
     "lectureTopicTaskQuota": 4,
     "countOpenIssues": false
