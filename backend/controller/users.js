@@ -12,7 +12,12 @@ const getAllUsers = async () => {
 // Function responsible of calling the query that will add users to the database and it will also manage the result
 const signup = async (credentials) => {
 
-    result = await dao.addNewUser(credentials)
+    emailCheck= await dao.checkEmail(credentials)
+    usernameCheck = await dao.checkUsername(credentials)
+
+    if (!emailCheck && !usernameCheck){
+       
+        result = await dao.addNewUser(credentials)
 
     if(result.user_id){
 
@@ -21,6 +26,21 @@ const signup = async (credentials) => {
 
     else{
         return "Failure to create user"
+    }
+
+    }
+    
+    else if(!usernameCheck && emailCheck){
+
+        return ("The email already exist")
+    }
+
+    else if(!emailCheck && usernameCheck){
+        return "The username already exist"
+    }
+
+    else{
+        return "The username and email already exist"
     }
 
 }
