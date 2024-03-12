@@ -13,7 +13,7 @@ const argon2 = require('argon2')
 //Query responsible of obtaining all users (Currently used as an example and it will obtain all of the usernames from the users)
 const getUsers = async (request,response) => {
     
-    const result= await db.pool.query("select username from users where username = $3 and password = $5")
+    const result= await db.pool.query("select username from users")
 
     return result.rows
 }
