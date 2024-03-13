@@ -56,3 +56,24 @@ Feel free to explore the codebase, contribute to the project, and help make a po
    This should redirect you to our RUMAR landing page
 Note:
 views Folder is everything that the user sees. That is where the landing page is located.
+
+## New Fix: Delete node_modules
+   If still encountering problems, delete the whole node_modules file. Once deleted, go to the terminal and put: 
+         npm install
+      -This will install *you're* node_modules, so when committing changes, make sure you are not committing them.
+   
+   After it all downloads, put in the terminal:
+          npm run start
+
+      -The terminal should show: 
+         > semester-project-rumaradoptionapp@1.0.0 start
+         > node index.js
+
+         port running;3000
+
+
+   Once you see this message, go to your browser and copy & paste this to the search bar: 
+         localhost:3000
+
+
+   And there you should see the Home Page c: YAY!
