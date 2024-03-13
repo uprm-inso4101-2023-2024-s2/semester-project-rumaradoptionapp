@@ -12,7 +12,12 @@ const getAllUsers = async () => {
 // Function responsible of calling the query that will add users to the database and it will also manage the result
 const signup = async (credentials) => {
 
-    result = await dao.addNewUser(credentials)
+    emailCheck= await dao.checkEmail(credentials)
+    usernameCheck = await dao.checkUsername(credentials)
+
+    if (!emailCheck && !usernameCheck){
+       
+        result = await dao.addNewUser(credentials)
 
     if(result.user_id){
 
@@ -23,6 +28,21 @@ const signup = async (credentials) => {
         return "Failure to create user"
     }
 
+    }
+    
+    else if(!usernameCheck && emailCheck){
+
+        return ("The email already exist")
+    }
+
+    else if(!emailCheck && usernameCheck){
+        return "The username already exist"
+    }
+
+    else{
+        return "The username and email already exist"
+    }
+
 }
 
 // Function responsible of calling the query that will check that the user has a valid password and username and it will also manage the result
@@ -31,14 +51,19 @@ const login = async (user_info) =>{
     const unhashed_password = user_info.password
     result = await dao.login(user_info)
 
-    if(await argon2.verify(result.password, unhashed_password)){
+    
+    if(result){
+        if(await argon2.verify(result.password, unhashed_password)){
 
         return JSON.stringify("Success")
 
+        }else{
+
+            return JSON.stringify("Failure wrong password")
+
+        }
     }else{
-
-        return JSON.stringify("Failure")
-
+        return JSON.stringify("Failure wrong username")
     }
 }
 

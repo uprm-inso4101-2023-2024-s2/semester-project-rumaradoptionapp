@@ -54,12 +54,15 @@ views Folder is everything that the user sees. That is where the landing page is
 
    Fix #2 Delete the node_modules folder and run npm install
 
+   
+
+   
+
    Then go to your browser and search: localhost:3000 or 127.0.0.1:3000
 
    This should redirect you to our RUMAR landing page
 Note:
 views Folder is everything that the user sees. That is where the landing page is located.
-
 
 ## New Fix: Delete node_modules
    If still encountering problems, delete the whole node_modules file. Once deleted, go to the terminal and put: 

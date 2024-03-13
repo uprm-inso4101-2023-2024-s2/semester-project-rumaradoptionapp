@@ -8,17 +8,114 @@
 <body>
     <div class="form-container">
         <h2>Signup</h2>
-        <form action="/signup" method="post">
+        <form id="signupForm" action="/signup" method="post">
             <div class="form-group">
-                <label for="name">Username:</label>
-                <input type="text" id="name" name="username" placeholder="Enter your username" required autocomplete="off">
+                <label for="first_name">First Name:</label>
+                <input type="text" id="firstname" name="firstname" placeholder="Enter your first name" required autocomplete="off">
             </div>
             <div class="form-group">
+                <label for="last_name">Last Name:</label>
+                <input type="text" id="lastname" name="lastname" placeholder="Enter your last name" required autocomplete="off">
+            </div>
+            <div class="form-group">
+                <label for="location">Location:</label>
+                <input type="text" id="location" name="location" placeholder="Enter your location" required>
+            </div>
+            <div class="form-group">
+                <label for="username">Username:</label>
+                <input type="text" id="username" name="username" placeholder="Enter your username" required autocomplete="off">
+            </div>
+            <div class="form-group">
+                <label for="email">Email:</label>
+                <input type="email" id="email" name="email" placeholder="Enter your email" required>
+            </div>
+            
+            <div class="form-group">
                 <label for="password">Password:</label>
-                <input type="password" name="password" id="password" placeholder="password" required>
+                <input type="password" id="password" name="password" placeholder="Enter your password" required>
+            </div>
+            <div class="form-group">
+                <label for="gender">Gender:</label>
+                <select name="gender" id="gender" required>
+                    <option value="">Select Gender</option>
+                    <option value="female">Female</option>
+                    <option value="male">Male</option>
+                    <option value="other">Other</option>
+                </select>
+            </div>
+            <div class="form-group">
+                <label for="foster">Are you fostering a pet?</label>
+                <input type="checkbox" id="foster" name="foster">
             </div>
             <button type="submit" class="submit-btn">Signup</button>
         </form>
     </div>
+
+    <script>
+
+        function displayPopup(message) {
+            alert(message);
+        }
+
+        function redirect(){
+            window.location.href = "/login";
+        }
+
+        // Handle information from from
+        document.getElementById('signupForm').addEventListener('submit', async function(event) {
+            event.preventDefault();
+
+            const formData = {
+            firstname: document.getElementById('firstname').value,
+            lastname: document.getElementById('lastname').value,
+            location: document.getElementById('location').value,
+            username: document.getElementById('username').value,
+            email: document.getElementById('email').value,
+            password: document.getElementById('password').value,
+            gender: document.getElementById('gender').value,
+            foster: document.getElementById('foster').checked ? 'true' : 'false'
+        };
+            try {
+                const response = await fetch('/signup', {
+                    method: 'POST',
+                    headers: {
+                          'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify(formData),
+                });
+
+
+                const data = await response.json();
+
+                if(data != "User created Succesfully"){
+
+                    displayPopup(data);
+
+                    if(data == "The email already exist"){
+                        document.getElementById('email').value = '';
+                    }
+
+                    else if(data == "The username already exist"){
+                        document.getElementById('username').value = '';
+                    }
+
+                    else{
+                        document.getElementById('email').value = '';
+                        document.getElementById('username').value = '';
+                    }
+                }
+                else{
+
+                    displayPopup(data)
+                    this.reset()    //Responsible of reseting all of the text boxes
+                    redirect()
+
+                }
+        
+            } catch (error) {
+                console.error('Error:', error);
+            }
+        });
+    </script>
 </body>
 </html>
