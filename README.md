@@ -34,6 +34,13 @@ Feel free to explore the codebase, contribute to the project, and help make a po
 
    After everything has finished installing in the terminal run the command: npm run start
 
+   Then go to your browser and search: localhost:3000 or 127.0.0.1:3000
+
+   This should redirect you to our RUMAR landing page
+Note:
+views Folder is everything that the user sees. That is where the landing page is located.
+
+
 
 
 ## Possible Error with node_modules Fix
@@ -41,21 +48,19 @@ Feel free to explore the codebase, contribute to the project, and help make a po
    Error:  return process.dlopen(module, path.toNamespacedPath(filename)); 
    
    Fix #1 Run the commands:
-      npm cache clean --force
-      Remove-Item -Recurse -Force node_modules
-      npm install
+   1. **npm cache clean --force**
+   2. **Remove-Item -Recurse -Force node_modules**
+   3.  **npm install**
 
    Fix #2 Delete the node_modules folder and run npm install
-
-   
-
-   
 
    Then go to your browser and search: localhost:3000 or 127.0.0.1:3000
 
    This should redirect you to our RUMAR landing page
 Note:
 views Folder is everything that the user sees. That is where the landing page is located.
+
+
 
 ## New Fix: Delete node_modules
    If still encountering problems, delete the whole node_modules file. Once deleted, go to the terminal and put: 
