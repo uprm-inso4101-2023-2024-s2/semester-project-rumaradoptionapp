@@ -23,7 +23,7 @@ const signup = async (credentials) => {
 
         token = await dao.getToken(result)
         await sendEmail(credentials.email,token.token);
-        return "User created Succesfully"
+        return "User created Succesfully, Please Confirm Email"
     }
 
     else{
