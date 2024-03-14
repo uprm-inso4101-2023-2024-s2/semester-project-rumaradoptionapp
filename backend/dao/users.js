@@ -1,4 +1,5 @@
 const {response} = require('express')
+const randomT = require('random-token')
 
 
 //Variable responsible of all of the database functions and connections
@@ -7,6 +8,7 @@ const db = require('../config/pg_config')
 
 //Variable responsible of the hashing of the password. (argon2 is the hashing algorithm)
 const argon2 = require('argon2')
+const randomToken = require('random-token')
 
 
 
@@ -23,12 +25,15 @@ const addNewUser = async (request,response) =>{
 
     //Here we will obtain all of the data in resquest.body (blank text boxes in the frontend)
     const {firstname,lastname,username,email,location,gender,foster} = request
+
+    const token = await randomT(10)
+    console.log(token)
    
 
     //argon2.hash() will be responsible of hashing the password. It only needs the original value as input and it will generate the hash. 
     const password = await argon2.hash(request.password)
     
-    const result = await db.pool.query('insert into users (firstname,lastname,username,email,password,location,gender,foster) values ($1,$2,$3,$4,$5,$6,$7,$8) returning user_id',[firstname,lastname,username,email,password,location,gender,foster])
+    const result = await db.pool.query('insert into users (firstname,lastname,username,email,password,location,gender,foster,token) values ($1,$2,$3,$4,$5,$6,$7,$8,$9) returning user_id',[firstname,lastname,username,email,password,location,gender,foster,token])
 
 
    return result.rows[0]
@@ -57,11 +62,20 @@ const checkEmail = async(request,response) =>{
     return result.rows[0]
 }
 
+const getToken = async(request,response) => {
+
+    const user_id = request.user_id
+    const result = await db.pool.query('select token from users where user_id = $1',[user_id])
+    
+    return result.rows[0]
+
+}
 
 module.exports={
     getUsers,
     addNewUser,
     login,
     checkUsername,
-    checkEmail
+    checkEmail,
+    getToken
 }

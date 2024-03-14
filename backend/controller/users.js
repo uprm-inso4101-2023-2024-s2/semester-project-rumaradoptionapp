@@ -1,6 +1,6 @@
 const dao = require('../dao/users')
 const argon2 = require('argon2')
-
+const { sendEmail } = require('../../sendEmail'); // Import the sendEmail function
 
 // Function responsible of obtaining all of the users in databse. Currently used as an example.
 const getAllUsers = async () => {
@@ -21,7 +21,9 @@ const signup = async (credentials) => {
 
     if(result.user_id){
 
-        return "User created Succesfully"
+        token = await dao.getToken(result)
+        await sendEmail(credentials.email,token.token);
+        return "User created Succesfully, Please Confirm Email"
     }
 
     else{
