@@ -15,7 +15,7 @@ const transporter = nodemailer.createTransport({
 
 })
 
-const sendEmail = async (email) => {
+const sendEmail = async (email,token) => {
 
 
     const mailOptions = {
@@ -23,7 +23,7 @@ const sendEmail = async (email) => {
         from: 'rumarapp@gmail.com',
         to: email,
         subject: 'Email Verification',
-        text: "This is a Test"
+        text: `This is the token for email confirmation: ${token}`
     }
 
 
