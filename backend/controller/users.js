@@ -52,24 +52,26 @@ const login = async (user_info) =>{
 
     const unhashed_password = user_info.password
     result = await dao.login(user_info)
-
+    emailVerified = await dao.getVerified(user_info)
+    console.log(emailVerified.verified)
     
     if(result){
 
-        const emailVerified = await dao.checkEmail(result.email);
-        if (!emailVerified) {
-            return "Email is not verified. Please check your inbox for email verification code.";
-        }
+        if(!emailVerified.verified){
+            return JSON.stringify("Email not verified")
+        }else{
+            if(await argon2.verify(result.password, unhashed_password)){
 
-        if(await argon2.verify(result.password, unhashed_password)){
-
-        return JSON.stringify("Success")
+            return JSON.stringify("Success")
 
         }else{
 
             return JSON.stringify("Failure wrong password")
 
         }
+        }   
+
+        
     }else{
         return JSON.stringify("Failure wrong username")
     }

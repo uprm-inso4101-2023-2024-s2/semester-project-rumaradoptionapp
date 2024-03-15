@@ -73,10 +73,10 @@ const getToken = async(request,response) => {
 
 const getVerified = async(request,response) => {
     
-    const email = request.email
-    const result = await db.pool.query('select verified from users where email = $1',[email])
+    const username = request.username
+    const result = await db.pool.query('select verified from users where username = $1',[username])
 
-    return result.row[0]
+    return result.rows[0]
 }
 module.exports={
     getUsers,
