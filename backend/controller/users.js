@@ -55,6 +55,12 @@ const login = async (user_info) =>{
 
     
     if(result){
+
+        const emailVerified = await dao.checkEmail(result.email);
+        if (!emailVerified) {
+            return "Email is not verified. Please check your inbox for email verification code.";
+        }
+
         if(await argon2.verify(result.password, unhashed_password)){
 
         return JSON.stringify("Success")
