@@ -71,11 +71,20 @@ const getToken = async(request,response) => {
 
 }
 
+const getFaculty = async (request,response) => {
+    const faculty = await db.pool.query("select firstname, lastname, email, location, gender from users where foster = true")
+
+    return faculty.rows
+}
+
+
+
 module.exports={
     getUsers,
     addNewUser,
     login,
     checkUsername,
     checkEmail,
-    getToken
+    getToken,
+    getFaculty
 }

@@ -9,6 +9,12 @@ const getAllUsers = async () => {
    return results
 }
 
+const getFaculty = async () => {
+    faculty = await dao.getFaculty()
+
+    return faculty
+};
+
 // Function responsible of calling the query that will add users to the database and it will also manage the result
 const signup = async (credentials) => {
 
@@ -72,5 +78,6 @@ const login = async (user_info) =>{
 module.exports={
     getAllUsers,
     signup,
-    login
+    login,
+    getFaculty
 }

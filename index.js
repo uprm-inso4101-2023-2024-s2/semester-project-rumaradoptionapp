@@ -41,6 +41,11 @@ app.get("/petRegistration", (req, res) => {
     res.render("petRegistration.ejs", {title: 'Pet Registration'});
 });
 
+app.get("/faculty", async (req, res) => {
+    const facultyMembers = await usercontroller.getFaculty();
+    res.render("Faculty.ejs", { facultyMembers });
+})
+
 //Route responsible for the signup (The location of the route could be changed sometime in the future)
 app.post('/signup', async (request,response) =>{
 
