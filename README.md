@@ -67,7 +67,7 @@ views Folder is everything that the user sees. That is where the landing page is
 ## New Fix: Delete node_modules
    If still encountering problems, delete the whole node_modules file. Once deleted, go to the terminal and put: 
          npm install
-      -This will install *you're* node_modules, so when committing changes, make sure you are not committing them.
+      -This will install *your* node_modules, so when committing changes, make sure you are not committing them.
    
    After it all downloads, put in the terminal:
           npm run start
