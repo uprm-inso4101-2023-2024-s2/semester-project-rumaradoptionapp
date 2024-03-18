@@ -18,6 +18,7 @@
             max-width: 1200px;
             margin: 0 auto;
             padding: 20px;
+            color: #333;
         }
 
         .section-header {
@@ -47,23 +48,32 @@
             background-color: #fff;
             box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
             border-radius: 10px;
-            padding: 20px;
-            width: 300px;
+            padding: 30px; 
+            width: 350px; 
             text-align: center;
+            transition: transform 0.3s ease-in-out; 
+        }
+        .pet-card:hover {
+            transform: scale(1.05); 
         }
 
         .pet-image {
-            width: 100px;
-            height: 100px;
-            border-radius: 50%;
-            overflow: hidden;
-            margin: 0 auto 20px;
+            width: 100%; 
+            height: 200px; 
+            overflow: hidden; 
+            margin: 0 auto 20px; 
         }
 
         .pet-image img {
             width: 100%;
             height: 100%;
             object-fit: cover;
+        }
+        .pet-image img {
+            width: auto; 
+            height: 100%; 
+            object-fit: cover; 
+            object-position: center; 
         }
 
         .pet-name {
@@ -92,6 +102,15 @@
         .view-details-btn:hover {
             background-color: #45a049;
         }
+        .filter-dropdown {
+            margin-bottom: 20px;
+        }
+
+        .filter-dropdown select {
+            padding: 10px;
+            font-size: 1rem;
+            border-radius: 5px;
+        }
     </style>
 </head>
 <body>
@@ -100,8 +119,17 @@
             <h2>Pet Listings</h2>
             <p>Browse through our available pets ready for adoption.</p>
         </div>
+        <div class="filter-dropdown">
+            <label for="size-filter">Filter by Size:</label>
+            <select id="size-filter">
+                <option value="all">All Sizes</option>
+                <option value="small">Small</option>
+                <option value="medium">Medium</option>
+                <option value="large">Large</option>
+            </select>
+        </div>
         <div class="pet-listing">
-            <div class="pet-card">
+            <div class="pet-card" data-size="small" data-age="2">
                 <div class="pet-image">
                     <img src="https://med.stanford.edu/content/dam/sm-news/images/2021/09/cat_by-Kateryna-T-Unsplash.jpg" alt="Pet Image">
                 </div>
@@ -109,8 +137,8 @@
                 <div class="pet-details">Age: 2 | Breed: Grey</div>
                 <button class="view-details-btn">View Details</button>
             </div>
-            <!-- Repeat the pet-card block for each pet listing -->
-            <div class="pet-card">
+            
+            <div class="pet-card" data-size="large">
                 <div class="pet-image">
                     <img src="https://www.princeton.edu/sites/default/files/styles/1x_full_2x_half_crop/public/images/2022/02/KOA_Nassau_2697x1517.jpg?itok=Bg2K7j7J" alt="Pet Image">
                 </div>
@@ -120,5 +148,26 @@
             </div>
         </div>
     </div>
+    <script>
+        
+        document.addEventListener("DOMContentLoaded", function() {
+            const sizeFilter = document.getElementById("size-filter");
+            const petCards = document.querySelectorAll(".pet-card");
+
+            sizeFilter.addEventListener("change", function() {
+                const selectedSize = sizeFilter.value;
+
+                petCards.forEach(function(card) {
+                    const petSize = card.getAttribute("data-size");
+
+                    if (selectedSize === "all" || petSize === selectedSize) {
+                        card.style.display = "block";
+                    } else {
+                        card.style.display = "none";
+                    }
+                });
+            });
+        });
+    </script>
 </body>
 </html>
