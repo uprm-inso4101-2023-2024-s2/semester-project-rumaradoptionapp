@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pet Registration</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f7f7f7;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+
+        .form-container {
+            background-color: #fff;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            padding: 20px;
+            max-width: 400px;
+            width: 100%;
+            margin-top: 100px;
+        }
+
+        .form-container h1 {
+            text-align: center;
+            margin-bottom: 10px;
+            font-size: 24px;
+        }
+
+        .form-container h2 {
+            text-align: center;
+            margin-bottom: 20px;
+            font-size: 18px;
+            color: #555;
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        .form-group label {
+            font-weight: bold;
+            display: block;
+            margin-bottom: 5px;
+        }
+
+        .form-group input[type="text"],
+        .form-group select {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            font-size: 16px;
+        }
+
+        .form-group select {
+            appearance: none;
+            -webkit-appearance: none;
+            background-image: url("data:image/svg+xml,%3Csvg width='10' height='7' viewBox='0 0 10 7' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M5 7L9.35429 0.646447C9.44072 0.55902 9.49968 0.448826 9.52607 0.331446C9.55246 0.214066 9.54518 0.0937004 9.50488 -0.0222419C9.46459 -0.137184 9.39356 -0.241984 9.30014 -0.320373C9.20671 -0.398763 9.09578 -0.447309 8.97799 -0.460994C8.86021 -0.474678 8.74086 -0.452049 8.63309 -0.395162L5 2.93333L1.36691 -0.395162C1.25914 -0.452049 1.13979 -0.474678 1.02201 -0.460994C0.904219 -0.447309 0.793287 -0.398763 0.699852 -0.320373C0.606416 -0.241984 0.535383 -0.137184 0.495086 -0.0222419C0.454789 0.0937004 0.447509 0.214066 0.473901 0.331446C0.500292 0.448826 0.559252 0.55902 0.645691 0.646447L5 7Z' fill='%23232323'/%3E%3C/svg%3E");
+            background-repeat: no-repeat;
+            background-position: right 10px top 50%;
+            padding-right: 40px;
+        }
+
+        .submit-btn {
+            display: block;
+            width: 100%;
+            padding: 10px;
+            background-color: #4CAF50;
+            color: #fff;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 16px;
+            transition: background-color 0.3s ease;
+        }
+
+        .submit-btn:hover {
+            background-color: #45a049;
+        }
+    </style>
+</head>
+<body>
+    <div class="form-container">
+        <h1>RUMAR ADOPTION</h1>
+        <h2>Registration form</h2>
+        <form action="/petRegistration" method="post">
+            <div class="form-group">
+                <label for="name">Pet's Name:</label>
+                <input type="text" id="name" name="name" placeholder="Enter the name of the pet" required>
+            </div>
+            <div class="form-group">
+                <label for="age">Age:</label>
+                <select id="age" name="age" required>
+                    <option value="">Select Age of the Pet</option>
+                    <option value="0">0</option>
+                    <option value="1">1</option>
+                    <option value="2">2</option>
+                    <option value="3">3</option>
+                    <option value="4">4</option>
+                    <option value="5">5</option>
+                    <option value="6">6</option>
+                    <option value="7">7</option>
+                    <option value="8">8</option>
+                    <option value="9">9</option>
+                    <option value="10">10</option>
+                    <option value="11">11</option>
+                    <option value="12">12</option>
+                </select>
+            </div>
+            <div class="form-group">
+                <label for="species">Species:</label>
+                <input type="text" id="species" name="species" placeholder="Enter the species of the pet" required>
+            </div>
+            <div class="form-group">
+                <label for="weight">Weight (in lb):</label>
+                <input type="text" id="weight" name="weight" placeholder="Enter the weight of the pet" required>
+            </div>
+            <div class="form-group">
+                <label for="size">Size:</label>
+                <input type="text" id="size" name="size" placeholder="Enter the size of the pet" required>
+            </div>
+            <div class="form-group">
+                <label for="personality">Personality:</label>
+                <input type="text" id="personality" name="personality" placeholder="Enter the personality of the pet" required>
+            </div>
+            <div class="form-group">
+                <label for="sex">Sex:</label>
+                <select name="sex" id="sex" required>
+                    <option value="">Select Sex of the Pet</option>
+                    <option value="female">Female</option>
+                    <option value="male">Male</option>
+                </select>
+            </div>
+            <button type="submit" class="submit-btn">Register Pet</button>
+        </form>
+    </div>
+</body>
+</html>

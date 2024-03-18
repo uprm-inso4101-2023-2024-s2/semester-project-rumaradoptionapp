@@ -37,8 +37,8 @@ app.get("/login", (req, res) => {
     res.render("login.ejs", {title: 'Login'});
 });
 
-app.get('/petListings', (req, res) => {
-    res.render("petListings.ejs", {title: 'Pet Listings'});
+app.get("/petRegistration", (req, res) => {
+    res.render("petRegistration.ejs", {title: 'Pet Registration'});
 });
 
 //Route responsible for the signup (The location of the route could be changed sometime in the future)
@@ -50,6 +50,12 @@ app.post('/signup', async (request,response) =>{
 app.post('/login', async (request, response) =>{
 
     response.json(await usercontroller.login(request.body))
+
+})
+
+app.post('/petRegistration', async (request, response) =>{
+
+    response.json(await usercontroller.petRegistration(request.body))
 
 })
 

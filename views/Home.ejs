@@ -21,7 +21,7 @@
                     <a class="text-sm font-normal text-lime-700 hover:text-lime-200" href="javascript:void(0)">About</a>
                     <a class="text-sm font-normal text-lime-700 hover:text-lime-200" href="javascript:void(0)">Reviews</a>
                     <a class="text-sm font-normal text-lime-700 hover:text-lime-200" href="javascript:void(0)">Community</a>
-                    <a class="text-sm font-normal text-lime-700 hover:text-lime-200" href="/petListings">Pet Listings</a></button>
+                    <a class="text-sm font-normal text-lime-700 hover:text-lime-200" href="/petRegistration">Pet Registration</a></button>
                 </div>
                 <div class="items-center hidden gap-8 md:flex">
                     <button class="flex items-center text-sm font-normal text-gray-800 hover:text-gray-900 transition duration-300"><a href="/login">Log In</a></button>
@@ -37,7 +37,6 @@
                     <a class="text-sm font-normal text-dark-grey-700 hover:text-dark-grey-900" href="javascript:void(0)">About</a>
                     <a class="text-sm font-normal text-dark-grey-700 hover:text-dark-grey-900" href="javascript:void(0)">Reviews</a>
                     <a class="text-sm font-normal text-dark-grey-700 hover:text-dark-grey-900" href="javascript:void(0)">Community</a>
-                    <a class="text-sm font-normal text-dark-grey-700 hover:text-dark-grey-900" href="/petListings">Pet Listings</a></button>
                     <button class="flex items-center text-sm font-normal text-black">Log In</button>
                     <button class="flex items-center px-4 py-2 text-sm font-bold rounded-xl bg-lime-100 text-lime-600 hover:bg-lime-600 hover:text-white transition duration-300">Sign Up</button>
                 </div>
@@ -178,134 +177,98 @@
         <!-- end row -->
     </div>
 </div>
-
-<section class="flex items-center py-16 font-poppins">
-    <div class="container p-4 mx-auto">
-        <h2 class="pb-4 text-4xl font-bold text-center text-gray-900 dark:text-gray-900">
-            Our Pets
+<!----Reference for our pets--->
+<div class="py-20">
+    <div class="xl:container mx-auto px-6 md:px-12">
+      <div class="mb-16 md:w-2/3 lg:w-1/2">
+        <h2 class="mb-4 text-2xl font-bold text-lime-500 dark:text-lime md:text-4xl">
+          Meet Our Pets
         </h2>
-        <div class="mx-auto mb-10 border-b border-red-700 w-44 dark:border-gray-400"></div>
-        <div class="grid grid-cols-1 mt-8 lg:grid-cols-4 md:grid-cols-2">
-            <div class="relative overflow-hidden shadow-lg group">
-                <img src="https://www.southernliving.com/thmb/WHH7cdFT3YMJlJN4y7y3lsAKvJ8=/1500x0/filters:no_upscale():max_bytes(150000):strip_icc()/gettyimages-114166947-1-268128f97e5c415baede328c1fe32f55.jpg"
-                    class="group-hover:origin-center group-hover:scale-105 transition inset-0 object-cover object-center  duration-500 w-full h-[350px]"
-                    alt="">
-                <div class="absolute inset-0 z-0 group-hover:bg-black opacity-60"></div>
-                <div class="absolute hidden p-4 text-center content left-4 bottom-4 right-4 group-hover:block">
-                    <a href="#" class="mb-2 text-2xl font-semibold text-gray-200 dark:text-white ">
-                        Apollo</a>
-                    <h2 class="mb-0 text-sm font-light text-gray-300 dark:text-gray-300 ">
-                        Apollo is a confident and regal dog.
-                         He carries himself with pride and is protective of his family. 
-                        This dog is loyal, intelligent,
-                         and has a strong presence.</h2>
-                </div>
+  
+      </div>
+      <div class="grid gap-6 px-4 sm:px-0 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4">
+        <div class="group relative rounded-3xl  space-y-6 overflow-hidden">
+          <img
+            class="mx-auto h-[26rem] w-full grayscale object-cover object-top ransition duration-500 group-hover:scale-105 group-hover:grayscale-0"
+            src="https://www.pitpat.com/wp-content/uploads/2020/07/Dog_-rights_MS_outdoors_stationary_sitting-on-path-in-woods_golden-retriever_meganwilliams-1024x683.jpg"
+            alt="Pet Image"
+            loading="lazy"
+            width="640"
+            height="805"
+          />
+          <div class="absolute bottom-0 inset-x-0 h-max mt-auto px-8 py-6 bg-gray-800 dark:bg-white translate-y-24 transition duration-300 ease-in-out group-hover:translate-y-0">
+            <div>
+              <h4 class="text-xl font-semibold dark:text-lime-500 text-white">Maximus</h4>
+              <span class="block text-sm text-gray-500">Male</span>
+              <span class="block text-sm text-gray-500">1 year olc</span>
             </div>
-            <div class="relative overflow-hidden shadow-lg group">
-                <img src="https://media.wired.com/photos/65651b7225ccbd8cc7d5403c/16:9/w_2400,h_1350,c_limit/Science-Life-Extension-Drug-for-Big-Dogs-Is-Getting-Closer-1330545769.jpg"
-                    class="group-hover:origin-center group-hover:scale-105 transition inset-0 object-cover object-center  duration-500 w-full h-[350px]"
-                    alt="">
-                <div class="absolute inset-0 z-0 group-hover:bg-black opacity-60"></div>
-                <div class="absolute hidden p-4 text-center content left-4 bottom-4 right-4 group-hover:block">
-                    <a href="#" class="mb-2 text-2xl font-semibold text-gray-200 dark:text-white ">
-                        Luna</a>
-                    <h2 class="mb-0 text-sm font-light text-gray-300 dark:text-gray-300 ">
-                        Luna is a gentle and loving female dog. 
-                        She is graceful in her movements and has a nurturing nature.
-                         Luna is sociable and enjoys spending time with both people and other dogs.</h2>
-                </div>
-            </div>
-            <div class="relative overflow-hidden shadow-lg group">
-                <img src="https://www.pbs.org/wnet/nature/files/2014/09/ExtraordinaryCats-Main.jpg"
-                    class="group-hover:origin-center group-hover:scale-105 transition inset-0 object-cover object-center  duration-500 w-full h-[350px]"
-                    alt="">
-                <div class="absolute inset-0 z-0 group-hover:bg-black opacity-60"></div>
-                <div class="absolute hidden p-4 text-center content left-4 bottom-4 right-4 group-hover:block">
-                    <a href="#" class="mb-2 text-2xl font-semibold text-gray-200 dark:text-white ">
-                        Oliver</a>
-                    <h2 class="mb-0 text-sm font-light text-gray-300 dark:text-gray-300 ">
-                        Oliver is a sophisticated and independent cat.
-                         He carries himself with an air of elegance and enjoys spending quiet moments alone.
-                          Oliver is intelligent, observant,
-                           and may have a bit of a mysterious side.</h2>
-                </div>
-            </div>
-            <div class="relative overflow-hidden shadow-lg group">
-                <img src="https://www.pitpat.com/wp-content/uploads/2020/07/Dog_-rights_MS_outdoors_stationary_sitting-on-path-in-woods_golden-retriever_meganwilliams-1024x683.jpg"
-                    class="group-hover:origin-center group-hover:scale-105 transition inset-0 object-cover object-center  duration-500 w-full h-[350px]"
-                    alt="">
-                <div class="absolute inset-0 z-0 group-hover:bg-black opacity-60"></div>
-                <div class="absolute hidden p-4 text-center content left-4 bottom-4 right-4 group-hover:block">
-                    <a href="#" class="mb-2 text-2xl font-semibold text-gray-200 dark:text-white ">
-                        Maximus</a>
-                    <h2 class="mb-0 text-sm font-light text-gray-300 dark:text-gray-300 ">
-                        Maximus is a powerful and protective dog. 
-                        He is brave, loyal, and always ready to defend his loved ones.
-                         Maximus thrives on physical activities and enjoys being active and strong.</h2>
-                </div>
-            </div>
-            <div class="relative overflow-hidden shadow-lg group">
-                <img src="https://www.princeton.edu/sites/default/files/styles/1x_full_2x_half_crop/public/images/2022/02/KOA_Nassau_2697x1517.jpg?itok=Bg2K7j7J"
-                    class="group-hover:origin-center group-hover:scale-105 transition inset-0 object-cover object-center  duration-500 w-full h-[350px]"
-                    alt="">
-                <div class="absolute inset-0 z-0 group-hover:bg-black opacity-60"></div>
-                <div class="absolute hidden p-4 text-center content left-4 bottom-4 right-4 group-hover:block">
-                    <a href="#" class="mb-2 text-2xl font-semibold text-gray-200 dark:text-white ">
-                        Ares</a>
-                    <h2 class="mb-0 text-sm font-light text-gray-300 dark:text-gray-300 ">
-                        Ares is a sweet and playful dog. Full of energy, 
-                        she loves to run, play fetch, 
-                        and engage in various activities. 
-                        Ares is friendly, with a warm and affectionate personality.</h2>
-                </div>
-            </div>
-            <div class="relative overflow-hidden shadow-lg group">
-                <img src="https://hips.hearstapps.com/hmg-prod/images/small-dog-breeds-659dd5cce053b.jpeg?crop=0.669xw:1.00xh;0.166xw,0&resize=640:*"
-                    class="group-hover:origin-center group-hover:scale-105 transition inset-0 object-cover object-center  duration-500 w-full h-[350px]"
-                    alt="">
-                <div class="absolute inset-0 z-0 group-hover:bg-black opacity-60"></div>
-                <div class="absolute hidden p-4 text-center content left-4 bottom-4 right-4 group-hover:block">
-                    <a href="#" class="mb-2 text-2xl font-semibold text-gray-200 dark:text-white ">
-                        Zara</a>
-                    <h2 class="mb-0 text-sm font-light text-gray-300 dark:text-gray-300 ">
-                        Zara is a stylish and outgoing dog. 
-                        She attracts attention with her unique appearance and friendly demeanor.
-                         Zara is sociable, enjoying the company of both humans and other pets.</h2>
-                </div>
-            </div>
-            <div class="relative overflow-hidden shadow-lg group">
-                <img src="https://med.stanford.edu/content/dam/sm-news/images/2021/09/cat_by-Kateryna-T-Unsplash.jpg"
-                    class="group-hover:origin-center group-hover:scale-105 transition inset-0 object-cover object-center  duration-500 w-full h-[350px]"
-                    alt="">
-                <div class="absolute inset-0 z-0 group-hover:bg-black opacity-60"></div>
-                <div class="absolute hidden p-4 text-center content left-4 bottom-4 right-4 group-hover:block">
-                    <a href="#" class="mb-2 text-2xl font-semibold text-gray-200 dark:text-white ">
-                        Misty</a>
-                    <h2 class="mb-0 text-sm font-light text-gray-300 dark:text-gray-300 ">
-                        Misty is a gentle and mysterious cat. 
-                        She moves with a quiet grace and often finds cozy spots to curl up in. 
-                        Misty is affectionate but may have a reserved nature, 
-                        preferring a calm and serene environment.</h2>
-                </div>
-            </div>
-            <div class="relative overflow-hidden shadow-lg group">
-                <img src="https://www.thesprucepets.com/thmb/hxWjs7evF2hP1Fb1c1HAvRi_Rw0=/2765x0/filters:no_upscale():strip_icc()/chinese-dog-breeds-4797219-hero-2a1e9c5ed2c54d00aef75b05c5db399c.jpg"
-                    class="group-hover:origin-center group-hover:scale-105 transition inset-0 object-cover object-center  duration-500 w-full h-[350px]"
-                    alt="">
-                <div class="absolute inset-0 z-0 group-hover:bg-black opacity-60"></div>
-                <div class="absolute hidden p-4 text-center content left-4 bottom-4 right-4 group-hover:block">
-                    <a href="#" class="mb-2 text-2xl font-semibold text-gray-200 dark:text-white ">
-                        Rocky</a>
-                    <h2 class="mb-0 text-sm font-light text-gray-300 dark:text-gray-300 ">
-                        Rocky is a rugged and adventurous dog. 
-                        Always ready for a hike or an outdoor adventure,
-                         he has a boundless energy. Rocky is friendly,
-                          outgoing, and loves exploring new places.</h2>
-                </div>
-            </div>
+            <p class="mt-8 text-gray-300 dark:text-gray-600">He's a powerful and protective dog. He is brave, loyal, and always ready to defend his loved ones.</p>
+          </div>
         </div>
+        <div class="group relative rounded-3xl  space-y-6 overflow-hidden">
+          <img
+            class="mx-auto h-[26rem] w-full grayscale object-cover object-top ransition duration-500 group-hover:scale-105 group-hover:grayscale-0"
+            src="https://www.princeton.edu/sites/default/files/styles/1x_full_2x_half_crop/public/images/2022/02/KOA_Nassau_2697x1517.jpg?itok=Bg2K7j7J"
+            alt="Pet Image"
+            loading="lazy"
+            width="640"
+            height="805"
+          />
+          <div class="absolute bottom-0 inset-x-0 h-max mt-auto px-8 py-6 bg-gray-800 dark:bg-white translate-y-24 transition duration-300 ease-in-out group-hover:translate-y-0">
+            <div>
+              <h4 class="text-xl font-semibold dark:text-lime-500 text-white">Ares</h4>
+              <span class="block text-sm text-gray-500">Male</span>
+              <span class="block text-sm text-gray-500">1 month old</span>
+  
+            </div>
+            <p class="mt-8 text-gray-300 dark:text-gray-600">He's a sweet and playful dog. Full of energy, she loves to run, play fetch, and engage in various activities.</p>
+          </div>
+          
+        </div>
+        <div class="group relative rounded-3xl  space-y-6 overflow-hidden">
+          <img
+            class="mx-auto h-[26rem] w-full grayscale object-cover object-top transition duration-500 group-hover:scale-105 group-hover:grayscale-0"
+            src="https://hips.hearstapps.com/hmg-prod/images/small-dog-breeds-659dd5cce053b.jpeg?crop=0.669xw:1.00xh;0.166xw,0&resize=640:*"
+            alt="Pet Image"
+            loading="lazy"
+            width="640"
+            height="805"
+          />
+          <div class="absolute bottom-0 inset-x-0 h-max mt-auto px-8 py-6 bg-gray-800 dark:bg-white translate-y-24 transition duration-300 ease-in-out group-hover:translate-y-0">
+            <div>
+              <h4 class="text-xl font-semibold dark:text-lime-500 text-white">Zara</h4>
+              <span class="block text-sm text-gray-500">Female</span>
+              <span class="block text-sm text-gray-500">5 years old</span>
+            </div>
+            <p class="mt-8 text-gray-300 dark:text-gray-600">She's a stylish and outgoing dog. 
+              She attracts attention with her unique appearance and friendly demeanor.</p>
+          </div>
+          
+        </div>
+        <div class="group relative rounded-3xl  space-y-6 overflow-hidden">
+          <img
+            class="mx-auto h-[26rem] w-full grayscale object-cover object-top ransition duration-500 group-hover:scale-105 group-hover:grayscale-0"
+            src="https://med.stanford.edu/content/dam/sm-news/images/2021/09/cat_by-Kateryna-T-Unsplash.jpg"
+            alt="Pet Image"
+            loading="lazy"
+            width="640"
+            height="805"
+          />
+          <div class="absolute bottom-0 inset-x-0 h-max mt-auto px-8 py-6 bg-gray-800 dark:bg-white translate-y-24 transition duration-300 ease-in-out group-hover:translate-y-0">
+            <div>
+              <h4 class="text-xl font-semibold dark:text-lime-500 text-white">Misty</h4>
+              <span class="block text-sm text-gray-500">Female</span>
+              <span class="block text-sm text-gray-500">2 years old</span>
+            </div>
+            <p class="mt-8 text-gray-300 dark:text-gray-600">She's is a gentle and mysterious cat. 
+              She moves with a quiet grace and often finds cozy spots to curl up in.</p>
+          </div>
+          
+        </div>
+      </div>
     </div>
-</section>
+  </div>
+  <!------Reference for our pets-->
     
 </body>
 

@@ -8,7 +8,7 @@
 <body>
     <div class="form-container">
         <h2>Signup</h2>
-        <form action="/signup" method="post">
+        <form id="signupForm" action="/signup" method="post">
             <div class="form-group">
                 <label for="first_name">First Name:</label>
                 <input type="text" id="firstname" name="firstname" placeholder="Enter your first name" required autocomplete="off">
@@ -50,5 +50,72 @@
             <button type="submit" class="submit-btn">Signup</button>
         </form>
     </div>
+
+    <script>
+
+        function displayPopup(message) {
+            alert(message);
+        }
+
+        function redirect(){
+            window.location.href = "/login";
+        }
+
+        // Handle information from from
+        document.getElementById('signupForm').addEventListener('submit', async function(event) {
+            event.preventDefault();
+
+            const formData = {
+            firstname: document.getElementById('firstname').value,
+            lastname: document.getElementById('lastname').value,
+            location: document.getElementById('location').value,
+            username: document.getElementById('username').value,
+            email: document.getElementById('email').value,
+            password: document.getElementById('password').value,
+            gender: document.getElementById('gender').value,
+            foster: document.getElementById('foster').checked ? 'true' : 'false'
+        };
+            try {
+                const response = await fetch('/signup', {
+                    method: 'POST',
+                    headers: {
+                          'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify(formData),
+                });
+
+
+                const data = await response.json();
+
+                if(data != "User created Succesfully, Please Confirm Email"){
+
+                    displayPopup(data);
+
+                    if(data == "The email already exist"){
+                        document.getElementById('email').value = '';
+                    }
+
+                    else if(data == "The username already exist"){
+                        document.getElementById('username').value = '';
+                    }
+
+                    else{
+                        document.getElementById('email').value = '';
+                        document.getElementById('username').value = '';
+                    }
+                }
+                else{
+
+                    displayPopup(data)
+                    this.reset()    //Responsible of reseting all of the text boxes
+                    redirect()
+
+                }
+        
+            } catch (error) {
+                console.error('Error:', error);
+            }
+        });
+    </script>
 </body>
 </html>
