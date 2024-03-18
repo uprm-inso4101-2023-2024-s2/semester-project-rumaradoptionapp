@@ -64,6 +64,8 @@ views Folder is everything that the user sees. That is where the landing page is
 Note:
 views Folder is everything that the user sees. That is where the landing page is located.
 
+
+
 ## New Fix: Delete node_modules
    If still encountering problems, delete the whole node_modules file. Once deleted, go to the terminal and put: 
          npm install
