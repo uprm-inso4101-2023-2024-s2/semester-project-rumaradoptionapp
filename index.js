@@ -59,6 +59,12 @@ app.post('/petRegistration', async (request, response) =>{
 
 })
 
+app.post('/verify', async (request, response) =>{
+
+    response.json(await usercontroller.verifyVerificationCode(request.body))
+
+})
+
 // Start server
 const PORT = process.env.PORT || 3000;
 app.listen(PORT, () => console.log("port running;" + PORT));

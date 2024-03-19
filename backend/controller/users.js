@@ -86,8 +86,28 @@ const login = async (user_info) =>{
     }
 }
 
+const verifyVerificationCode = async (username, enteredVerificationCode) => {
+
+    const storedVerificationCode = await dao.verifyVerificationCode(username);
+    
+
+    if (storedVerificationCode) {
+
+        if (enteredVerificationCode === storedVerificationCode.token) {
+           
+            return "Verification successful";
+            
+        } else {
+            return "Invalid verification code";
+        }
+    } else {
+        return "No verification code found";
+    }
+}
+
 module.exports={
     getAllUsers,
     signup,
-    login
+    login,
+    verifyVerificationCode
 }
