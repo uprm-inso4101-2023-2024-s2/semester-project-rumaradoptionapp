@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Verify</title>
+    <style>
+        .form-container {
+            margin: 50px auto;
+            width: 300px;
+            text-align: center;
+        }
+        .form-group {
+            margin-bottom: 20px;
+        }
+        .submit-btn {
+            padding: 10px 20px;
+            background-color: #06aa0e;
+            color: #fff;
+            border: none;
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body>
+    <div class="form-container">
+        <h2>Email Verification</h2>
+        <div class="form-group">
+            <label for="username">Enter your username:</label>
+            <input type="text" name="username" id="username" placeholder="Username..." required>
+        </div>
+        <div class="form-group">
+            <label for="password">Enter your authentication code:</label>
+            <input type="text" name="password" id="password" placeholder="Authentication code..." required>
+        </div>
+        <button type="submit" class="submit-btn">Submit</button>
+    </div>
+</body>
+</html>
