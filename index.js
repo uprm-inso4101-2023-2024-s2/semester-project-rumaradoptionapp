@@ -59,6 +59,23 @@ app.post('/petRegistration', async (request, response) =>{
 
 })
 
+//Dummy Pet Profile | Route for handling pet profiles
+
+//Pet Profile Apollo
+app.get("/petProfile", (req, res) => {
+    // Sample data for a pet profile
+    const petProfile = {
+    };
+    res.render("petProfile", { title: 'Pet Profile', pet: petProfile });
+});
+//Pet Profile Luna
+app.get("/petProfileLuna", (req, res) => {
+    // Sample data for a pet profile
+    const petProfileLuna = {
+    };
+    res.render("petProfileLuna", { title: 'Pet Profile', pet: petProfileLuna });
+});
+
 // Start server
 const PORT = process.env.PORT || 3000;
 app.listen(PORT, () => console.log("port running;" + PORT));
