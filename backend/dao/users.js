@@ -1,89 +1,64 @@
-const {response} = require('express')
-const randomT = require('random-token')
+const { response } = require('express');
+const randomToken = require('random-token');
+const nodemailer = require('nodemailer');
+const argon2 = require('argon2');
+const db = require('../config/pg_config');
 
+// Function to generate a random verification code
+const generateVerificationCode = () => {
+    return randomToken(6, '0123456789');
+};
 
-//Variable responsible of all of the database functions and connections
-const db = require('../config/pg_config')
+// Function to send an email with the verification code
+const sendVerificationEmail = async (email, verificationCode) => {
+    // Create a transporter for sending emails
+    const transporter = nodemailer.createTransport({
+        service: 'gmail',
+        auth: {
+            user: 'your_email@gmail.com', // Enter your email address
+            pass: 'your_email_password' // Enter your email password
+        }
+    });
 
+    // Email content
+    const mailOptions = {
+        from: 'your_email@gmail.com', // Enter your email address
+        to: email,
+        subject: 'Verification Code for Login',
+        text: `Your verification code is: ${verificationCode}`
+    };
 
-//Variable responsible of the hashing of the password. (argon2 is the hashing algorithm)
-const argon2 = require('argon2')
-const randomToken = require('random-token')
+    // Send the email
+    await transporter.sendMail(mailOptions);
+};
 
+// Query responsible for adding new users to the database (including sending verification code)
+const addNewUser = async (request, response) => {
+    const { firstname, lastname, username, email, location, gender, foster, password } = request.body;
 
+    // Generate verification code
+    const verificationCode = generateVerificationCode();
 
-//Query responsible of obtaining all users (Currently used as an example and it will obtain all of the usernames from the users)
-const getUsers = async (request,response) => {
-    
-    const result= await db.pool.query("select username from users")
+    // Hash the password
+    const hashedPassword = await argon2.hash(password);
 
-    return result.rows
-}
+    // Insert user data into the database
+    const result = await db.pool.query('INSERT INTO users (firstname, lastname, username, email, password, location, gender, foster, verification_code) VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9) RETURNING user_id', [firstname, lastname, username, email, hashedPassword, location, gender, foster, verificationCode]);
 
-//Query responsible of adding new users to our database. (Query used during signup)
-const addNewUser = async (request,response) =>{
+    // Send verification email
+    await sendVerificationEmail(email, verificationCode);
 
-    //Here we will obtain all of the data in resquest.body (blank text boxes in the frontend)
-    const {firstname,lastname,username,email,location,gender,foster} = request
+    return result.rows[0];
+};
 
-    const token = await randomT(10)
-    console.log(token)
-   
+// Function to verify the entered verification code during login
+const verifyVerificationCode = async (username, enteredVerificationCode) => {
+    const result = await db.pool.query('SELECT verification_code FROM users WHERE username = $1', [username]);
+    const storedVerificationCode = result.rows[0].verification_code;
+    return enteredVerificationCode === storedVerificationCode;
+};
 
-    //argon2.hash() will be responsible of hashing the password. It only needs the original value as input and it will generate the hash. 
-    const password = await argon2.hash(request.password)
-    
-    const result = await db.pool.query('insert into users (firstname,lastname,username,email,password,location,gender,foster,token) values ($1,$2,$3,$4,$5,$6,$7,$8,$9) returning user_id',[firstname,lastname,username,email,password,location,gender,foster,token])
-
-
-   return result.rows[0]
-
-
-}
-//Query responsible for getting the username password from the database
-const login = async(request, response) =>{
-    
-    const username = request.username
-    const result = await db.pool.query('select password from users where username = $1', [username])
-    
-    return result.rows[0]
-}
-
-const checkUsername = async(request,response) =>{
-
-    const username = request.username
-    const result = await db.pool.query('select username from users where username =$1', [username])
-    return result.rows[0]
-}
-
-const checkEmail = async(request,response) =>{
-    const email = request.email
-    const result =await db.pool.query('select email from users where email = $1', [email])
-    return result.rows[0]
-}
-
-const getToken = async(request,response) => {
-
-    const user_id = request.user_id
-    const result = await db.pool.query('select token from users where user_id = $1',[user_id])
-    
-    return result.rows[0]
-
-}
-
-const getVerified = async(request,response) => {
-    
-    const username = request.username
-    const result = await db.pool.query('select verified from users where username = $1',[username])
-
-    return result.rows[0]
-}
-module.exports={
-    getUsers,
+module.exports = {
     addNewUser,
-    login,
-    checkUsername,
-    checkEmail,
-    getToken,
-    getVerified
-}
+    verifyVerificationCode
+};
