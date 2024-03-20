@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Verify</title>
+    <style>
+        .form-container {
+            margin: 50px auto;
+            width: 300px;
+            text-align: center;
+        }
+        .form-group {
+            margin-bottom: 20px;
+        }
+        .submit-btn {
+            padding: 10px 20px;
+            background-color: #06aa0e;
+            color: #fff;
+            border: none;
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body>
+    <div class="form-container">
+        <h2>Email Verification</h2>
+        <form id="verifyForm" action="/verify" method="post">
+        <div class="form-group">
+            <label for="username">Enter your username:</label>
+            <input type="text" name="username" id="username" placeholder="Username..." required>
+        </div>
+        <div class="form-group">
+            <label for="token">Enter your authentication code:</label>
+            <input type="text" name="token" id="token" placeholder="Authentication code..." required>
+        </div>
+        <button type="submit" class="submit-btn">Submit</button>
+        </form>
+    </div>
+
+    <script>
+
+        function displayPopup(message) {
+            alert(message);
+        }
+
+        function redirect(){
+            window.location.href = "/";
+        }
+        
+        document.getElementById('verifyForm').addEventListener('submit', async function(event) {
+            event.preventDefault();
+
+            const formData = {
+            username: document.getElementById('username').value,
+            token: document.getElementById('token').value,
+        };
+        console.log("Verification Code:", formData.token);
+            try {
+                const response = await fetch('/verify', {
+                    method: 'POST',
+                    headers: {
+                          'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify(formData),
+                });
+
+
+                const data = await response.json();
+
+                if(data !== "Verification successful"){
+
+                    displayPopup(data);
+
+                    if(data === "Failure wrong username"){
+                        document.getElementById('username').value = '';
+                    }
+
+                    else{
+                        document.getElementById('email').value = '';
+                        document.getElementById('username').value = '';
+                    }
+                }
+                else{
+
+                    displayPopup(data)
+                    this.reset()    //Responsible of reseting all of the text boxes
+                    redirect()
+
+                }
+        
+            } catch (error) {
+                console.error('Error:', error);
+            }
+        });
+    </script>
+</body>
+</html>

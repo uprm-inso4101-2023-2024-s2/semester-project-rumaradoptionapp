@@ -37,6 +37,10 @@ app.get("/login", (req, res) => {
     res.render("login.ejs", {title: 'Login'});
 });
 
+app.get("/verify", (req, res) => {
+    res.render("verificationCode.ejs", {title: 'Verify'});
+});
+
 app.get("/petRegistration", (req, res) => {
     res.render("petRegistration.ejs", {title: 'Pet Registration'});
 });
@@ -57,6 +61,10 @@ app.post('/petRegistration', async (request, response) =>{
 
     response.json(await usercontroller.petRegistration(request.body))
 
+})
+
+app.post('/verify', async (request, response) =>{
+    response.json(await usercontroller.verifyVerificationCode(request.body))
 })
 
 // Start server

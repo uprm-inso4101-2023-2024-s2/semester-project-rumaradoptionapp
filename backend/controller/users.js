@@ -85,6 +85,26 @@ const login = async (user_info) =>{
         return JSON.stringify("Failure wrong username")
     }
 }
+const verifyVerificationCode = async (formData) => {
+
+    const storedVerificationCode = await dao.verifyVerificationCode(formData);
+    
+    if (storedVerificationCode) {
+    
+        if (formData.token === storedVerificationCode.token) {
+            if (await dao.setVerifiedStatus(formData.username)) {
+                return "Verification successful";
+            } else {
+                return "Failure to update verified status";
+            }
+        } else {
+            return "Failure wrong verification code";
+        }
+    } else {
+        return "Failure wrong username";
+    }
+}
+
 
 module.exports={
     getAllUsers,
