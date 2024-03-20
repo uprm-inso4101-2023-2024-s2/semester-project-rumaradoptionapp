@@ -109,5 +109,6 @@ const verifyVerificationCode = async (formData) => {
 module.exports={
     getAllUsers,
     signup,
-    login
+    login,
+    verifyVerificationCode
 }
