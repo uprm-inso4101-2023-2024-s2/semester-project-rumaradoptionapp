@@ -78,6 +78,14 @@ const getVerified = async(request,response) => {
 
     return result.rows[0]
 }
+
+//Query responsible of obtaining all Fosters (name, email, location, and gender)
+const getFoster = async (request,response) => {
+    const foster = await db.pool.query("select firstname, lastname, email, location, gender from users where foster = true")
+
+    return foster.rows
+}
+
 module.exports={
     getUsers,
     addNewUser,
@@ -85,5 +93,6 @@ module.exports={
     checkUsername,
     checkEmail,
     getToken,
-    getVerified
+    getVerified,
+    getFoster
 }

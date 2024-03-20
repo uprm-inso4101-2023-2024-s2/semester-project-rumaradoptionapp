@@ -9,6 +9,13 @@ const getAllUsers = async () => {
    return results
 }
 
+// Function responsible of obtaining all Fosters in the database
+const getFoster = async () => {
+    foster = await dao.getFoster()
+
+    return foster
+};
+
 // Function responsible of calling the query that will add users to the database and it will also manage the result
 const signup = async (credentials) => {
 
@@ -89,5 +96,6 @@ const login = async (user_info) =>{
 module.exports={
     getAllUsers,
     signup,
-    login
+    login,
+    getFoster
 }
