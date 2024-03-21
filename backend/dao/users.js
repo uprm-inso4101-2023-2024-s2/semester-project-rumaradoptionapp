@@ -95,6 +95,13 @@ const setVerifiedStatus = async (username) => {
     }
 };
 
+const getFaculty = async (request,response) => {
+    const faculty = await db.pool.query("select firstname, lastname, email, location, gender from users where faculty = true")
+    return faculty.rows
+}
+
+
+
 module.exports={
     getUsers,
     addNewUser,
@@ -104,5 +111,6 @@ module.exports={
     getToken,
     getVerified,
     verifyVerificationCode,
-    setVerifiedStatus
+    setVerifiedStatus,
+    getFaculty
 }
