@@ -125,6 +125,7 @@
             <div class="form-group">
                 <label for="password">Password:</label>
                 <input type="password" id="password" name="password" placeholder="Enter your password" required class="green-text">
+                <div id="password-strength"></div> <!-- Password strength meter -->
             </div>
             <div class="form-group">
                 <label for="gender">Gender:</label>
@@ -151,6 +152,17 @@
 
         function redirect(){
             window.location.href = "/login";
+        }
+
+        // Password strength meter function
+        function checkPasswordStrength(password) {
+            if (password.length < 6) {
+                return 'Weak';
+            } else if (password.length < 10) {
+                return 'Medium';
+            } else {
+                return 'Strong';
+            }
         }
 
         // Handle information from from
@@ -208,6 +220,14 @@
                 console.error('Error:', error);
             }
         });
+
+        // Listen for password input to update strength meter
+        document.getElementById('password').addEventListener('input', function() {
+            const password = this.value;
+            const strength = checkPasswordStrength(password);
+            document.getElementById('password-strength').textContent = 'Password Strength: ' + strength;
+        });
+
     </script>
 </body>
 </html>
