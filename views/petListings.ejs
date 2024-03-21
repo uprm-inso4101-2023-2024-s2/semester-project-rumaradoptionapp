@@ -64,11 +64,11 @@
             margin: 0 auto 20px; 
         }
 
-        .pet-image img {
+        /* .pet-image img {
             width: 100%;
             height: 100%;
             object-fit: cover;
-        }
+        } */ 
         .pet-image img {
             width: auto; 
             height: 100%; 
@@ -139,7 +139,7 @@
                 </div>
                 <div class="pet-name">Misty</div>
                 <div class="pet-details">Age: 2 | Breed: Grey</div>
-                <button class="view-details-btn">View Details</button>
+                <button class="view-details-btn" data-pet-name="Misty">View Details</button>
             </div>
             
             <div class="pet-card" data-size="small">
@@ -148,15 +148,15 @@
                 </div>
                 <div class="pet-name">Ares</div>
                 <div class="pet-details">Age: 1 | Breed: Golden Retriever</div>
-                <button class="view-details-btn">View Details</button>
+                <button class="view-details-btn" data-pet-name="Ares" data-image-url="https://www.princeton.edu/sites/default/files/styles/1x_full_2x_half_crop/public/images/2022/02/KOA_Nassau_2697x1517.jpg?itok=Bg2K7j7J">View Details</button>
             </div>
         </div>
     </div>
     <script>
-        
         document.addEventListener("DOMContentLoaded", function() {
             const sizeFilter = document.getElementById("size-filter");
             const petCards = document.querySelectorAll(".pet-card");
+            const detailsButtons = document.querySelectorAll(".view-details-btn");
 
             sizeFilter.addEventListener("change", function() {
                 const selectedSize = sizeFilter.value;
@@ -169,6 +169,15 @@
                     } else {
                         card.style.display = "none";
                     }
+                });
+            });
+
+            detailsButtons.forEach(function(button) {
+                button.addEventListener("click", function() {
+                    const petName = button.getAttribute("data-pet-name");
+                    const imageUrl = button.getAttribute("data-image-url");
+                    // Redirect to petDetails page with selected pet name
+                    window.location.href = `/petProfiles?name=${petName}`;
                 });
             });
         });

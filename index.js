@@ -45,6 +45,10 @@ app.get('/petListings', (req, res) => {
     res.render("petListings.ejs", {title: 'Pet Listings'});
 });
 
+app.get('/petProfiles', (req, res) => {
+    res.render("petProfiles.ejs", {title: 'Pet Profiles'});
+});
+
 //Route responsible for the signup (The location of the route could be changed sometime in the future)
 app.post('/signup', async (request,response) =>{
 
