@@ -59,6 +59,14 @@
             font-size: 2.5rem; /* Adjust the font size as needed */
         }
 
+        a {
+            text-decoration: none;
+            color: inherit;
+        }
+
+        a:hover {
+            color: #45a049;
+        }
 
     </style>
 </head>
@@ -66,13 +74,17 @@
     <div class="container">
         <div class="section-header">
             <h2>Pet Profile</h2>
-            
+            <div class="container flex flex-col mx-auto">
+                <div class="relative flex flex-wrap items-center justify-between w-full bg-white group py-7 shrink-0">
+                    <div class="items-center justify-between hidden gap-12 text-black md:flex">
+                        <a class="text-sm font-normal text-lime-700 hover:text-lime-200" href="/">Home</a>
+                        <a class="text-sm font-normal text-lime-700 hover:text-lime-200" href="/petListings">Pet Listings</a>
+                    </div>
+                </div>
+            </div>
         </div>
-        <div id="pet-details">
-            
+        <div id="pet-details">      
         </div>
-        
-        
     </div>
     <script>
         document.addEventListener("DOMContentLoaded", function() {
