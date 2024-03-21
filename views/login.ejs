@@ -69,10 +69,10 @@
 <body>
     <div class="form-container">
         <h2>Login</h2>
-        <form action="/login" method="post">
+        <form id="loginForm" action="/login" method="post">
             <div class="form-group">
                 <label for="name">Username:</label>
-                <input type="text" id="name" name="username" placeholder="Enter your username" required autocomplete="off">
+                <input type="text" id="username" name="username" placeholder="Enter your username" required autocomplete="off">
             </div>
             <div class="form-group">
                 <label for="password">Password:</label>
@@ -82,5 +82,66 @@
         </form>
         <p>Don't have an account? <a href="/signup">Signup</a></p>
     </div>
+
+    <script>
+
+        function displayPopup(message) {
+            alert(message);
+        }
+
+        function redirect(){
+            window.location.href = "/";
+        }
+
+        // Handle information from from
+        document.getElementById('loginForm').addEventListener('submit', async function(event) {
+            event.preventDefault();
+
+            const formData = {
+            username: document.getElementById('username').value,
+            password: document.getElementById('password').value
+        };
+            try {
+                const response = await fetch('/login', {
+                    method: 'POST',
+                    headers: {
+                          'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify(formData),
+                });
+
+
+                const data = await response.json();
+
+                if(data != "Success"){
+
+                    displayPopup(data);
+
+                    if(data == "Wrong username or password"){
+                        document.getElementById('username').value = '';
+                        document.getElementById('password').value = '';
+
+                    }
+
+                    if(data == "Email not verified"){
+                        document.getElementById('username').value = '';
+                        document.getElementById('password').value = '';
+
+                    }
+                    
+                }
+                else{
+
+                    displayPopup(data)
+                    this.reset()    //Responsible of reseting all of the text boxes
+                    redirect()
+
+                }
+        
+            } catch (error) {
+                console.error('Error:', error);
+            }
+        });
+    </script>
 </body>
 </html>

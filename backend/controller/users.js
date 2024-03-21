@@ -68,26 +68,26 @@ const login = async (user_info) =>{
             emailVerified = await dao.getVerified(user_info)
 
             if(!emailVerified.verified){
-                return JSON.stringify("Email not verified")
+                return ("Email not verified")
             }
             
             else{
 
-            return JSON.stringify("Success")
+            return ("Success")
 
             }
             
 
         }else{
             
-            return JSON.stringify("Failure wrong password")
+            return ("Wrong username or password")
 
         }
           
 
         
     }else{
-        return JSON.stringify("Failure wrong username")
+        return ("Wrong username or password")
     }
 }
 const verifyVerificationCode = async (formData) => {
