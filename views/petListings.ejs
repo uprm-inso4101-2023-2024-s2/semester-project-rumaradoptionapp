@@ -115,6 +115,15 @@
         .font-poppins {
         font-family: 'Poppins', sans-serif;
         }
+
+        a {
+        text-decoration: none;
+        color: inherit;
+    }
+
+    a:hover {
+        color: #45a049;
+    }
     </style>
 </head>
 <body>
@@ -122,6 +131,20 @@
         <div class="section-header">
             <h2>Pet Listings</h2>
             <p>Browse through our available pets ready for adoption.</p>
+        </div>
+        <div class="container flex flex-col mx-auto">
+            <div class="relative flex flex-wrap items-center justify-between w-full bg-white group py-7 shrink-0">
+                <div class="items-center justify-between hidden gap-12 text-black md:flex">
+                    <a class="text-sm font-normal text-lime-700 hover:text-lime-200" href="/">Home</a>
+                    <a class="text-sm font-normal text-lime-700 hover:text-lime-200" href="javascript:void(0)">About</a>
+                    <a class="text-sm font-normal text-lime-700 hover:text-lime-200" href="javascript:void(0)">Reviews</a>
+                    <a class="text-sm font-normal text-lime-700 hover:text-lime-200" href="javascript:void(0)">Community</a>
+                    <a class="text-sm font-normal text-lime-700 hover:text-lime-200" href="/petRegistration">Pet Registration</a>
+                    <a class="text-sm font-normal text-lime-700 hover:text-lime-200" href="javascript:void(0)">Pet Listings</a>
+                    <a class="text-sm font-normal text-lime-700 hover:text-lime-200" href="/login">Log In</a>
+                    <a class="text-sm font-bold text-lime-600 hover:bg-lime-600 hover:text-white px-4 py-2 rounded-xl transition duration-300" href="/signup">Sign Up</a>
+                </div>
+            </div>
         </div>
         <div class="filter-dropdown">
             <label for="size-filter">Filter by Size:</label>
