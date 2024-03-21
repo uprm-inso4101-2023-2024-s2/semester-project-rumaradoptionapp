@@ -3,6 +3,7 @@ const bodyParser = require('body-parser');
 const path = require('path');
 const cors = require('cors')
 const usercontroller = require('./backend/controller/users')
+const petsController = require('./backend/controller/petsController');
 const app = express();
 
 // Body parser middleware
@@ -62,11 +63,8 @@ app.post('/login', async (request, response) =>{
 
 })
 
-app.post('/petRegistration', async (request, response) =>{
+app.post('/petRegistration', petsController.petRegistration);
 
-    response.json(await usercontroller.petRegistration(request.body))
-
-})
 
 app.post('/verify', async (request, response) =>{
     response.json(await usercontroller.verifyVerificationCode(request.body))
