@@ -78,13 +78,23 @@
                 <label for="password">Password:</label>
                 <input type="password" name="password" id="password" placeholder="password" required>
             </div>
+            <!-- Added the Remember Me checkbox -->
+            <div class="form-group">
+                <input type="checkbox" id="rememberMe" name="rememberMe">
+                <label for="rememberMe">Remember Me</label>
+            </div>
             <button type="submit" class="submit-btn">Login</button>
         </form>
         <p>Don't have an account? <a href="/signup">Signup</a></p>
     </div>
 
     <script>
-
+         // Check if there's a remembered username in local storage
+         const rememberedUsername = localStorage.getItem('rememberedUsername');
+        if (rememberedUsername) {
+            document.getElementById('username').value = rememberedUsername;
+            document.getElementById('rememberMe').checked = true;
+        }
         function displayPopup(message) {
             alert(message);
         }
@@ -93,7 +103,7 @@
             window.location.href = "/";
         }
 
-        // Handle information from from
+        // Handle information from 
         document.getElementById('loginForm').addEventListener('submit', async function(event) {
             event.preventDefault();
 
@@ -142,6 +152,7 @@
                 console.error('Error:', error);
             }
         });
+
     </script>
 </body>
 </html>
