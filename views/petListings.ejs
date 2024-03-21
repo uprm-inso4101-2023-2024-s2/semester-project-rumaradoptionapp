@@ -154,9 +154,17 @@
                 <option value="medium">Medium</option>
                 <option value="large">Large</option>
             </select>
+            <label for="species-filter">Filter by Species:</label>
+            <select id="species-filter">
+                <option value="all">All Species</option>
+                <option value="dog">Dog</option>
+                <option value="cat">Cat</option>
+                    
+                </select>
+            </div>
         </div>
         <div class="pet-listing">
-            <div class="pet-card" data-size="small" data-age="2">
+            <div class="pet-card" data-size="small" data-age="2" data-species="cat">
                 <div class="pet-image">
                     <img src="https://med.stanford.edu/content/dam/sm-news/images/2021/09/cat_by-Kateryna-T-Unsplash.jpg" alt="Pet Image">
                 </div>
@@ -165,7 +173,7 @@
                 <button class="view-details-btn" data-pet-name="Misty">View Details</button>
             </div>
             
-            <div class="pet-card" data-size="small">
+            <div class="pet-card" data-size="small" data-species="dog">
                 <div class="pet-image">
                     <img src="https://www.princeton.edu/sites/default/files/styles/1x_full_2x_half_crop/public/images/2022/02/KOA_Nassau_2697x1517.jpg?itok=Bg2K7j7J" alt="Pet Image">
                 </div>
@@ -178,6 +186,7 @@
     <script>
         document.addEventListener("DOMContentLoaded", function() {
             const sizeFilter = document.getElementById("size-filter");
+            const speciesFilter = document.getElementById("species-filter");
             const petCards = document.querySelectorAll(".pet-card");
             const detailsButtons = document.querySelectorAll(".view-details-btn");
 
@@ -194,6 +203,21 @@
                     }
                 });
             });
+            speciesFilter.addEventListener("change", filterPets);
+
+            function filterPets() {
+                const selectedSpecies = speciesFilter.value;
+
+                petCards.forEach(function(card) {
+                    const petSpecies = card.getAttribute("data-species");
+
+                    if (selectedSpecies === "all" || petSpecies === selectedSpecies) {
+                        card.style.display = "block";
+                    } else {
+                        card.style.display = "none";
+                    }
+                });
+            }
 
             detailsButtons.forEach(function(button) {
                 button.addEventListener("click", function() {
