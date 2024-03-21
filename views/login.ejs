@@ -95,6 +95,15 @@
             document.getElementById('username').value = rememberedUsername;
             document.getElementById('rememberMe').checked = true;
         }
+         // Load remembered state of the "Remember Me" checkbox
+         window.onload = function() {
+            const rememberMeCheckbox = document.getElementById('rememberMe');
+            rememberMeCheckbox.checked = localStorage.getItem('rememberMeChecked') === 'true';
+
+            rememberMeCheckbox.addEventListener('change', function() {
+                localStorage.setItem('rememberMeChecked', this.checked);
+            });
+        };
         function displayPopup(message) {
             alert(message);
         }
