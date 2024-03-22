@@ -12,7 +12,7 @@
             height: 100vh;
             background-image: url('https://www.uprm.edu/portales/wp-content/uploads/sites/55/2022/05/Tarzan_7896.png'); /* Specify the path to your image */
             background-size: contain; /* Cover the entire background */
-            background-position: cover; /* Center the background image */
+            background-position: center; /* Center the background image */
             background-repeat: no-repeat; /* Prevent the background image from repeating */
         }
 
@@ -62,8 +62,6 @@
         .submit-btn:hover {
             background-color: #ccc; /* Set the button background color on hover */
         }
-
-    
     </style>
 </head>
 <body>
@@ -78,7 +76,6 @@
                 <label for="password">Password:</label>
                 <input type="password" name="password" id="password" placeholder="password" required>
             </div>
-            <!-- Added the Remember Me checkbox -->
             <div class="form-group">
                 <input type="checkbox" id="rememberMe" name="rememberMe">
                 <label for="rememberMe">Remember Me</label>
@@ -89,87 +86,78 @@
     </div>
 
     <script>
-        // Load remembered state of the "Remember Me" checkbox and username
         window.onload = function() {
             const rememberMeCheckbox = document.getElementById('rememberMe');
             rememberMeCheckbox.checked = localStorage.getItem('rememberMeChecked') === 'true';
-
-            rememberMeCheckbox.addEventListener('change', function() {
-                localStorage.setItem('rememberMeChecked', this.checked);
-            });
 
             if (rememberMeCheckbox.checked) {
                 const rememberedUsername = localStorage.getItem('rememberedUsername');
                 if (rememberedUsername) {
                     document.getElementById('username').value = rememberedUsername;
                 }
-                // If you want to store and remember the password too:
                 const rememberedPassword = localStorage.getItem('rememberedPassword');
                 if (rememberedPassword) {
                     document.getElementById('password').value = rememberedPassword;
                 }
             }
+
+            rememberMeCheckbox.addEventListener('change', function() {
+                localStorage.setItem('rememberMeChecked', this.checked);
+                if (this.checked) {
+                    localStorage.setItem('rememberedUsername', document.getElementById('username').value);
+                    localStorage.setItem('rememberedPassword', document.getElementById('password').value);
+                } else {
+                    localStorage.removeItem('rememberedUsername');
+                    localStorage.removeItem('rememberedPassword');
+                }
+            });
         };
 
-        
-        function displayPopup(message) {
-            alert(message);
-        }
-
-        function redirect(){
-            window.location.href = "/";
-        }
-
-        // Handle information from 
         document.getElementById('loginForm').addEventListener('submit', async function(event) {
             event.preventDefault();
+            const username = document.getElementById('username').value;
+            const password = document.getElementById('password').value;
+            const rememberMeCheckbox = document.getElementById('rememberMe');
+            if (rememberMeCheckbox.checked) {
+                localStorage.setItem('rememberedUsername', username);
+                localStorage.setItem('rememberedPassword', password);
+            } else {
+                localStorage.removeItem('rememberedUsername');
+                localStorage.removeItem('rememberedPassword');
+            }
 
-            const formData = {
-            username: document.getElementById('username').value,
-            password: document.getElementById('password').value
-        };
+            // Here you would typically send your form data to a server
+            const formData = { username, password };
+            console.log("Form Data to send:", formData);
+            
+            // Example of handling the form submission
+            // You would need to replace the URL '/login' with your actual login endpoint
             try {
                 const response = await fetch('/login', {
                     method: 'POST',
                     headers: {
-                          'Content-Type': 'application/json',
+                        'Content-Type': 'application/json',
                     },
                     body: JSON.stringify(formData),
                 });
 
-
-                const data = await response.json();
-
-                if(data != "Success"){
-
-                    displayPopup(data);
-
-                    if(data == "Wrong username or password"){
-                        document.getElementById('username').value = '';
-                        document.getElementById('password').value = '';
-
-                    }
-
-                    if(data == "Email not verified"){
-                        document.getElementById('username').value = '';
-                        document.getElementById('password').value = '';
-
-                    }
-                    
+                if (response.ok) {
+                    const data = await response.json();
+                    // Handle success response
+                    console.log(data);
+                    // Redirect to another page or display a success message
+                    // window.location.href = 'path_to_redirect_on_success';
+                } else {
+                    // Handle non-success responses
+                    throw new Error('Network response was not ok.');
                 }
-                else{
-
-                    displayPopup(data)
-                    this.reset()    //Responsible of reseting all of the text boxes
-                    redirect()
-
-                }
-                
             } catch (error) {
-                console.error('Error:', error);
+                console.error('Error during the fetch operation:', error);
+                // Handle fetch error (e.g., display an error message)
             }
         });
-
     </script>
 </body>
 </html>
+
+           
