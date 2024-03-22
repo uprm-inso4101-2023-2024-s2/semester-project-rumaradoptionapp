@@ -15,7 +15,7 @@
             margin-bottom: 10px;
             width: 800px;
             box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.5); 
-            color: #000000
+            color: #000000;
             transition: transform 0.5s ease;
         }
         .box:hover {
@@ -48,14 +48,14 @@
         body {
             text-align: center;
         }
-        h1{
+        h1.header{
             font-family: Arial, Helvetica, sans-serif;
             margin-bottom: 10px;
-            font-size: 45px !important;
-            font-weight: 900 !important;
+            font-size: 45px ;
+            font-weight: 900 ;
             text-align: left;
             color:rgb(26, 119, 0);
-            margin-left: 50px !important;
+            margin-left: 50px ;
         }
         </style>
 </head>
@@ -96,7 +96,7 @@
             </div>
         </div>
 
-    <h1>Current Fosters</h1>
+    <h1 class="header">Current Fosters</h1>
     <ul id="fosterList">
         <% fosterMembers.forEach(fosterMember => { %>
             <li>
