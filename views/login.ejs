@@ -78,12 +78,75 @@
                 <label for="password">Password:</label>
                 <input type="password" name="password" id="password" placeholder="password" required>
             </div>
+            <div class="form-group">
+                <input type="checkbox" id="rememberMe" name="rememberMe">
+                <label for="rememberMe">Remember Me</label>
+            </div>
             <button type="submit" class="submit-btn">Login</button>
         </form>
         <p>Don't have an account? <a href="/signup">Signup</a></p>
     </div>
 
     <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const usernameField = document.getElementById('username');
+            const passwordField = document.getElementById('password');
+            const rememberMeCheckbox = document.getElementById('rememberMe');
+            // Load saved login data, if any
+            const savedUsername = localStorage.getItem('username');
+            const savedPassword = localStorage.getItem('password');
+
+            if (savedUsername && savedPassword) {
+                usernameField.value = savedUsername;
+                passwordField.value = savedPassword;
+                rememberMeCheckbox.checked = true;
+            }
+
+            document.getElementById('loginForm').addEventListener('submit', async function(event) {
+                event.preventDefault();
+
+                const username = usernameField.value;
+                const password = passwordField.value;
+
+                if (rememberMeCheckbox.checked) {
+                    localStorage.setItem('username', username);
+                    localStorage.setItem('password', password);
+                } else {
+                    localStorage.removeItem('username');
+                    localStorage.removeItem('password');
+                }
+
+                // Your existing login logic
+                try {
+                    const formData = { username, password };
+                    const response = await fetch('/login', {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json',
+                        },
+                        body: JSON.stringify(formData),
+                    });
+
+                    const data = await response.json();
+
+                    if(data != "Success"){
+                        displayPopup(data);
+                        if(data == "Wrong username or password" || data == "Email not verified"){
+                            document.getElementById('username').value = '';
+                            document.getElementById('password').value = '';
+                        }                    
+                    }
+                    else{
+                        displayPopup(data)
+                        this.reset(); // Responsible for resetting all of the text boxes
+                        redirect();
+                    }
+            
+                } catch (error) {
+                    console.error('Error:', error);
+                }
+            });
+        });
 
         function displayPopup(message) {
             alert(message);
@@ -92,56 +155,7 @@
         function redirect(){
             window.location.href = "/";
         }
-
-        // Handle information from from
-        document.getElementById('loginForm').addEventListener('submit', async function(event) {
-            event.preventDefault();
-
-            const formData = {
-            username: document.getElementById('username').value,
-            password: document.getElementById('password').value
-        };
-            try {
-                const response = await fetch('/login', {
-                    method: 'POST',
-                    headers: {
-                          'Content-Type': 'application/json',
-                    },
-                    body: JSON.stringify(formData),
-                });
-
-
-                const data = await response.json();
-
-                if(data != "Success"){
-
-                    displayPopup(data);
-
-                    if(data == "Wrong username or password"){
-                        document.getElementById('username').value = '';
-                        document.getElementById('password').value = '';
-
-                    }
-
-                    if(data == "Email not verified"){
-                        document.getElementById('username').value = '';
-                        document.getElementById('password').value = '';
-
-                    }
-                    
-                }
-                else{
-
-                    displayPopup(data)
-                    this.reset()    //Responsible of reseting all of the text boxes
-                    redirect()
-
-                }
-        
-            } catch (error) {
-                console.error('Error:', error);
-            }
-        });
     </script>
 </body>
 </html>
+        
