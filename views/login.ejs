@@ -89,21 +89,29 @@
     </div>
 
     <script>
-         // Check if there's a remembered username in local storage
-         const rememberedUsername = localStorage.getItem('rememberedUsername');
-        if (rememberedUsername) {
-            document.getElementById('username').value = rememberedUsername;
-            document.getElementById('rememberMe').checked = true;
-        }
-         // Load remembered state of the "Remember Me" checkbox
-         window.onload = function() {
+        // Load remembered state of the "Remember Me" checkbox and username
+        window.onload = function() {
             const rememberMeCheckbox = document.getElementById('rememberMe');
             rememberMeCheckbox.checked = localStorage.getItem('rememberMeChecked') === 'true';
 
             rememberMeCheckbox.addEventListener('change', function() {
                 localStorage.setItem('rememberMeChecked', this.checked);
             });
+
+            if (rememberMeCheckbox.checked) {
+                const rememberedUsername = localStorage.getItem('rememberedUsername');
+                if (rememberedUsername) {
+                    document.getElementById('username').value = rememberedUsername;
+                }
+                // If you want to store and remember the password too:
+                const rememberedPassword = localStorage.getItem('rememberedPassword');
+                if (rememberedPassword) {
+                    document.getElementById('password').value = rememberedPassword;
+                }
+            }
         };
+
+        
         function displayPopup(message) {
             alert(message);
         }
@@ -156,7 +164,7 @@
                     redirect()
 
                 }
-        
+                
             } catch (error) {
                 console.error('Error:', error);
             }
