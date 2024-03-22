@@ -12,7 +12,7 @@
             height: 100vh;
             background-image: url('https://www.uprm.edu/portales/wp-content/uploads/sites/55/2022/05/Tarzan_7896.png'); /* Specify the path to your image */
             background-size: contain; /* Cover the entire background */
-            background-position: center; /* Center the background image */
+            background-position: cover; /* Center the background image */
             background-repeat: no-repeat; /* Prevent the background image from repeating */
         }
 
@@ -62,6 +62,8 @@
         .submit-btn:hover {
             background-color: #ccc; /* Set the button background color on hover */
         }
+
+    
     </style>
 </head>
 <body>
@@ -86,78 +88,74 @@
     </div>
 
     <script>
-        window.onload = function() {
+        document.addEventListener('DOMContentLoaded', function() {
+            const usernameField = document.getElementById('username');
+            const passwordField = document.getElementById('password');
             const rememberMeCheckbox = document.getElementById('rememberMe');
-            rememberMeCheckbox.checked = localStorage.getItem('rememberMeChecked') === 'true';
+            // Load saved login data, if any
+            const savedUsername = localStorage.getItem('username');
+            const savedPassword = localStorage.getItem('password');
 
-            if (rememberMeCheckbox.checked) {
-                const rememberedUsername = localStorage.getItem('rememberedUsername');
-                if (rememberedUsername) {
-                    document.getElementById('username').value = rememberedUsername;
-                }
-                const rememberedPassword = localStorage.getItem('rememberedPassword');
-                if (rememberedPassword) {
-                    document.getElementById('password').value = rememberedPassword;
-                }
+            if (savedUsername && savedPassword) {
+                usernameField.value = savedUsername;
+                passwordField.value = savedPassword;
+                rememberMeCheckbox.checked = true;
             }
 
-            rememberMeCheckbox.addEventListener('change', function() {
-                localStorage.setItem('rememberMeChecked', this.checked);
-                if (this.checked) {
-                    localStorage.setItem('rememberedUsername', document.getElementById('username').value);
-                    localStorage.setItem('rememberedPassword', document.getElementById('password').value);
+            document.getElementById('loginForm').addEventListener('submit', async function(event) {
+                event.preventDefault();
+
+                const username = usernameField.value;
+                const password = passwordField.value;
+
+                if (rememberMeCheckbox.checked) {
+                    localStorage.setItem('username', username);
+                    localStorage.setItem('password', password);
                 } else {
-                    localStorage.removeItem('rememberedUsername');
-                    localStorage.removeItem('rememberedPassword');
+                    localStorage.removeItem('username');
+                    localStorage.removeItem('password');
+                }
+
+                // Your existing login logic
+                try {
+                    const formData = { username, password };
+                    const response = await fetch('/login', {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json',
+                        },
+                        body: JSON.stringify(formData),
+                    });
+
+                    const data = await response.json();
+
+                    if(data != "Success"){
+                        displayPopup(data);
+                        if(data == "Wrong username or password" || data == "Email not verified"){
+                            document.getElementById('username').value = '';
+                            document.getElementById('password').value = '';
+                        }                    
+                    }
+                    else{
+                        displayPopup(data)
+                        this.reset(); // Responsible for resetting all of the text boxes
+                        redirect();
+                    }
+            
+                } catch (error) {
+                    console.error('Error:', error);
                 }
             });
-        };
-
-        document.getElementById('loginForm').addEventListener('submit', async function(event) {
-            event.preventDefault();
-            const username = document.getElementById('username').value;
-            const password = document.getElementById('password').value;
-            const rememberMeCheckbox = document.getElementById('rememberMe');
-            if (rememberMeCheckbox.checked) {
-                localStorage.setItem('rememberedUsername', username);
-                localStorage.setItem('rememberedPassword', password);
-            } else {
-                localStorage.removeItem('rememberedUsername');
-                localStorage.removeItem('rememberedPassword');
-            }
-
-            // Here you would typically send your form data to a server
-            const formData = { username, password };
-            console.log("Form Data to send:", formData);
-            
-            // Example of handling the form submission
-            // You would need to replace the URL '/login' with your actual login endpoint
-            try {
-                const response = await fetch('/login', {
-                    method: 'POST',
-                    headers: {
-                        'Content-Type': 'application/json',
-                    },
-                    body: JSON.stringify(formData),
-                });
-
-                if (response.ok) {
-                    const data = await response.json();
-                    // Handle success response
-                    console.log(data);
-                    // Redirect to another page or display a success message
-                    // window.location.href = 'path_to_redirect_on_success';
-                } else {
-                    // Handle non-success responses
-                    throw new Error('Network response was not ok.');
-                }
-            } catch (error) {
-                console.error('Error during the fetch operation:', error);
-                // Handle fetch error (e.g., display an error message)
-            }
         });
+
+        function displayPopup(message) {
+            alert(message);
+        }
+
+        function redirect(){
+            window.location.href = "/";
+        }
     </script>
 </body>
 </html>
-
-           
+        
