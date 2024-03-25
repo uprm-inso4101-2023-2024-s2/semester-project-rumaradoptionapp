@@ -122,7 +122,7 @@ module.exports={
     getAllUsers,
     signup,
     login,
-    getFoster
+    getFoster,
     verifyVerificationCode,
     getFaculty
 }
