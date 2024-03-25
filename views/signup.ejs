@@ -4,6 +4,98 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Signup</title>
+    <style>
+        body {
+            background-image: url('https://www.uprm.edu/coop/wp-content/uploads/sites/401/2021/11/portico_poster_jf_4x6_copy-1024x683.jpg'); /* Add your image path here */
+            background-size: cover;
+            background-position: contain;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+
+        .form-container {
+            width: 400px;
+            padding: 20px;
+            background-color: #fff;
+            border-radius: 8px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+        }
+
+        h2 {
+            margin-bottom: 20px;
+            text-align: center;
+        }
+
+        .form-group {
+            margin-bottom: 15px;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 5px;
+        }
+
+        input[type="text"],
+        input[type="email"],
+        input[type="password"],
+        select {
+            width: 100%;
+            padding: 8px;
+            border-radius: 4px;
+            border: 1px solid #ccc;
+            box-sizing: border-box;
+            background-color: #66bb6a; /* Green color for input boxes */
+            color: white; /* Text color for input boxes */
+        }
+
+        .submit-btn {
+            width: 100%;
+            padding: 10px;
+            background-color: white; /* White background color for signup button */
+            color: black; /* Black text color for signup button */
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+
+        .submit-btn:hover {
+            background-color: #f0f0f0; /* Light background color on hover */
+        }
+
+        .form-group.checkbox {
+            display: flex;
+            align-items: center;
+        }
+
+        .form-group.checkbox label {
+            margin-bottom: 0;
+            margin-right: 10px;
+        }
+
+        .form-group.checkbox input[type="checkbox"] {
+            margin-right: 5px;
+        }
+
+        /* Change text color inside green input boxes */
+        input[type="text"].green-text,
+        input[type="email"].green-text,
+        input[type="password"].green-text,
+        select.green-text {
+            color: white;
+        }
+
+        /* Change placeholder text color inside green input boxes */
+        input[type="text"].green-text::placeholder,
+        input[type="email"].green-text::placeholder,
+        input[type="password"].green-text::placeholder,
+        select.green-text::placeholder {
+            color: white;
+        }
+    </style>
 </head>
 <body>
     <div class="form-container">
@@ -11,39 +103,40 @@
         <form id="signupForm" action="/signup" method="post">
             <div class="form-group">
                 <label for="first_name">First Name:</label>
-                <input type="text" id="firstname" name="firstname" placeholder="Enter your first name" required autocomplete="off">
+                <input type="text" id="firstname" name="firstname" placeholder="Enter your first name" required autocomplete="off" class="green-text">
             </div>
             <div class="form-group">
                 <label for="last_name">Last Name:</label>
-                <input type="text" id="lastname" name="lastname" placeholder="Enter your last name" required autocomplete="off">
+                <input type="text" id="lastname" name="lastname" placeholder="Enter your last name" required autocomplete="off" class="green-text">
             </div>
             <div class="form-group">
                 <label for="location">Location:</label>
-                <input type="text" id="location" name="location" placeholder="Enter your location" required>
+                <input type="text" id="location" name="location" placeholder="Enter your location" required class="green-text">
             </div>
             <div class="form-group">
                 <label for="username">Username:</label>
-                <input type="text" id="username" name="username" placeholder="Enter your username" required autocomplete="off">
+                <input type="text" id="username" name="username" placeholder="Enter your username" required autocomplete="off" class="green-text">
             </div>
             <div class="form-group">
                 <label for="email">Email:</label>
-                <input type="email" id="email" name="email" placeholder="Enter your email" required>
+                <input type="email" id="email" name="email" placeholder="Enter your email" required class="green-text">
             </div>
             
             <div class="form-group">
                 <label for="password">Password:</label>
-                <input type="password" id="password" name="password" placeholder="Enter your password" required>
+                <input type="password" id="password" name="password" placeholder="Enter your password" required class="green-text">
+                <div id="password-strength"></div> <!-- Password strength meter -->
             </div>
             <div class="form-group">
                 <label for="gender">Gender:</label>
-                <select name="gender" id="gender" required>
+                <select name="gender" id="gender" required class="green-text">
                     <option value="">Select Gender</option>
                     <option value="female">Female</option>
                     <option value="male">Male</option>
                     <option value="other">Other</option>
                 </select>
             </div>
-            <div class="form-group">
+            <div class="form-group checkbox">
                 <label for="foster">Are you fostering a pet?</label>
                 <input type="checkbox" id="foster" name="foster">
             </div>
@@ -58,7 +151,18 @@
         }
 
         function redirect(){
-            window.location.href = "/login";
+            window.location.href = "/verify";
+        }
+
+        // Password strength meter function
+        function checkPasswordStrength(password) {
+            if (password.length < 6) {
+                return 'Weak';
+            } else if (password.length < 10) {
+                return 'Medium';
+            } else {
+                return 'Strong';
+            }
         }
 
         // Handle information from from
@@ -116,6 +220,14 @@
                 console.error('Error:', error);
             }
         });
+
+        // Listen for password input to update strength meter
+        document.getElementById('password').addEventListener('input', function() {
+            const password = this.value;
+            const strength = checkPasswordStrength(password);
+            document.getElementById('password-strength').textContent = 'Password Strength: ' + strength;
+        });
+
     </script>
 </body>
 </html>

@@ -16,6 +16,11 @@ const getFoster = async () => {
     return foster
 };
 
+const getFaculty = async () => {
+    faculty = await dao.getFaculty()
+    return faculty
+};
+
 // Function responsible of calling the query that will add users to the database and it will also manage the result
 const signup = async (credentials) => {
 
@@ -70,32 +75,54 @@ const login = async (user_info) =>{
             emailVerified = await dao.getVerified(user_info)
 
             if(!emailVerified.verified){
-                return JSON.stringify("Email not verified")
+                return ("Email not verified")
             }
             
             else{
 
-            return JSON.stringify("Success")
+            return ("Success")
 
             }
             
 
         }else{
             
-            return JSON.stringify("Failure wrong password")
+            return ("Wrong username or password")
 
         }
           
 
         
     }else{
-        return JSON.stringify("Failure wrong username")
+        return ("Wrong username or password")
     }
 }
+const verifyVerificationCode = async (formData) => {
+
+    const storedVerificationCode = await dao.verifyVerificationCode(formData);
+    
+    if (storedVerificationCode) {
+    
+        if (formData.token === storedVerificationCode.token) {
+            if (await dao.setVerifiedStatus(formData.username)) {
+                return "Verification successful";
+            } else {
+                return "Failure to update verified status";
+            }
+        } else {
+            return "Failure wrong verification code";
+        }
+    } else {
+        return "Failure wrong username";
+    }
+}
+
 
 module.exports={
     getAllUsers,
     signup,
     login,
     getFoster
+    verifyVerificationCode,
+    getFaculty
 }

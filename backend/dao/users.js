@@ -86,6 +86,30 @@ const getFoster = async (request,response) => {
     return foster.rows
 }
 
+const verifyVerificationCode = async (request, response) => {
+    const username = request.username;
+    const result = await db.pool.query('SELECT token FROM users WHERE username = $1', [username]);
+    const storedVerificationCode = result.rows[0];
+    return storedVerificationCode;
+};
+
+const setVerifiedStatus = async (username) => {
+    try {
+        await db.pool.query('UPDATE users SET verified = true WHERE username = $1', [username]);
+        return true;
+    } catch (error) {
+        console.error('Error setting verified status:', error);
+        return false;
+    }
+};
+
+const getFaculty = async (request,response) => {
+    const faculty = await db.pool.query("select firstname, lastname, email, location, gender from users where faculty = true")
+    return faculty.rows
+}
+
+
+
 module.exports={
     getUsers,
     addNewUser,
@@ -94,5 +118,8 @@ module.exports={
     checkEmail,
     getToken,
     getVerified,
-    getFoster
+    getFoster,
+    verifyVerificationCode,
+    setVerifiedStatus,
+    getFaculty
 }

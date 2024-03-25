@@ -3,6 +3,7 @@ const bodyParser = require('body-parser');
 const path = require('path');
 const cors = require('cors')
 const usercontroller = require('./backend/controller/users')
+const petsController = require('./backend/controller/petsController');
 const app = express();
 
 // Body parser middleware
@@ -37,6 +38,15 @@ app.get("/login", (req, res) => {
     res.render("login.ejs", {title: 'Login'});
 });
 
+app.get("/faculty", async (req, res) => {
+    const facultyMembers = await usercontroller.getFaculty();
+    res.render("Faculty.ejs", { facultyMembers });
+})
+
+app.get("/verify", (req, res) => {
+    res.render("verificationCode.ejs", {title: 'Verify'});
+});
+
 app.get("/petRegistration", (req, res) => {
     res.render("petRegistration.ejs", {title: 'Pet Registration'});
 });
@@ -58,10 +68,11 @@ app.post('/login', async (request, response) =>{
 
 })
 
-app.post('/petRegistration', async (request, response) =>{
+app.post('/petRegistration', petsController.petRegistration);
 
-    response.json(await usercontroller.petRegistration(request.body))
 
+app.post('/verify', async (request, response) =>{
+    response.json(await usercontroller.verifyVerificationCode(request.body))
 })
 
 // Start server

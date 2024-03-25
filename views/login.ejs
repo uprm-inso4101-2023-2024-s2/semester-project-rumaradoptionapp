@@ -4,22 +4,158 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Login</title>
+    <style>
+        body {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            background-image: url('https://www.uprm.edu/portales/wp-content/uploads/sites/55/2022/05/Tarzan_7896.png'); /* Specify the path to your image */
+            background-size: contain; /* Cover the entire background */
+            background-position: cover; /* Center the background image */
+            background-repeat: no-repeat; /* Prevent the background image from repeating */
+        }
+
+        .form-container {
+            width: 300px; /* Adjust the width as needed */
+            padding: 20px;
+            background-color: white;
+            border-radius: 8px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+            text-align: center;
+        }
+
+        .form-group {
+            margin-bottom: 15px;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 5px;
+            color: black; /* Optional: Set the label text color */
+        }
+
+        .form-group input {
+            width: 100%;
+            padding: 8px;
+            border-radius: 4px;
+            border: 1px solid #ccc;
+            background-color: #66bb6a; /* Set the more lively green background color for smaller boxes */
+            color: white; /* Set the text color for smaller boxes */
+            box-sizing: border-box; /* Include padding and border in the element's total width and height */
+        }
+
+        .form-group input::placeholder {
+            color: white; /* Set the placeholder text color to white */
+        }
+
+        .submit-btn {
+            width: 100%;
+            padding: 10px;
+            background-color: white; /* Set the background color for the big box */
+            color: black; /* Set the text color for the big box */
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+
+        .submit-btn:hover {
+            background-color: #ccc; /* Set the button background color on hover */
+        }
+
+    
+    </style>
 </head>
 <body>
     <div class="form-container">
         <h2>Login</h2>
-        <form action="/login" method="post">
+        <form id="loginForm" action="/login" method="post">
             <div class="form-group">
                 <label for="name">Username:</label>
-                <input type="text" id="name" name="username" placeholder="Enter your username" required autocomplete="off">
+                <input type="text" id="username" name="username" placeholder="Enter your username" required autocomplete="off">
             </div>
             <div class="form-group">
                 <label for="password">Password:</label>
                 <input type="password" name="password" id="password" placeholder="password" required>
             </div>
+            <div class="form-group">
+                <input type="checkbox" id="rememberMe" name="rememberMe">
+                <label for="rememberMe">Remember Me</label>
+            </div>
             <button type="submit" class="submit-btn">Login</button>
         </form>
         <p>Don't have an account? <a href="/signup">Signup</a></p>
     </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const usernameField = document.getElementById('username');
+            const passwordField = document.getElementById('password');
+            const rememberMeCheckbox = document.getElementById('rememberMe');
+            // Load saved login data, if any
+            const savedUsername = localStorage.getItem('username');
+            const savedPassword = localStorage.getItem('password');
+
+            if (savedUsername && savedPassword) {
+                usernameField.value = savedUsername;
+                passwordField.value = savedPassword;
+                rememberMeCheckbox.checked = true;
+            }
+
+            document.getElementById('loginForm').addEventListener('submit', async function(event) {
+                event.preventDefault();
+
+                const username = usernameField.value;
+                const password = passwordField.value;
+
+                if (rememberMeCheckbox.checked) {
+                    localStorage.setItem('username', username);
+                    localStorage.setItem('password', password);
+                } else {
+                    localStorage.removeItem('username');
+                    localStorage.removeItem('password');
+                }
+
+                // Your existing login logic
+                try {
+                    const formData = { username, password };
+                    const response = await fetch('/login', {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json',
+                        },
+                        body: JSON.stringify(formData),
+                    });
+
+                    const data = await response.json();
+
+                    if(data != "Success"){
+                        displayPopup(data);
+                        if(data == "Wrong username or password" || data == "Email not verified"){
+                            document.getElementById('username').value = '';
+                            document.getElementById('password').value = '';
+                        }                    
+                    }
+                    else{
+                        displayPopup(data)
+                        this.reset(); // Responsible for resetting all of the text boxes
+                        redirect();
+                    }
+            
+                } catch (error) {
+                    console.error('Error:', error);
+                }
+            });
+        });
+
+        function displayPopup(message) {
+            alert(message);
+        }
+
+        function redirect(){
+            window.location.href = "/";
+        }
+    </script>
 </body>
 </html>
+        
