@@ -64,11 +64,11 @@
             margin: 0 auto 20px; 
         }
 
-        .pet-image img {
+        /* .pet-image img {
             width: 100%;
             height: 100%;
             object-fit: cover;
-        }
+        } */ 
         .pet-image img {
             width: auto; 
             height: 100%; 
@@ -113,14 +113,18 @@
         }
 
         .font-poppins {
-        font-family: 'Poppins', sans-serif;
+            font-family: 'Poppins', sans-serif;
+        }
+        .filter-tabs {
+            text-align: center;
+            margin-bottom: 20px;
         }
 
         .tab {
             display: inline-block;
-            margin: 0 10px;
+            margin: 0 15px;
             cursor: pointer;
-            padding: 10px;
+            padding: 12px 20px;
             background-color: #eee;
             border-radius: 5px;
         }
@@ -150,6 +154,7 @@
                 <option value="medium">Medium</option>
                 <option value="large">Large</option>
             </select>
+            </div>
         </div>
         <div class="pet-listing">
             <div class="pet-card" data-size="small" data-age="2" data-type="cat">
@@ -158,7 +163,7 @@
                 </div>
                 <div class="pet-name">Misty</div>
                 <div class="pet-details">Age: 2 | Breed: Grey</div>
-                <button class="view-details-btn">View Details</button>
+                <button class="view-details-btn" data-pet-name="Misty">View Details</button>
             </div>
             
             <div class="pet-card" data-size="small" data-type="dog">
@@ -175,7 +180,7 @@
                 </div>
                 <div class="pet-name">Maximus</div>
                 <div class="pet-details">Age: 1 | Breed: Golden Retriever</div>
-                <button class="view-details-btn">View Details</button>
+                <button class="view-details-btn" data-pet-name="Ares" data-image-url="https://www.princeton.edu/sites/default/files/styles/1x_full_2x_half_crop/public/images/2022/02/KOA_Nassau_2697x1517.jpg?itok=Bg2K7j7J">View Details</button>
             </div>
             <div class="pet-card" data-size="small" data-age="2" data-type="dog">
                 <div class="pet-image">

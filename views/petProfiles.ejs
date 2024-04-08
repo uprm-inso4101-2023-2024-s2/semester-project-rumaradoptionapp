@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pet Profile</title>
+    <style>
+        /* Your CSS styles */
+        body {
+            font-family: 'Poppins', sans-serif;
+            margin: 0;
+            padding: 0;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+            color: #333;
+        }
+
+        .section-header {
+            text-align: center;
+            margin-bottom: 40px;
+        }
+
+        .section-header h2 {
+            font-size: 2rem;
+            font-weight: bold;
+            color: #333;
+        }
+
+        .section-header p {
+            font-size: 1.2rem;
+            color: #666;
+        }
+        
+        .pet-listing {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 20px;
+        }
+        #pet-details {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            text-align: center;
+        }
+
+        .pet-image {
+            max-width: 1000px; /* Adjust the maximum width as needed */
+            max-height: 800px; /* Adjust the maximum height as needed */
+            width: auto;
+            height: auto;
+        }
+
+        .pet-name {
+            font-size: 2.5rem; /* Adjust the font size as needed */
+        }
+
+        a {
+            text-decoration: none;
+            color: inherit;
+        }
+
+        a:hover {
+            color: #45a049;
+        }
+
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="section-header">
+            <h2>Pet Profile</h2>
+        </div>
+        <div id="pet-details">      
+        </div>
+    </div>
+    <script>
+        document.addEventListener("DOMContentLoaded", function() {
+            const queryString = window.location.search;
+            const urlParams = new URLSearchParams(queryString);
+            const petName = urlParams.get('name');
+            const petImage = getPetImage(petName); // Function to get pet image URL
+            const petDetails = getPetDetails(petName); // Function to get pet details
+
+            const petDetailsContainer = document.getElementById("pet-details");
+
+            // Create and append pet name element
+            const petNameElement = document.createElement("h2");
+            petNameElement.textContent = petName;
+            petNameElement.classList.add("pet-name");
+            petDetailsContainer.appendChild(petNameElement);
+
+            // Create and append pet image element
+            const petImageElement = document.createElement("img");
+            petImageElement.src = petImage;
+            // petImageElement.style.width = "1000px"; // Adjust the width as needed
+            // petImageElement.style.height = "auto"; // Maintaining aspect ratio
+            petImageElement.classList.add("pet-image");
+            petDetailsContainer.appendChild(petImageElement);
+
+            // Create and append pet details element
+            const petDetailsElement = document.createElement("p");
+            petDetailsElement.textContent = petDetails;
+            petDetailsContainer.appendChild(petDetailsElement);
+        });
+
+        // Function to get pet image URL based on pet name
+        function getPetImage(petName) {
+            // Define a map of pet names to their image URLs
+            const petImages = {
+                "Misty": "https://med.stanford.edu/content/dam/sm-news/images/2021/09/cat_by-Kateryna-T-Unsplash.jpg",
+                "Ares": "https://www.princeton.edu/sites/default/files/styles/1x_full_2x_half_crop/public/images/2022/02/KOA_Nassau_2697x1517.jpg?itok=Bg2K7j7J"
+                // Add more pet names and their image URLs as needed
+            };
+            // Return the image URL corresponding to the pet name
+            return petImages[petName];
+        }
+
+        // Function to get pet details based on pet name
+        function getPetDetails(petName) {
+            // Define a map of pet names to their details
+            const petDetails = {
+                "Misty": "Age: 2 | Breed: Grey",
+                "Ares": "Age: 1 | Breed: Golden Retriever"
+                // Add more pet names and their details as needed
+            };
+            // Return the details corresponding to the pet name
+            return petDetails[petName];
+        }
+    </script>
+</body>
+</html>
