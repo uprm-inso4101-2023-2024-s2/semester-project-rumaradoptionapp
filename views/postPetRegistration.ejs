@@ -41,21 +41,29 @@
 </head>
 <body>
     <div class="form-container">
-    <form id="postRegistrationForm" action="/postPetRegistration" method="get">
-        <div class="result-message" id="result-message"></div>
-        
-        <div class="btn-container">
-            <a href="/">Home</a>
-        </div>
-        <div class="btn-container">
-            <a href="/petRegistration">Register Another Pet</a>
-        </div>
+        <form id="postRegistrationForm">
+            <div class="result-message" id="result-message"></div>
+            
+            <div class="btn-container">
+                <a href="/">Home</a>
+            </div>
+            <div class="btn-container">
+                <a href="/petRegistration">Register Another Pet</a>
+            </div>
 
-        <script>
-            var resultMessage = "Pet was successfully registered"; // Example message
-            document.getElementById("result-message").textContent = resultMessage;
-        </script>
-    </form>
+            <script>
+                // Get the query parameter from URL
+                const url = new URL(window.location.href);
+                const registered = url.searchParams.get('registered');
+
+                // Shows the message based on if the pet was registered or not.
+                if (registered === 'true') {
+                    document.getElementById("result-message").textContent = "Pet was successfully registered";
+                } else {
+                    document.getElementById("result-message").textContent = "Error: Failed to register pet";
+                }
+            </script>
+        </form>
     </div>
 </body>
 </html>
