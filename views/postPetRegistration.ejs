@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Post Pet Registration</title>
+    <style>
+        .submit-btn,
+        .btn-container a {
+            display: block;
+            width: 40%;
+            padding: 10px;
+            background-color: #4CAF50;
+            color: #fff;
+            text-align: center;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 16px;
+            transition: background-color 0.3s ease;
+            text-decoration: none;
+            margin: 0 auto;
+            margin-bottom: 5px;
+        }
+    
+        .submit-btn:hover,
+        .btn-container a:hover {
+            background-color: #45a049;
+        }
+    
+        .result-message {
+            font-size: 24px;
+            text-align: center;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100px;
+        }
+    </style>
+
+</head>
+<body>
+    <div class="form-container">
+    <form id="postRegistrationForm" action="/postPetRegistration" method="get">
+        <div class="result-message" id="result-message"></div>
+        
+        <div class="btn-container">
+            <a href="/">Home</a>
+        </div>
+        <div class="btn-container">
+            <a href="/petRegistration">Register Another Pet</a>
+        </div>
+
+        <script>
+            var resultMessage = "Pet was successfully registered"; // Example message
+            document.getElementById("result-message").textContent = resultMessage;
+        </script>
+    </form>
+    </div>
+</body>
+</html>
