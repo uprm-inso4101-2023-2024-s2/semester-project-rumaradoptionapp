@@ -55,6 +55,10 @@ app.get("/postPetRegistration", (req, res) => {
     res.render("postPetRegistration.ejs", {title: 'Post Pet Registration'});
 });
 
+app.get('/petListings', (req, res) => {
+    res.render("petListings.ejs", {title: 'Pet Listings'});
+});
+
 app.get("/foster", async (req, res) => {
     const fosterMembers = await usercontroller.getFoster();
     res.render("Foster.ejs", { fosterMembers });
