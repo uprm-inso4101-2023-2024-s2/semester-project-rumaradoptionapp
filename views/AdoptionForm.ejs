@@ -127,13 +127,12 @@
             <br>
             <div class="form-group">
                 <label for="num_pets">Number Of Pets Owned:</label>
-                <input type="number" id="num_pets" name="num_pets" placeholder="Enter the amount" required class="green-text">
+                <input type="number" id="num_pets" name="num_pets" placeholder="Enter the amount" required class="green-text" onchange="toggleOwnedPetsDescription()">
             </div>
             <br>
             <div class="form-group">
-                <label for="type_pets">Owned Pets Descrition (If applicable):</label>
-                
-                <textarea id="type_pets" name="type_pets" rows="3" cols="40" required class="green-text" placeholder="Give a brief description about the owned pets "></textarea>
+                <label for="type_pets">Owned Pets Description (If applicable):</label>
+                <textarea id="type_pets" name="type_pets" rows="3" cols="40"  class="green-text" placeholder="Give a brief description about the owned pets "></textarea>
             </div>
             <br>
             <div class="form-group">
@@ -170,6 +169,17 @@
             document.getElementById("type_pets").value=""
             document.getElementById("adoption_reason").value=""
             document.getElementById("pet_location").selectedIndex = ""
+        }
+
+
+        function toggleOwnedPetsDescription() {
+            var numPets = document.getElementById('num_pets');
+
+            if (numPets.value> 0) {
+                document.getElementById('type_pets').setAttribute('required', 'required');
+            } else {
+                document.getElementById('type_pets').removeAttribute('required');
+            }
         }
 
 

@@ -66,7 +66,7 @@ app.get("/foster", async (req, res) => {
 
 app.get("/fillForm", async (req,res) => {
 
-    res.render("Form.ejs", {title: "Pet Adoption Form"})
+    res.render("AdoptionForm.ejs", {title: "Pet Adoption Form"})
 
 
 })
