@@ -64,6 +64,13 @@ app.get("/foster", async (req, res) => {
     res.render("Foster.ejs", { fosterMembers });
 })
 
+app.get("/fillForm", async (req,res) => {
+
+    res.render("AdoptionForm.ejs", {title: "Pet Adoption Form"})
+
+
+})
+
 //Route responsible for the signup (The location of the route could be changed sometime in the future)
 app.post('/signup', async (request,response) =>{
 
