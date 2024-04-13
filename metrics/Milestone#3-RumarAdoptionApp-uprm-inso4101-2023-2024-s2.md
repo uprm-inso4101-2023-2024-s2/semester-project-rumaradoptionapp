@@ -2,7 +2,7 @@
 
 | Developer | Points Closed | Percent Contribution | Projected Grade | Lecture Topic Tasks |
 | --------- | ------------- | -------------------- | --------------- | ------------------- |
-| Javi510348 | 0.0 | 0.0% | 0.0% | 0 |
+| Javi510348 | 10.5 | 100.0% | 100.0% | 0 |
 | christianperez42 | 0.0 | 0.0% | 0.0% | 0 |
 | Angel-Rosado | 0.0 | 0.0% | 0.0% | 0 |
 | smbv | 0.0 | 0.0% | 0.0% | 0 |
@@ -30,4 +30,4 @@
 | AlexisTraversoPR | 0.0 | 0.0% | 0.0% | 0 |
 | frances-sepulveda | 0.0 | 0.0% | 0.0% | 0 |
 | rayanemili | 0.0 | 0.0% | 0.0% | 0 |
-| Total | 0.0 | /100% | /100% | 0 |
+| Total | 10.500000000000005 | /100% | /100% | 0 |
