@@ -99,7 +99,7 @@
     <div class="form-container">
         <h1>Pet Adoption Form</h1>
 
-        <form id="AdoptionForm" action="/fillForm" method="post">
+        <form id="AdoptionForm" action="/fillForm/:user_id/:id" method="post">
             <div class="form-group">
                 <label for="address">Home_Address:</label>
                 <input type="text" id="address" name="address" placeholder="Enter your Home Adress" required autocomplete="off" class="green-text">
@@ -181,6 +181,43 @@
                 document.getElementById('type_pets').removeAttribute('required');
             }
         }
+
+        function redirect(){
+            window.location.href = "/";
+        }
+
+
+        document.getElementById('AdoptionForm').addEventListener('submit', async function(event) {
+            event.preventDefault();
+
+            const formData = {
+            address: document.getElementById('address').value,
+            housing_type: document.getElementById('housing_type').value,
+            neighborhood_description: document.getElementById('neighborhood_description').value,
+            people_house: document.getElementById('people_house').value,
+            num_pets: document.getElementById('num_pets').value,
+            type_pets: document.getElementById('type_pets').value,
+            adoption_reason: document.getElementById('adoption_reason').value,
+            pet_location: document.getElementById('pet_location').value
+        };
+            try {
+                const response = await fetch('/fillForm/:user_id/:id', {                //Change user_id and id to values from the users and pet tables while we work on the user session
+                    method: 'POST',
+                    headers: {
+                          'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify(formData),
+                });
+
+
+                const data = await response.json();
+
+                redirect()
+        
+            } catch (error) {
+                console.error('Error:', error);
+            }
+        });
 
 
 
