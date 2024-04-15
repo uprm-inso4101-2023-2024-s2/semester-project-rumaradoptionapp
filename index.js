@@ -4,6 +4,7 @@ const path = require('path');
 const cors = require('cors')
 const usercontroller = require('./backend/controller/users')
 const petsController = require('./backend/controller/petsController');
+const adoptionController = require('./backend/controller/AdoptionForm')
 const app = express();
 
 // Body parser middleware
@@ -64,7 +65,7 @@ app.get("/foster", async (req, res) => {
     res.render("Foster.ejs", { fosterMembers });
 })
 
-app.get("/fillForm", async (req,res) => {
+app.get("/fillForm/:user_id/:id", async (req,res) => {
 
     res.render("AdoptionForm.ejs", {title: "Pet Adoption Form"})
 
@@ -91,6 +92,17 @@ app.post('/postPetRegistration', petsController.petRegistration);
 app.post('/verify', async (request, response) =>{
     response.json(await usercontroller.verifyVerificationCode(request.body))
 })
+
+
+
+app.post("/fillForm/:user_id/:id", async (req, res) =>{
+
+
+    res.json(await adoptionController.FillForm(req.body,req.params))
+
+})
+
+
 
 // Start server
 const PORT = process.env.PORT || 3000;
