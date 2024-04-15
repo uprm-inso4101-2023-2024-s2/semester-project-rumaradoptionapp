@@ -10,13 +10,14 @@ const FillForm = async (form_Data,id_Data) =>{
 
     form_id = await dao.Form_Query(id_Data)
 
-    if(form_id){
+    result = await dao.AddNewForm(form_Data,form_id)
 
-        console.log("Success")
-    }
-    else{
-
-        console.log("Fail")
+    if(result){
+        console.log('Success')
+        return "Form submitted successfully"
+    }else{
+        console.log("Failure")
+        return "Error submitting form"
     }
 
 
