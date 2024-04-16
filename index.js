@@ -39,6 +39,10 @@ app.get("/login", (req, res) => {
     res.render("login.ejs", {title: 'Login'});
 });
 
+app.get("/userSettings", (req, res) => {
+    res.render("userSettings.ejs", {title: 'User Settings'});
+});
+
 app.get("/faculty", async (req, res) => {
     const facultyMembers = await usercontroller.getFaculty();
     res.render("Faculty.ejs", { facultyMembers });
