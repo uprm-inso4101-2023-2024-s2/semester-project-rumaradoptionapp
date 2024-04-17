@@ -21,7 +21,7 @@ app.use(session({
 }));
 
 
-const Authentication = async (request,response,next) => {       //Function Responsible of checking if the user is logged in or not
+const Authentication = async (request,response,next) => {       //Function responsible of checking if the user is logged in or not
 
     if(request.session.user_id){
         next()
