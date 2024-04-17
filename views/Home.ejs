@@ -7,6 +7,57 @@
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/Loopple/loopple-public-assets@main/motion-tailwind/motion-tailwind.css" rel="stylesheet">
 
     <title>Project</title>
+
+
+<!-- CSS for settings box -->
+<style>
+  .settings-box {
+    position: absolute;
+    top: 200px;
+    right: 400px;
+    width: 300px;
+    background-color: rgb(255, 255, 255);
+    border: 1px solid #cccccc;
+    border-radius: 5px;
+    padding: 20px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.102);
+    z-index: 1000;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+
+  .settings-box img {
+    width: 80px;  
+    height: auto;
+    margin-right: 30px;  
+  }
+
+  .settings-box a {
+    display: block;
+    padding: 8px 10px;
+    color: #333;
+    text-decoration: none;
+    transition: background-color 0.3s;
+    margin-left: 20px; 
+  }
+
+  .settings-box a:hover {
+    background-color: #f3f3f3;
+  }
+
+  .logo-button {
+    width: 110px;
+    height: 110px;
+    background-color: #00FF00; 
+    color: #006400; 
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+  }
+</style>
 </head>
 <body>
     <!-- component -->  
@@ -70,7 +121,39 @@
                         </a>
                     </div>
                 </div>
-                
+<!-- Modal -->
+<div id="modal" class="modal" style="display: none;">
+  <div class="modal-content">
+    <div class="settings-box">
+      <button class="logo-button">L</button> <!-- Replace with your logo or image -->
+      <div>
+        <a href="#">settings</a>
+        <a href="#">logout</a>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+  // JavaScript to handle the pop-up and settings dropdown
+  document.addEventListener('DOMContentLoaded', function() {
+    var logoButton = document.querySelector('.items-center.justify-center.w-10.h-10.rounded-full.bg-lime-100.text-lime-600'); // Targeting the logo button
+    var modal = document.getElementById('modal');
+
+    // Function to toggle the modal visibility
+    function toggleModal() {
+    var modal = document.getElementById('modal');
+    if (modal.style.display === 'block') {
+      modal.style.display = 'none'; // Hide the modal if it's currently visible
+    } else {
+      modal.style.display = 'block'; // Show the modal if it's currently hidden
+    }
+  }
+
+    // Add event listener to logo button to toggle the modal
+    logoButton.addEventListener('click', toggleModal);
+  });
+</script>
                 <div class="items-center justify-center  md:flex">
                     <img class="rounded-md h-90 md:w-auto" src="https://hips.hearstapps.com/goodhousekeeping/assets/17/30/pembroke-welsh-corgi.jpg" alt="header image">
                 </div>
