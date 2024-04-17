@@ -21,6 +21,17 @@ app.use(session({
 }));
 
 
+const Authentication = async (request,response,next) => {       //Function Responsible of checking if the user is logged in or not
+
+    if(request.session.user_id){
+        next()
+    }
+
+    else{
+        response.redirect("/login")
+    }
+}
+
 
 // Set EJS as the view engine
 app.set('view engine', 'ejs');
