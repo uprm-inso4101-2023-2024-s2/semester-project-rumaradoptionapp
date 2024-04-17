@@ -44,7 +44,7 @@ const addNewUser = async (request,response) =>{
 const login = async(request, response) =>{
     
     const username = request.username
-    const result = await db.pool.query('select password from users where username = $1', [username])
+    const result = await db.pool.query('select password,user_id from users where username = $1', [username])
     
     return result.rows[0]
 }

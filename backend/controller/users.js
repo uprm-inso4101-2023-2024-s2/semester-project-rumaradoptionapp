@@ -60,27 +60,27 @@ const signup = async (credentials) => {
 }
 
 // Function responsible of calling the query that will check that the user has a valid password and username and it will also manage the result
-const login = async (user_info) =>{
+const login = async (request) =>{
 
-    const unhashed_password = user_info.password
-    result = await dao.login(user_info)
+    const unhashed_password = request.body.password
+    result = await dao.login(request.body)
     
     //console.log(emailVerified.verified)
     
-    if(result){
+    if(result.password){
 
         
         if(await argon2.verify(result.password, unhashed_password)){
 
-            emailVerified = await dao.getVerified(user_info)
+            emailVerified = await dao.getVerified(request.body)
 
             if(!emailVerified.verified){
                 return ("Email not verified")
             }
             
             else{
-
-            return ("Success")
+                request.session.user_id = result.user_id
+                return ("Success")
 
             }
             

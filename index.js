@@ -6,11 +6,19 @@ const usercontroller = require('./backend/controller/users')
 const petsController = require('./backend/controller/petsController');
 const adoptionController = require('./backend/controller/AdoptionForm')
 const app = express();
+const session  = require('express-session')
+const crypto = require('crypto');
 
 // Body parser middleware
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
 app.use(cors())
+
+app.use(session({
+    secret: crypto.randomBytes(32).toString('hex'), // Secret key used to sign the session ID cookie
+    resave: false,
+    saveUninitialized: false
+}));
 
 
 
@@ -80,7 +88,7 @@ app.post('/signup', async (request,response) =>{
 })
 app.post('/login', async (request, response) =>{
 
-    response.json(await usercontroller.login(request.body))
+    response.json(await usercontroller.login(request))
 
 })
 
