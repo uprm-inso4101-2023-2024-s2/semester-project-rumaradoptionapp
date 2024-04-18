@@ -35,6 +35,31 @@
 .dropdown-content a:hover {
   background-color: #ddd;
 }
+
+
+.button-container {
+    position: relative;
+    display: inline-block;
+  }
+  .button-container img {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover; /* Ensures the image fills the button /
+    z-index: -1; / Places the image behind the button */
+  }
+  .button {
+    padding: 10px 20px;
+    background-color: #3498db;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+  }
+
+
 </style>
 </head>
 <body>
@@ -91,7 +116,11 @@
                     <a class="text-sm font-normal text-dark-grey-700 hover:text-dark-grey-900" href="/petRegistration">Pet Registration</a></button>
                     <button class="flex items-center text-sm font-normal text-black">Log In</button>
                     <button class="flex items-center px-4 py-2 text-sm font-bold rounded-xl bg-lime-100 text-lime-600 hover:bg-lime-600 hover:text-white transition duration-300">Sign Up</button>
-                    <button class="flex items-center justify-center w-10 h-10 rounded-full bg-lime-100 text-lime-600 hover:bg-lime-600 hover:text-white transition duration-300">logo</button>
+                    <div class="button-container">
+                      <img src=<%= profilePicture %> alt="Overlay Image">
+                      <button class="flex items-center justify-center w-10 h-10 rounded-full bg-lime-100 text-lime-600 hover:bg-lime-600 hover:text-white transition duration-300">logo</button>
+                    </div>
+                    
 
                 </div>
                 <div id="dropdown" class="dropdown" style="display: none;">

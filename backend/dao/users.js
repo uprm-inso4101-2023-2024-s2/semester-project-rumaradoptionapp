@@ -10,6 +10,7 @@ const db = require('../config/pg_config')
 //Variable responsible of the hashing of the password. (argon2 is the hashing algorithm)
 const argon2 = require('argon2')
 const randomToken = require('random-token')
+const { getprofilepicture } = require('../controller/users')
 
 
 
@@ -108,12 +109,17 @@ const getFaculty = async (request,response) => {
     const faculty = await db.pool.query("select firstname, lastname, email, location, gender from users where faculty = true")
     return faculty.rows
 }
-const getProfilePictureQuery = async (request) => {
+const setProfilePictureQuery = async (request) => {
     const data = fs.readFileSync(request.file.path);    
     const imageBase64 = data.toString('base64');
     const user_id = request.session.user_id;
     const result = await db.pool.query("UPDATE users SET profile_picture = $1 WHERE user_id = $2 RETURNING profile_picture", [imageBase64, user_id])
     return result.rows[0] 
+}
+const getProfilepictureQuery = async (request) => {
+    const user_id = request.session.user_id;
+    const result = await db.pool.query("select profile_picture from users where user_id = $1",[user_id]);
+    return result.rows[0].profile_picture
 }
 
 
@@ -130,5 +136,6 @@ module.exports={
     verifyVerificationCode,
     setVerifiedStatus,
     getFaculty,
-    getProfilePictureQuery
+    setProfilePictureQuery,
+    getProfilepictureQuery
 }

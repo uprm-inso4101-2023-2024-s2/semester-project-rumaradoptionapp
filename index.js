@@ -43,7 +43,12 @@ app.set('views', path.join(__dirname, 'views'));
 
 // Routes
 app.get('/', (req, res) => {
-    res.render('Home', { title: 'Express with EJS',LoggedIn: req.session.user_id });
+    if(req.session.user_id){     
+        profilePicture = usercontroller.getProfilePicture(req);
+        res.render('Home', { title: 'Express with EJS',LoggedIn: req.session.user_id,profilePicture});
+    }else{
+        res.render('Home', { title: 'Express with EJS',LoggedIn: req.session.user_id,profilePicture: "Help:D"});
+    }
 });
 
 // Route Example (Temporary)
@@ -129,7 +134,7 @@ app.post("/fillForm/:user_id/:id", async (req, res) =>{
 
 app.post("/change-profile-pic", upload.single('profile_picture'), async (req, res)=>{
 
-    res.json(await usercontroller.getprofilepicture(req))
+    res.json(await usercontroller.setprofilepicture(req))
  
  })
  

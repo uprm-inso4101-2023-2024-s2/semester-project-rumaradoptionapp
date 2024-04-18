@@ -116,8 +116,8 @@ const verifyVerificationCode = async (formData) => {
         return "Failure wrong username";
     }
 }
-const getprofilepicture = async (request) => {
-    const result = dao.getProfilePictureQuery(request);
+const setprofilepicture = async (request) => {
+    const result = dao.setProfilePictureQuery(request);
     if(result){
         console.log("We dit it!!!!");
     }else{
@@ -126,7 +126,11 @@ const getprofilepicture = async (request) => {
 
 }
 
+const getProfilePicture = async (request) => {
+    const result = dao.getProfilepictureQuery(request);
+    return result;
 
+}
 module.exports={
     getAllUsers,
     signup,
@@ -134,5 +138,6 @@ module.exports={
     getFoster,
     verifyVerificationCode,
     getFaculty,
-    getprofilepicture
+    setprofilepicture,
+    getProfilePicture
 }
