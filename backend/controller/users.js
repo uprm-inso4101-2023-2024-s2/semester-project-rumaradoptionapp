@@ -117,7 +117,7 @@ const verifyVerificationCode = async (formData) => {
     }
 }
 const setprofilepicture = async (request) => {
-    const result = dao.setProfilePictureQuery(request);
+    const result = await dao.setProfilePictureQuery(request);
     if(result){
         console.log("We dit it!!!!");
     }else{
@@ -127,8 +127,11 @@ const setprofilepicture = async (request) => {
 }
 
 const getProfilePicture = async (request) => {
-    const result = dao.getProfilepictureQuery(request);
-    return result;
+    const result = await dao.getProfilepictureQuery(request);
+
+    const picture ="data:image/png;base64," + result;
+
+    return picture;
 
 }
 module.exports={

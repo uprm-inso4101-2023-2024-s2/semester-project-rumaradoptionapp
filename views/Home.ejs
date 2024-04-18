@@ -89,8 +89,14 @@
                     <button class="flex items-center px-4 py-2 text-sm font-bold rounded-xl bg-lime-100 text-lime-600 hover:bg-lime-600 hover:text-white transition duration-300"><a href="/signup">Sign Up</a></button> -->
                     <% if (LoggedIn) { %>
                       <!-- Render the button if loggedIn is true -->
-                      <button class="flex items-center justify-center w-10 h-10 rounded-full bg-lime-100 text-lime-600 hover:bg-lime-600 hover:text-white transition duration-300">logo</button>                  <% } else { %>
+                      <!-- <button class="flex items-center justify-center w-10 h-10 rounded-full bg-lime-100 text-lime-600 hover:bg-lime-600 hover:text-white transition duration-300">logo</button>>
                       <!-- Render nothing if loggedIn is false -->
+                      <div class="button-container">
+                        <button class="flex items-center justify-center w-10 h-10 rounded-full bg-lime-100 text-lime-600 hover:bg-lime-600 hover:text-white transition duration-300">  
+                          <img class="button_image"src=<%= profilePicture %> alt="Overlay Image">
+                          </button>
+                        </div>
+                      
                   <% } %>
 
                   <% if(!LoggedIn) { %>
@@ -117,8 +123,9 @@
                     <button class="flex items-center text-sm font-normal text-black">Log In</button>
                     <button class="flex items-center px-4 py-2 text-sm font-bold rounded-xl bg-lime-100 text-lime-600 hover:bg-lime-600 hover:text-white transition duration-300">Sign Up</button>
                     <div class="button-container">
-                      <img src=<%= profilePicture %> alt="Overlay Image">
-                      <button class="flex items-center justify-center w-10 h-10 rounded-full bg-lime-100 text-lime-600 hover:bg-lime-600 hover:text-white transition duration-300">logo</button>
+                      <button class="flex items-center justify-center w-10 h-10 rounded-full bg-lime-100 text-lime-600 hover:bg-lime-600 hover:text-white transition duration-300">  
+                        <img class="button_image"src=<%= profilePicture %> alt="Overlay Image">
+                        </button>
                     </div>
                     
 
@@ -165,7 +172,7 @@
 <script>
   // JavaScript to handle the pop-up and settings dropdown
   document.addEventListener('DOMContentLoaded', function() {
-  var logoButton = document.querySelector('.items-center.justify-center.w-10.h-10.rounded-full.bg-lime-100.text-lime-600'); // Targeting the logo button
+  var logoButton = document.querySelector('.flex.items-center.justify-center.w-10.h-10.rounded-full.bg-lime-100.text-lime-600'); // Targeting the logo button
   var dropdown = document.getElementById('dropdown');
 
   // Function to toggle the dropdown visibility

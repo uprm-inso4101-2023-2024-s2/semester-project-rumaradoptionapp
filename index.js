@@ -9,6 +9,7 @@ const app = express();
 const session  = require('express-session')
 const crypto = require('crypto');
 const multer = require('multer');
+const { profile } = require('console');
 const upload = multer({ dest: 'imageProfileUploads/' });
 
 // Body parser middleware
@@ -42,9 +43,9 @@ app.set('view engine', 'ejs');
 app.set('views', path.join(__dirname, 'views'));
 
 // Routes
-app.get('/', (req, res) => {
+app.get('/', async (req, res) => {
     if(req.session.user_id){     
-        profilePicture = usercontroller.getProfilePicture(req);
+        profilePicture = await usercontroller.getProfilePicture(req);
         res.render('Home', { title: 'Express with EJS',LoggedIn: req.session.user_id,profilePicture});
     }else{
         res.render('Home', { title: 'Express with EJS',LoggedIn: req.session.user_id,profilePicture: "Help:D"});
