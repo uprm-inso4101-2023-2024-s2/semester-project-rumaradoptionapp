@@ -9,7 +9,7 @@
             display: flex;
             justify-content: center;
             align-items: center;
-            height: 100vh;
+            height: 110vh;
             background-image: url('https://www.uprm.edu/portales/wp-content/uploads/sites/55/2022/05/Tarzan_7896.png'); /* Specify the path to your image */
             background-size: contain; /* Cover the entire background */
             background-position: cover; /* Center the background image */
@@ -84,6 +84,28 @@
                 <input type="password" name="newPassword" id="newPassword" placeholder="Enter your new password" required>
             </div>
             <button type="submit" class="submit-btn">Change Password</button>
+        </form>
+
+        <hr>
+
+        <h2>Change Email</h2>
+        <form id="changeEmailForm" action="/change-email" method="post">
+            <div class="form-group">
+                <label for="newEmail">New Email:</label>
+                <input type="text" name="newEmail" id="newEmail" placeholder="Enter your new email" required>
+            </div>
+            <button type="submit" class="submit-btn">Change Email</button>
+        </form>
+
+        <hr>
+
+        <h2>Change Profile Picture</h2>
+        <form id="changeProfilePic" action="/change-profile-pic" method="post">
+            <div class="form-group">
+                <label for="newPicture">Change Image:</label>
+                <input type="file" name="newImage" id="newImage" required>
+            </div>
+            <button type="submit" class="submit-btn">Upload Image</button>
         </form>
     </div>
 
