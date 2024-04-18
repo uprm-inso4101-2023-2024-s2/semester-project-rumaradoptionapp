@@ -8,6 +8,8 @@ const adoptionController = require('./backend/controller/AdoptionForm')
 const app = express();
 const session  = require('express-session')
 const crypto = require('crypto');
+const multer = require('multer');
+const upload = multer({ dest: 'imageProfileUploads/' });
 
 // Body parser middleware
 app.use(bodyParser.urlencoded({ extended: false }));
@@ -125,11 +127,13 @@ app.post("/fillForm/:user_id/:id", async (req, res) =>{
 
 })
 
-app.post("/change-profile-pic", async (req, res)=>{
+app.post("/change-profile-pic", upload.single('profile_picture'), async (req, res)=>{
 
-   
+    res.json(await usercontroller.getprofilepicture(req))
+ 
+ })
+ 
 
-})
 
 
 

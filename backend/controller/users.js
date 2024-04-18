@@ -116,6 +116,15 @@ const verifyVerificationCode = async (formData) => {
         return "Failure wrong username";
     }
 }
+const getprofilepicture = async (request) => {
+    const result = dao.getProfilePictureQuery(request);
+    if(result){
+        console.log("We dit it!!!!");
+    }else{
+        console.log("womp womp");
+    }
+
+}
 
 
 module.exports={
@@ -124,5 +133,6 @@ module.exports={
     login,
     getFoster,
     verifyVerificationCode,
-    getFaculty
+    getFaculty,
+    getprofilepicture
 }

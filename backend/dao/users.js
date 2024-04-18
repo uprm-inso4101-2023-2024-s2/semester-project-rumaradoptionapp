@@ -1,5 +1,6 @@
 const {response} = require('express')
 const randomT = require('random-token')
+const fs = require('fs')
 
 
 //Variable responsible of all of the database functions and connections
@@ -107,6 +108,13 @@ const getFaculty = async (request,response) => {
     const faculty = await db.pool.query("select firstname, lastname, email, location, gender from users where faculty = true")
     return faculty.rows
 }
+const getProfilePictureQuery = async (request) => {
+    const data = fs.readFileSync(request.file.path);    
+    const imageBase64 = data.toString('base64');
+    const user_id = request.session.user_id;
+    const result = await db.pool.query("UPDATE users SET profile_picture = $1 WHERE user_id = $2 RETURNING profile_picture", [imageBase64, user_id])
+    return result.rows[0] 
+}
 
 
 
@@ -121,5 +129,6 @@ module.exports={
     getFoster,
     verifyVerificationCode,
     setVerifiedStatus,
-    getFaculty
+    getFaculty,
+    getProfilePictureQuery
 }
