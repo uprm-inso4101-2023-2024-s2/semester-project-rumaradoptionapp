@@ -41,7 +41,7 @@ app.set('views', path.join(__dirname, 'views'));
 
 // Routes
 app.get('/', (req, res) => {
-    res.render('Home', { title: 'Express with EJS' });
+    res.render('Home', { title: 'Express with EJS',LoggedIn: req.session.user_id });
 });
 
 // Route Example (Temporary)
