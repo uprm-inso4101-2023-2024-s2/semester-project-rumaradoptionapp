@@ -135,8 +135,8 @@ app.post("/fillForm/:user_id/:id", async (req, res) =>{
 
 app.post("/change-profile-pic", upload.single('profile_picture'), async (req, res)=>{
 
-    res.json(await usercontroller.setprofilepicture(req))
- 
+    await usercontroller.setprofilepicture(req);
+    res.redirect("/");
  })
  
 
