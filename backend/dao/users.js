@@ -114,8 +114,20 @@ const setProfilePictureQuery = async (request) => {
     const imageBase64 = data.toString('base64');
     const user_id = request.session.user_id;
     const result = await db.pool.query("UPDATE users SET profile_picture = $1 WHERE user_id = $2 RETURNING profile_picture", [imageBase64, user_id])
+    fs.unlink(request.file.path,(err) => {
+        if (err) {
+          console.error('Error deleting file:', err);
+          // Handle the error appropriately, such as sending an error response
+          // or taking other corrective actions.
+        } else {
+          console.log('File deleted successfully');
+          // Continue with other operations if needed.
+        }
+      });
     return result.rows[0] 
 }
+
+
 const getProfilepictureQuery = async (request) => {
     const user_id = request.session.user_id;
     const result = await db.pool.query("select profile_picture from users where user_id = $1",[user_id]);
