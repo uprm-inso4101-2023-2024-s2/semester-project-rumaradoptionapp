@@ -16,7 +16,31 @@ const petRegistration = async (req, res) => {
   }
 };
 
+const getPetById = async (req, res) => {
+  try {
+      const petId = req.params.id;
+      const pet = await petsDao.getPetById(petId);
+      if (pet) {
+        res.render('petProfile', { pet });
+      } else {
+          res.status(404).send('Pet not found');
+      }
+  } catch (error) {
+      res.status(500).json({ error: error.message });
+  }
+};
+
+const getAllPets = async (req, res) => {
+  try {
+      const pets = await petsDao.getAllPets();
+      res.render('petListings', { pets });
+  } catch (error) {
+      res.status(500).json({ error: error.message });
+  }
+};
 
 module.exports = {
-  petRegistration
+  petRegistration,
+  getPetById,
+  getAllPets
 };
