@@ -108,7 +108,44 @@ const getFaculty = async (request,response) => {
     return faculty.rows
 }
 
+const generateTemporaryPassword = async (email) => {
+    try {
+        const temporaryPassword = await randomT(10);
+        await db.pool.query('UPDATE users SET temporary_password = $1 WHERE email = $2', [temporaryPassword, email]);
+        return temporaryPassword;
+    } catch (error) {
+        console.error('Error generating temporary password:', error);
+        throw error;
+    }
+};
 
+const verifyTemporaryPassword = async (email, temporaryPassword) => {
+    try {
+        const result = await db.pool.query('SELECT email, temporary_password FROM users WHERE email = $1', [email]);
+        const storedTemporaryPassword = result.rows[0].temporary_password;
+        if (storedTemporaryPassword == temporaryPassword){
+            return true;
+        }
+        else {
+            return false;
+        }
+    } catch (error) {
+        console.error('Error verifying temporary password:', error);
+        return false;
+    }
+};
+
+const updatePasswordByEmail = async (email, newPassword) => {
+    try {
+        const hashedPassword = await argon2.hash(newPassword);
+        const query = 'UPDATE users SET password = $1 WHERE email = $2';
+        const result = await db.pool.query(query, [hashedPassword, email]);
+        return result.rowCount > 0;
+    } catch (error) {
+        console.error('Error updating password:', error);
+        throw new Error('An error occurred while updating the password');
+    }
+};
 
 module.exports={
     getUsers,
@@ -121,5 +158,8 @@ module.exports={
     getFoster,
     verifyVerificationCode,
     setVerifiedStatus,
-    getFaculty
+    getFaculty,
+    generateTemporaryPassword,
+    verifyTemporaryPassword,
+    updatePasswordByEmail
 }
