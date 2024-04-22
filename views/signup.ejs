@@ -6,7 +6,7 @@
     <title>Signup</title>
     <style>
         body {
-            background-image: url('https://www.uprm.edu/coop/wp-content/uploads/sites/401/2021/11/portico_poster_jf_4x6_copy-1024x683.jpg'); /* Add your image path here */
+            background-image: url('https://www.uprm.edu/coop/wp-content/uploads/sites/401/2021/11/portico_poster_jf_4x6_copy-1024x683.jpg');
             background-size: cover;
             background-position: contain;
             margin: 0;
@@ -48,22 +48,22 @@
             border-radius: 4px;
             border: 1px solid #ccc;
             box-sizing: border-box;
-            background-color: #66bb6a; /* Green color for input boxes */
-            color: white; /* Text color for input boxes */
+            background-color: #66bb6a;
+            color: white;
         }
 
         .submit-btn {
             width: 100%;
             padding: 10px;
-            background-color: white; /* White background color for signup button */
-            color: black; /* Black text color for signup button */
+            background-color: white;
+            color: black;
             border: none;
             border-radius: 4px;
             cursor: pointer;
         }
 
         .submit-btn:hover {
-            background-color: #f0f0f0; /* Light background color on hover */
+            background-color: #f0f0f0;
         }
 
         .form-group.checkbox {
@@ -95,6 +95,32 @@
         select.green-text::placeholder {
             color: white;
         }
+
+        /* Password strength indicator styles */
+        .password-strength {
+            margin-top: 10px;
+            font-size: 14px;
+            font-weight: bold;
+            color: #333;
+        }
+
+        .strength-indicator {
+            height: 5px;
+            margin-top: 5px;
+            border-radius: 2px;
+        }
+
+        .weak {
+            background-color: #ff5252; /* Red for weak */
+        }
+
+        .medium {
+            background-color: #ffa726; /* Orange for medium */
+        }
+
+        .strong {
+            background-color: #66bb6a; /* Green for strong */
+        }
     </style>
 </head>
 <body>
@@ -121,11 +147,11 @@
                 <label for="email">Email:</label>
                 <input type="email" id="email" name="email" placeholder="Enter your email" required class="green-text">
             </div>
-            
             <div class="form-group">
                 <label for="password">Password:</label>
                 <input type="password" id="password" name="password" placeholder="Enter your password" required class="green-text">
-                <div id="password-strength"></div> <!-- Password strength meter -->
+                <div id="password-strength" class="password-strength">Password Strength:</div>
+                <div class="strength-indicator weak"></div>
             </div>
             <div class="form-group">
                 <label for="gender">Gender:</label>
@@ -137,24 +163,22 @@
                 </select>
             </div>
             <div class="form-group checkbox">
-                <label for="foster">Are you fostering a pet?</label>
                 <input type="checkbox" id="foster" name="foster">
+                <label for="foster">Are you fostering a pet?</label>
             </div>
             <button type="submit" class="submit-btn">Signup</button>
         </form>
     </div>
 
     <script>
-
         function displayPopup(message) {
             alert(message);
         }
 
-        function redirect(){
+        function redirect() {
             window.location.href = "/verify";
         }
 
-        // Password strength meter function
         function checkPasswordStrength(password) {
             if (password.length < 6) {
                 return 'Weak';
@@ -165,69 +189,61 @@
             }
         }
 
-        // Handle information from from
         document.getElementById('signupForm').addEventListener('submit', async function(event) {
             event.preventDefault();
 
             const formData = {
-            firstname: document.getElementById('firstname').value,
-            lastname: document.getElementById('lastname').value,
-            location: document.getElementById('location').value,
-            username: document.getElementById('username').value,
-            email: document.getElementById('email').value,
-            password: document.getElementById('password').value,
-            gender: document.getElementById('gender').value,
-            foster: document.getElementById('foster').checked ? 'true' : 'false'
-        };
+                firstname: document.getElementById('firstname').value,
+                lastname: document.getElementById('lastname').value,
+                location: document.getElementById('location').value,
+                username: document.getElementById('username').value,
+                email: document.getElementById('email').value,
+                password: document.getElementById('password').value,
+                gender: document.getElementById('gender').value,
+                foster: document.getElementById('foster').checked ? 'true' : 'false'
+            };
+
             try {
                 const response = await fetch('/signup', {
                     method: 'POST',
                     headers: {
-                          'Content-Type': 'application/json',
+                        'Content-Type': 'application/json',
                     },
                     body: JSON.stringify(formData),
                 });
 
-
                 const data = await response.json();
 
-                if(data != "User created Succesfully, Please Confirm Email"){
-
+                if (data != "User created Succesfully, Please Confirm Email") {
                     displayPopup(data);
 
-                    if(data == "The email already exist"){
+                    if (data == "The email already exist") {
                         document.getElementById('email').value = '';
-                    }
-
-                    else if(data == "The username already exist"){
+                    } else if (data == "The username already exist") {
                         document.getElementById('username').value = '';
-                    }
-
-                    else{
+                    } else {
                         document.getElementById('email').value = '';
                         document.getElementById('username').value = '';
                     }
+                } else {
+                    displayPopup(data);
+                    this.reset();
+                    redirect();
                 }
-                else{
-
-                    displayPopup(data)
-                    this.reset()    //Responsible of reseting all of the text boxes
-                    redirect()
-
-                }
-        
             } catch (error) {
                 console.error('Error:', error);
             }
         });
 
-        // Listen for password input to update strength meter
         document.getElementById('password').addEventListener('input', function() {
             const password = this.value;
             const strength = checkPasswordStrength(password);
-            document.getElementById('password-strength').textContent = 'Password Strength: ' + strength;
-        });
 
+            document.getElementById('password-strength').textContent = 'Password Strength: ' + strength.charAt(0).toUpperCase() + strength.slice(1);
+
+            const indicator = document.querySelector('.strength-indicator');
+            indicator.className = 'strength-indicator ' + strength;
+        });
     </script>
 </body>
 </html>
