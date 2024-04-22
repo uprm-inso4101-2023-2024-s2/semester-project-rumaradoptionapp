@@ -10,14 +10,14 @@
             justify-content: center;
             align-items: center;
             height: 100vh;
-            background-image: url('https://www.uprm.edu/portales/wp-content/uploads/sites/55/2022/05/Tarzan_7896.png');
-            background-size: contain;
-            background-position: cover;
-            background-repeat: no-repeat;
+            background-image: url('https://www.uprm.edu/portales/wp-content/uploads/sites/55/2022/05/Tarzan_7896.png'); /* Specify the path to your image */
+            background-size: contain; /* Cover the entire background */
+            background-position: cover; /* Center the background image */
+            background-repeat: no-repeat; /* Prevent the background image from repeating */
         }
 
         .form-container {
-            width: 300px;
+            width: 300px; /* Adjust the width as needed */
             padding: 20px;
             background-color: white;
             border-radius: 8px;
@@ -32,7 +32,7 @@
         .form-group label {
             display: block;
             margin-bottom: 5px;
-            color: black;
+            color: black; /* Optional: Set the label text color */
         }
 
         .form-group input {
@@ -40,27 +40,27 @@
             padding: 8px;
             border-radius: 4px;
             border: 1px solid #ccc;
-            background-color: #66bb6a;
-            color: white;
-            box-sizing: border-box;
+            background-color: #66bb6a; /* Set the more lively green background color for smaller boxes */
+            color: white; /* Set the text color for smaller boxes */
+            box-sizing: border-box; /* Include padding and border in the element's total width and height */
         }
 
         .form-group input::placeholder {
-            color: white;
+            color: white; /* Set the placeholder text color to white */
         }
 
         .submit-btn {
             width: 100%;
             padding: 10px;
-            background-color: white;
-            color: black;
+            background-color: white; /* Set the background color for the big box */
+            color: black; /* Set the text color for the big box */
             border: none;
             border-radius: 4px;
             cursor: pointer;
         }
 
         .submit-btn:hover {
-            background-color: #ccc;
+            background-color: #ccc; /* Set the button background color on hover */
         }
     </style>
 </head>
@@ -107,14 +107,14 @@
             function updateLoginStatus() {
                 if (localStorage.getItem('isLoggedIn') === 'true') {
                     loginForm.style.display = 'none';
-                    logoutBtn.style.display = 'block';
+                    logoutBtn.style.display = 'block'; // Show the logout button if logged in
                 } else {
                     loginForm.style.display = 'block';
                     logoutBtn.style.display = 'none';
                 }
             }
 
-            updateLoginStatus();
+            updateLoginStatus(); // Update login status on page load
 
             loginForm.addEventListener('submit', async function(event) {
                 event.preventDefault()
@@ -145,8 +145,8 @@
                         alert(data);
                     } else {
                         localStorage.setItem('isLoggedIn', 'true');
-                        updateLoginStatus();
-                        location.reload();
+                        updateLoginStatus(); // Update login status after successful login
+                        location.reload(); // Reload the page to reflect login status change
                     }
                 } catch (error) {
                     console.error('Error:', error);
@@ -155,9 +155,8 @@
 
             logoutBtn.addEventListener('click', function() {
                 localStorage.removeItem('isLoggedIn');
-                localStorage.removeItem('username');
-                localStorage.removeItem('password');
-                window.location.href = "/login";
+                updateLoginStatus(); // Update login status after logout
+                window.location.href = "/logout"; // Redirect to logout endpoint
             });
         });
     </script>
