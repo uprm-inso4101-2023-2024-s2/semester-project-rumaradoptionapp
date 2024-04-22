@@ -108,15 +108,14 @@
 
             if (localStorage.getItem('isLoggedIn') === 'true') {
                 loginForm.style.display = 'none';
-                logoutBtn.style.display = 'block';
+                logoutBtn.style.display = 'block'; // Show the logout button if logged in
             } else {
                 loginForm.style.display = 'block';
                 logoutBtn.style.display = 'none';
             }
 
             loginForm.addEventListener('submit', async function(event) {
-                event.preventDefault();
-
+                event.preventDefault()
                 const username = usernameField.value;
                 const password = passwordField.value;
 
@@ -150,7 +149,6 @@
                     console.error('Error:', error);
                 }
             });
-
             logoutBtn.addEventListener('click', function() {
                 localStorage.removeItem('isLoggedIn');
                 location.reload();
