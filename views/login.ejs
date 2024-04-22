@@ -62,6 +62,8 @@
         .submit-btn:hover {
             background-color: #ccc; /* Set the button background color on hover */
         }
+
+    
     </style>
 </head>
 <body>
@@ -81,7 +83,6 @@
                 <label for="rememberMe">Remember Me</label>
             </div>
             <button type="submit" class="submit-btn">Login</button>
-            <button type="button" class="submit-btn" id="logoutBtn" style="display:none;">Logout</button>
         </form>
         <p>Forgot your password? <a href="/forgotPassword">Forgot Password</a></p>
         <p>Don't have an account? <a href="/signup">Signup</a></p>
@@ -92,9 +93,7 @@
             const usernameField = document.getElementById('username');
             const passwordField = document.getElementById('password');
             const rememberMeCheckbox = document.getElementById('rememberMe');
-            const loginForm = document.getElementById('loginForm');
-            const logoutBtn = document.getElementById('logoutBtn');
-
+            // Load saved login data, if any
             const savedUsername = localStorage.getItem('username');
             const savedPassword = localStorage.getItem('password');
 
@@ -104,20 +103,9 @@
                 rememberMeCheckbox.checked = true;
             }
 
-            function updateLoginStatus() {
-                if (localStorage.getItem('isLoggedIn') === 'true') {
-                    loginForm.style.display = 'none';
-                    logoutBtn.style.display = 'block'; // Show the logout button if logged in
-                } else {
-                    loginForm.style.display = 'block';
-                    logoutBtn.style.display = 'none';
-                }
-            }
+            document.getElementById('loginForm').addEventListener('submit', async function(event) {
+                event.preventDefault();
 
-            updateLoginStatus(); // Update login status on page load
-
-            loginForm.addEventListener('submit', async function(event) {
-                event.preventDefault()
                 const username = usernameField.value;
                 const password = passwordField.value;
 
@@ -129,6 +117,7 @@
                     localStorage.removeItem('password');
                 }
 
+                // Your existing login logic
                 try {
                     const formData = { username, password };
                     const response = await fetch('/login', {
@@ -141,24 +130,33 @@
 
                     const data = await response.json();
 
-                    if (data !== "Success") {
-                        alert(data);
-                    } else {
-                        localStorage.setItem('isLoggedIn', 'true');
-                        updateLoginStatus(); // Update login status after successful login
-                        location.reload(); // Reload the page to reflect login status change
+                    if(data != "Success"){
+                        displayPopup(data);
+                        if(data == "Wrong username or password" || data == "Email not verified"){
+                            document.getElementById('username').value = '';
+                            document.getElementById('password').value = '';
+                        }                    
                     }
+                    else{
+                        displayPopup(data)
+                        this.reset(); // Responsible for resetting all of the text boxes
+                        redirect();
+                    }
+            
                 } catch (error) {
                     console.error('Error:', error);
                 }
             });
-
-            logoutBtn.addEventListener('click', function() {
-                localStorage.removeItem('isLoggedIn');
-                updateLoginStatus(); // Update login status after logout
-                window.location.href = "/logout"; // Redirect to logout endpoint
-            });
         });
+
+        function displayPopup(message) {
+            alert(message);
+        }
+
+        function redirect(){
+            window.location.href = "/";
+        }
     </script>
 </body>
 </html>
+        
