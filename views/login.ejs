@@ -106,13 +106,17 @@
                 rememberMeCheckbox.checked = true;
             }
 
-            if (localStorage.getItem('isLoggedIn') === 'true') {
-                loginForm.style.display = 'none';
-                logoutBtn.style.display = 'block'; // Show the logout button if logged in
-            } else {
-                loginForm.style.display = 'block';
-                logoutBtn.style.display = 'none';
+            function updateLoginStatus() {
+                if (localStorage.getItem('isLoggedIn') === 'true') {
+                    loginForm.style.display = 'none';
+                    logoutBtn.style.display = 'block'; // Show the logout button if logged in
+                } else {
+                    loginForm.style.display = 'block';
+                    logoutBtn.style.display = 'none';
+                }
             }
+
+            updateLoginStatus(); // Update login status on page load
 
             loginForm.addEventListener('submit', async function(event) {
                 event.preventDefault()
@@ -143,15 +147,18 @@
                         alert(data);
                     } else {
                         localStorage.setItem('isLoggedIn', 'true');
-                        location.reload();
+                        updateLoginStatus(); // Update login status after successful login
+                        location.reload(); // Reload the page to reflect login status change
                     }
                 } catch (error) {
                     console.error('Error:', error);
                 }
             });
+
             logoutBtn.addEventListener('click', function() {
                 localStorage.removeItem('isLoggedIn');
-                location.reload();
+                updateLoginStatus(); // Update login status after logout
+                window.location.href = "/logout"; // Redirect to logout endpoint
             });
         });
     </script>
