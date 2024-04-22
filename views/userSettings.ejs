@@ -100,14 +100,17 @@
         <hr>
 
         <h2>Change Profile Picture</h2>
-        <form id="changeProfilePic" action="/change-profile-pic" method="post">
+        <form id="changeProfilePic" action="/change-profile-pic" method="post" enctype="multipart/form-data">
             <div class="form-group">
-                <label for="newPicture">Change Image:</label>
-                <input type="file" name="newImage" id="newImage" required>
+                <label for="profile_picture">Change Image:</label>
+                <input type="file" name="profile_picture" id="profile_picture" required>
             </div>
             <button type="submit" class="submit-btn">Upload Image</button>
         </form>
     </div>
+
+
+
 
 </body>
 </html>

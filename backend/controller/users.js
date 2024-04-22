@@ -117,7 +117,15 @@ const verifyVerificationCode = async (formData) => {
         return "Failure wrong username";
     }
 }
+const setprofilepicture = async (request) => {
+    const result = await dao.setProfilePictureQuery(request);
+    if(result){
+        console.log("We dit it!!!!");
+    }else{
+        console.log("womp womp");
+    }
 
+}
 const sendTemporaryPasswordEmail = async (email, temporaryPassword) => {
     try {
         await sendEmail(email, `Your temporary password is: ${temporaryPassword}. Please use this password to log in and reset your password.`);
@@ -173,6 +181,14 @@ const resetPassword = async (email, newPassword) => {
 
 
 
+const getProfilePicture = async (request) => {
+    const result = await dao.getProfilepictureQuery(request);
+
+    const picture ="data:image/png;base64," + result;
+
+    return picture;
+
+}
 module.exports={
     getAllUsers,
     signup,
@@ -180,6 +196,8 @@ module.exports={
     getFoster,
     verifyVerificationCode,
     getFaculty,
+    setprofilepicture,
+    getProfilePicture,
     sendTemporaryPasswordEmail,
     forgotPassword,
     verifyTemporaryPassword,

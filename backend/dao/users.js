@@ -1,5 +1,6 @@
 const {response} = require('express')
 const randomT = require('random-token')
+const fs = require('fs')
 
 
 //Variable responsible of all of the database functions and connections
@@ -9,6 +10,7 @@ const db = require('../config/pg_config')
 //Variable responsible of the hashing of the password. (argon2 is the hashing algorithm)
 const argon2 = require('argon2')
 const randomToken = require('random-token')
+const { getprofilepicture } = require('../controller/users')
 
 
 
@@ -107,6 +109,30 @@ const getFaculty = async (request,response) => {
     const faculty = await db.pool.query("select firstname, lastname, email, location, gender from users where faculty = true")
     return faculty.rows
 }
+const setProfilePictureQuery = async (request) => {
+    const data = fs.readFileSync(request.file.path);    
+    const imageBase64 = data.toString('base64');
+    const user_id = request.session.user_id;
+    const result = await db.pool.query("UPDATE users SET profile_picture = $1 WHERE user_id = $2 RETURNING profile_picture", [imageBase64, user_id])
+    fs.unlink(request.file.path,(err) => {
+        if (err) {
+          console.error('Error deleting file:', err);
+          // Handle the error appropriately, such as sending an error response
+          // or taking other corrective actions.
+        } else {
+          console.log('File deleted successfully');
+          // Continue with other operations if needed.
+        }
+      });
+    return result.rows[0] 
+}
+
+
+const getProfilepictureQuery = async (request) => {
+    const user_id = request.session.user_id;
+    const result = await db.pool.query("select profile_picture from users where user_id = $1",[user_id]);
+    return result.rows[0].profile_picture
+}
 
 const generateTemporaryPassword = async (email) => {
     try {
@@ -159,6 +185,8 @@ module.exports={
     verifyVerificationCode,
     setVerifiedStatus,
     getFaculty,
+    setProfilePictureQuery,
+    getProfilepictureQuery,
     generateTemporaryPassword,
     verifyTemporaryPassword,
     updatePasswordByEmail

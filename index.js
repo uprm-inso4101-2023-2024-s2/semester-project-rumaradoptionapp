@@ -8,6 +8,9 @@ const adoptionController = require('./backend/controller/AdoptionForm')
 const app = express();
 const session  = require('express-session')
 const crypto = require('crypto');
+const multer = require('multer');
+const { profile } = require('console');
+const upload = multer({ dest: 'imageProfileUploads/' });
 const { generateTemporaryPassword } = require('./backend/dao/users');
 const dao = require('./backend/dao/users');
 
@@ -42,8 +45,13 @@ app.set('view engine', 'ejs');
 app.set('views', path.join(__dirname, 'views'));
 
 // Routes
-app.get('/', (req, res) => {
-    res.render('Home', { title: 'Express with EJS' });
+app.get('/', async (req, res) => {
+    if(req.session.user_id){     
+        profilePicture = await usercontroller.getProfilePicture(req);
+        res.render('Home', { title: 'Express with EJS',LoggedIn: req.session.user_id,profilePicture});
+    }else{
+        res.render('Home', { title: 'Express with EJS',LoggedIn: req.session.user_id,profilePicture: "Help:D"});
+    }
 });
 
 // Route Example (Temporary)
@@ -184,6 +192,14 @@ app.post("/fillForm/:user_id/:id", async (req, res) =>{
     res.json(await adoptionController.FillForm(req.body,req.params))
 
 })
+
+app.post("/change-profile-pic", upload.single('profile_picture'), async (req, res)=>{
+
+    await usercontroller.setprofilepicture(req);
+    res.redirect("/");
+ })
+ 
+
 
 
 
