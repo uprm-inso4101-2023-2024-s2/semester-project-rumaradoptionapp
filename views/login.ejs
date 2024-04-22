@@ -83,6 +83,7 @@
                 <label for="rememberMe">Remember Me</label>
             </div>
             <button type="submit" class="submit-btn">Login</button>
+            <button type="button" class="submit-btn" id="logoutBtn" style="display:none;">Logout</button>
         </form>
         <p>Forgot your password? <a href="/forgotPassword">Forgot Password</a></p>
         <p>Don't have an account? <a href="/signup">Signup</a></p>
@@ -93,7 +94,9 @@
             const usernameField = document.getElementById('username');
             const passwordField = document.getElementById('password');
             const rememberMeCheckbox = document.getElementById('rememberMe');
-            // Load saved login data, if any
+            const loginForm = document.getElementById('loginForm');
+            const logoutBtn = document.getElementById('logoutBtn');
+
             const savedUsername = localStorage.getItem('username');
             const savedPassword = localStorage.getItem('password');
 
@@ -103,7 +106,15 @@
                 rememberMeCheckbox.checked = true;
             }
 
-            document.getElementById('loginForm').addEventListener('submit', async function(event) {
+            if (localStorage.getItem('isLoggedIn') === 'true') {
+                loginForm.style.display = 'none';
+                logoutBtn.style.display = 'block';
+            } else {
+                loginForm.style.display = 'block';
+                logoutBtn.style.display = 'none';
+            }
+
+            loginForm.addEventListener('submit', async function(event) {
                 event.preventDefault();
 
                 const username = usernameField.value;
@@ -117,7 +128,6 @@
                     localStorage.removeItem('password');
                 }
 
-                // Your existing login logic
                 try {
                     const formData = { username, password };
                     const response = await fetch('/login', {
@@ -130,33 +140,22 @@
 
                     const data = await response.json();
 
-                    if(data != "Success"){
-                        displayPopup(data);
-                        if(data == "Wrong username or password" || data == "Email not verified"){
-                            document.getElementById('username').value = '';
-                            document.getElementById('password').value = '';
-                        }                    
+                    if (data !== "Success") {
+                        alert(data);
+                    } else {
+                        localStorage.setItem('isLoggedIn', 'true');
+                        location.reload();
                     }
-                    else{
-                        displayPopup(data)
-                        this.reset(); // Responsible for resetting all of the text boxes
-                        redirect();
-                    }
-            
                 } catch (error) {
                     console.error('Error:', error);
                 }
             });
+
+            logoutBtn.addEventListener('click', function() {
+                localStorage.removeItem('isLoggedIn');
+                location.reload();
+            });
         });
-
-        function displayPopup(message) {
-            alert(message);
-        }
-
-        function redirect(){
-            window.location.href = "/";
-        }
     </script>
 </body>
 </html>
-        
