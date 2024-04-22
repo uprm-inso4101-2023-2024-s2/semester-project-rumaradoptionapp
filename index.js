@@ -1,29 +1,30 @@
 const express = require('express');
 const bodyParser = require('body-parser');
 const path = require('path');
-const cors = require('cors');
-const session = require('express-session');
+const cors = require('cors')
+const usercontroller = require('./backend/controller/users')
+const petsController = require('./backend/controller/petsController');
+const adoptionController = require('./backend/controller/AdoptionForm')
+const app = express();
+const session  = require('express-session')
 const crypto = require('crypto');
 const multer = require('multer');
-const usercontroller = require('./backend/controller/users');
-const petsController = require('./backend/controller/petsController');
-const adoptionController = require('./backend/controller/AdoptionForm');
-
-const app = express();
+const { profile } = require('console');
+const upload = multer({ dest: 'imageProfileUploads/' });
+const { generateTemporaryPassword } = require('./backend/dao/users');
+const dao = require('./backend/dao/users');
 
 // Body parser middleware
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
-app.use(cors());
+app.use(cors())
 
-// Session middleware
-app.use(
-  session({
+app.use(session({
     secret: crypto.randomBytes(32).toString('hex'), // Secret key used to sign the session ID cookie
     resave: false,
     saveUninitialized: false
-  })
-);
+}));
+
 
 const Authentication = async (request, response, next) => {
   if (request.session.user_id) {
@@ -111,6 +112,18 @@ app.get("/fillForm/:user_id/:id", async (req, res) => {
   res.render("AdoptionForm.ejs", { title: "Pet Adoption Form" });
 });
 
+// Logout route
+app.get('/logout', (req, res) => {
+    req.session.destroy((err) => {
+      if (err) {
+        console.error('Error destroying session:', err);
+      } else {
+        res.redirect('/');
+      }
+    });
+  });
+  
+
 app.post('/signup', async (request, response) => {
   response.json(await usercontroller.signup(request.body));
 });
@@ -178,16 +191,6 @@ app.post("/change-profile-pic", upload.single('profile_picture'), async (req, re
   res.redirect("/");
 });
 
-// Logout route
-app.get('/logout', (req, res) => {
-  req.session.destroy((err) => {
-    if (err) {
-      console.error('Error destroying session:', err);
-    } else {
-      res.redirect('/');
-    }
-  });
-});
 
 // Start server
 const PORT = process.env.PORT || 3000;
