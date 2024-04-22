@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pet Profile - <%= pet.name %></title>
+    <style>
+        body {
+            font-family: 'Poppins', sans-serif;
+            margin: 0;
+            padding: 0;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+            color: #333;
+        }
+
+        .section-header {
+            text-align: center;
+            margin-bottom: 40px;
+        }
+
+        .section-header h2 {
+            font-size: 2rem;
+            font-weight: bold;
+            color: #333;
+        }
+
+        .section-header p {
+            font-size: 1.2rem;
+            color: #666;
+        }
+
+        #pet-details {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            text-align: center;
+        }
+
+        .pet-image {
+            max-width: 1000px;
+            max-height: 800px;
+            width: auto;
+            height: auto;
+            margin-bottom: 20px; /* Added some margin for spacing */
+        }
+
+        .pet-name {
+            font-size: 2.5rem;
+            margin-bottom: 10px; /* Added some margin for spacing */
+        }
+
+        a {
+            text-decoration: none;
+            color: inherit;
+        }
+
+        a:hover {
+            color: #45a049;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="section-header">
+            <h2>Pet Profile</h2>
+            <p>Meet <%= pet.name %>, ready for a loving home.</p>
+        </div>
+        <div id="pet-details">
+            <img class="pet-image" src="<%= pet.image_url || 'default-image-url.jpg' %>" alt="Image of <%= pet.name %>">
+            <h2 class="pet-name"><%= pet.name %></h2>
+            <p>Age: <%= pet.age %></p>
+            <p>Breed: <%= pet.species %></p>
+            <p>Size: <%= pet.size %></p>
+            <p>Weight: <%= pet.weight %> kg</p>
+            <p>Personality: <%= pet.personality %></p>
+            <p>Sex: <%= pet.sex %></p>
+            <!-- Add more pet details as needed -->
+        </div>
+    </div>
+</body>
+</html>

@@ -141,87 +141,18 @@
             <h2>Pet Listings</h2>
             <p>Browse through our available pets ready for adoption.</p>
         </div>
-        <div class="filter-tabs">
-            <button class="tab active" data-type="all">All Pets</button>
-            <button class="tab" data-type="dog">Dogs</button>
-            <button class="tab" data-type="cat">Cats</button>
-        </div>
-        <div class="filter-dropdown">
-            <label for="size-filter">Filter by Size:</label>
-            <select id="size-filter">
-                <option value="all">All Sizes</option>
-                <option value="small">Small</option>
-                <option value="medium">Medium</option>
-                <option value="large">Large</option>
-            </select>
-            </div>
-        </div>
         <div class="pet-listing">
-            <div class="pet-card" data-size="small" data-age="2" data-type="cat">
-                <div class="pet-image">
-                    <img src="https://med.stanford.edu/content/dam/sm-news/images/2021/09/cat_by-Kateryna-T-Unsplash.jpg" alt="Pet Image">
+            <% pets.forEach(pet => { %>
+                <div class="pet-card" data-size="<%= pet.size %>" data-age="<%= pet.age %>" data-type="<%= pet.species %>">
+                    <div class="pet-image">
+                        <img src="<%= pet.image_url || 'default-image-url.jpg' %>" alt="Pet Image">
+                    </div>
+                    <div class="pet-name"><%= pet.name %></div>
+                    <div class="pet-details">Age: <%= pet.age %> | Breed: <%= pet.species %></div>
+                    <a href="/petProfile/<%= pet.id %>" class="view-details-btn">View Details</a>
                 </div>
-                <div class="pet-name">Misty</div>
-                <div class="pet-details">Age: 2 | Breed: Grey</div>
-                <button class="view-details-btn" data-pet-name="Misty">View Details</button>
-            </div>
-            
-            <div class="pet-card" data-size="small" data-type="dog">
-                <div class="pet-image">
-                    <img src="https://www.princeton.edu/sites/default/files/styles/1x_full_2x_half_crop/public/images/2022/02/KOA_Nassau_2697x1517.jpg?itok=Bg2K7j7J" alt="Pet Image">
-                </div>
-                <div class="pet-name">Ares</div>
-                <div class="pet-details">Age: 1 month | Breed: Golden Retriever</div>
-                <button class="view-details-btn">View Details</button>
-            </div>
-            <div class="pet-card" data-size="small" data-age="2" data-type="dog">
-                <div class="pet-image">
-                    <img src="https://www.pitpat.com/wp-content/uploads/2020/07/Dog_-rights_MS_outdoors_stationary_sitting-on-path-in-woods_golden-retriever_meganwilliams-1024x683.jpg" alt="Pet Image">
-                </div>
-                <div class="pet-name">Maximus</div>
-                <div class="pet-details">Age: 1 | Breed: Golden Retriever</div>
-                <button class="view-details-btn" data-pet-name="Ares" data-image-url="https://www.princeton.edu/sites/default/files/styles/1x_full_2x_half_crop/public/images/2022/02/KOA_Nassau_2697x1517.jpg?itok=Bg2K7j7J">View Details</button>
-            </div>
-            <div class="pet-card" data-size="small" data-age="2" data-type="dog">
-                <div class="pet-image">
-                    <img src="https://hips.hearstapps.com/hmg-prod/images/small-dog-breeds-659dd5cce053b.jpeg?crop=0.669xw:1.00xh;0.166xw,0&resize=640:*" alt="Pet Image">
-                </div>
-                <div class="pet-name">Zara</div>
-                <div class="pet-details">Age: 5 | Breed: Yorkshire Terrier</div>
-                <button class="view-details-btn">View Details</button>
-            </div>
+            <% }); %>
         </div>
     </div>
-    <script>
-        document.addEventListener("DOMContentLoaded", function() {
-            const sizeFilter = document.getElementById("size-filter");
-            const petCards = document.querySelectorAll(".pet-card");
-            const tabs = document.querySelectorAll(".tab");
-    
-            sizeFilter.addEventListener("change", filterPets);
-            tabs.forEach(tab => tab.addEventListener("click", function() {
-                tabs.forEach(t => t.classList.remove('active'));
-                this.classList.add('active');
-                filterPets();
-            }));
-    
-            function filterPets() {
-                const selectedSize = sizeFilter.value;
-                const selectedType = document.querySelector(".tab.active").getAttribute("data-type");
-    
-                petCards.forEach(card => {
-                    const petSize = card.getAttribute("data-size");
-                    const petType = card.getAttribute("data-type");
-    
-                    if ((selectedSize === "all" || petSize === selectedSize) &&
-                        (selectedType === "all" || petType === selectedType || selectedType === "all")) {
-                        card.style.display = "block";
-                    } else {
-                        card.style.display = "none";
-                    }
-                });
-            }
-        });
-    </script>
 </body>
 </html>

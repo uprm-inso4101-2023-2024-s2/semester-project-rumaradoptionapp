@@ -12,6 +12,34 @@ const addPet = async (pet) => {
   return data;
 };
 
+const getPetById = async (id) => {
+  const { data, error } = await supabase
+      .from('pets')
+      .select('*')
+      .eq('id', id)
+      .single();
+
+  if (error) {
+      throw error;
+  }
+
+  return data;
+};
+
+const getAllPets = async () => {
+  const { data, error } = await supabase
+      .from('pets')
+      .select('*');
+
+  if (error) {
+      throw error;
+  }
+
+  return data;
+};
+
 module.exports = {
-  addPet
+  addPet,
+  getPetById,
+  getAllPets
 };

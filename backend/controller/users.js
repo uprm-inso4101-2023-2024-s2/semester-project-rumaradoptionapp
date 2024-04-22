@@ -1,5 +1,6 @@
 const dao = require('../dao/users')
 const argon2 = require('argon2')
+const { generateTemporaryPassword } = require('../dao/users');
 const { sendEmail } = require('../../sendEmail'); // Import the sendEmail function
 
 // Function responsible of obtaining all of the users in databse. Currently used as an example.
@@ -125,6 +126,60 @@ const setprofilepicture = async (request) => {
     }
 
 }
+const sendTemporaryPasswordEmail = async (email, temporaryPassword) => {
+    try {
+        await sendEmail(email, `Your temporary password is: ${temporaryPassword}. Please use this password to log in and reset your password.`);
+    } catch (error) {
+        console.error('Error sending password reset email:', error);
+        throw error;
+    }
+};
+
+const verifyTemporaryPassword = async (email, temporaryPassword) => {
+    try {
+        const result = await dao.verifyTemporaryPassword(email, temporaryPassword);
+        return result;
+    } catch (error) {
+        console.error('Error verifying temporary password:', error);
+        return false;
+    }
+};
+
+const forgotPassword = async (email) => {
+    try {
+        // Generate a temporary password
+        const temporaryPassword = await generateTemporaryPassword(email);
+
+        // Send the temporary password to the user's email
+        await sendTemporaryPasswordEmail(email, temporaryPassword);
+
+        return "Password reset email sent successfully.";
+    } catch (error) {
+        console.error('Error initiating password reset:', error);
+        throw error;
+    }
+};
+
+const resetPassword = async (email, newPassword) => {
+    try {
+        // Call your data access layer function to update the password
+        const result = await dao.updatePasswordByEmail(email, newPassword);
+
+        // Check if the password update was successful
+        if (result) {
+            return "Reset Password Success";
+        } else {
+            return "Error resetting password. Please try again."; // Return an error message if the update failed
+        }
+    } catch (error) {
+        console.error('Error resetting password:', error);
+        throw new Error('An error occurred while resetting the password');
+    }
+};
+
+
+
+
 
 const getProfilePicture = async (request) => {
     const result = await dao.getProfilepictureQuery(request);
@@ -142,5 +197,9 @@ module.exports={
     verifyVerificationCode,
     getFaculty,
     setprofilepicture,
-    getProfilePicture
+    getProfilePicture,
+    sendTemporaryPasswordEmail,
+    forgotPassword,
+    verifyTemporaryPassword,
+    resetPassword
 }

@@ -11,6 +11,8 @@ const crypto = require('crypto');
 const multer = require('multer');
 const { profile } = require('console');
 const upload = multer({ dest: 'imageProfileUploads/' });
+const { generateTemporaryPassword } = require('./backend/dao/users');
+const dao = require('./backend/dao/users');
 
 // Body parser middleware
 app.use(bodyParser.urlencoded({ extended: false }));
@@ -79,6 +81,18 @@ app.get("/verify", (req, res) => {
     res.render("verificationCode.ejs", {title: 'Verify'});
 });
 
+app.get("/forgotPassword", (req, res) => {
+    res.render("forgotPassword.ejs", { title: 'Forgot Password' });
+});
+
+app.get("/verifyTemporaryPassword", (req, res) => {
+    res.render("verifyTemporaryPassword.ejs", { title: 'Verify Temporary Password' });
+});
+
+app.get("/resetPassword", (req, res) => {
+    res.render("resetPassword.ejs", { title: 'Reset Password' });
+});
+
 app.get("/petRegistration", (req, res) => {
     res.render("petRegistration.ejs", {title: 'Pet Registration'});
 });
@@ -87,9 +101,13 @@ app.get("/postPetRegistration", (req, res) => {
     res.render("postPetRegistration.ejs", {title: 'Post Pet Registration'});
 });
 
-app.get('/petListings', (req, res) => {
-    res.render("petListings.ejs", {title: 'Pet Listings'});
-});
+// app.get('/petListings', (req, res) => {
+//     res.render("petListings.ejs", {title: 'Pet Listings'});
+// });
+
+app.get('/petListings', petsController.getAllPets);
+
+app.get('/petProfile/:id', petsController.getPetById);
 
 app.get("/foster", async (req, res) => {
     const fosterMembers = await usercontroller.getFoster();
@@ -124,6 +142,48 @@ app.post('/verify', async (request, response) =>{
     response.json(await usercontroller.verifyVerificationCode(request.body))
 })
 
+app.post("/forgotPassword", async (req, res) => {
+    try {
+        const { email } = req.body;
+        const userExists = await dao.checkEmail(req.body);
+        if (userExists) {
+            const temporaryPassword = await generateTemporaryPassword(email);
+            await usercontroller.sendTemporaryPasswordEmail(email, temporaryPassword);
+            res.json("Email sent successfully");
+        }
+    } catch (error) {
+        console.error('Error initiating password reset:', error);
+    }
+});
+
+app.post("/verifyTemporaryPassword", async (req, res) => {
+    try {
+        const { email, temporary_password } = req.body;
+
+        const isTemporaryPasswordValid = await usercontroller.verifyTemporaryPassword(email, temporary_password);
+        if (isTemporaryPasswordValid) {
+            res.json("Verification successful");
+        } else {
+            res.status(400).json('Invalid temporary password. Please try again.' );
+        }
+    } catch (error) {
+        console.error('Error verifying temporary password:', error);
+    }
+});
+
+app.post("/resetPassword", async (req, res) => {
+    try {
+        const { email, newPassword } = req.body;
+        const result = await usercontroller.resetPassword(email, newPassword);
+        if (result === "Reset Password Success") {
+            res.json("Reset Password Success");
+        } else {
+            res.status(400).json(result); // Return error message if reset password fails
+        }
+    } catch (error) {
+        console.error('Error resetting password:', error);
+    }
+});
 
 
 app.post("/fillForm/:user_id/:id", async (req, res) =>{
