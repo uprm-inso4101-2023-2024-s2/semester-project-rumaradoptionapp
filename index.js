@@ -44,9 +44,9 @@ app.set('views', path.join(__dirname, 'views'));
 app.get('/', async (req, res) => {
   if (req.session.user_id) {
     profilePicture = await usercontroller.getProfilePicture(req);
-    res.render('Home', { title: 'Express with EJS', LoggedIn: req.session.user_id, profilePicture });
+    res.render('Home', { title: 'Express with EJS', LoggedIn: req.session.user_id, isFoster: req.session.foster, isAdmin: req.session.faculty, profilePicture });
   } else {
-    res.render('Home', { title: 'Express with EJS', LoggedIn: req.session.user_id, profilePicture: "Help:D" });
+    res.render('Home', { title: 'Express with EJS', LoggedIn: req.session.user_id, isFoster: req.session.foster, isAdmin: req.session.faculty, profilePicture: "Help:D" });
   }
 });
 
@@ -70,6 +70,11 @@ app.get("/faculty", async (req, res) => {
   const facultyMembers = await usercontroller.getFaculty();
   res.render("Faculty.ejs", { facultyMembers });
 });
+
+app.get("/admin", async (req, res) => {
+    const people = await usercontroller.getUsers();
+    res.render("Admin.ejs", { people });
+})
 
 app.get("/verify", (req, res) => {
   res.render("verificationCode.ejs", { title: 'Verify' });
@@ -131,6 +136,10 @@ app.post('/signup', async (request, response) => {
 app.post('/login', async (request, response) => {
   response.json(await usercontroller.login(request));
 });
+
+app.post("/updateFacultyStatus", async (req, res) => {
+    res.json(await usercontroller.updateFaculty(req.body));
+})
 
 app.post('/petRegistration', petsController.petRegistration);
 

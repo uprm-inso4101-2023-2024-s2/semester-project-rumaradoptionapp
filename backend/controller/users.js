@@ -22,6 +22,11 @@ const getFaculty = async () => {
     return faculty
 };
 
+const getUsers = async () => {
+    users = await dao.getUserInfo()
+    return users
+}
+
 // Function responsible of calling the query that will add users to the database and it will also manage the result
 const signup = async (credentials) => {
 
@@ -81,6 +86,8 @@ const login = async (request) =>{
             
             else{
                 request.session.user_id = result.user_id
+                request.session.faculty = result.faculty
+                request.session.foster = result.foster
                 return ("Success")
 
             }
@@ -177,6 +184,12 @@ const resetPassword = async (email, newPassword) => {
     }
 };
 
+const updateFaculty = async (request) => {
+    for (let i=0; i < request.length; i++) {
+        await dao.updateFacultyStatus(request[i]);
+    }
+}
+
 
 
 
@@ -195,6 +208,9 @@ module.exports={
     login,
     getFoster,
     verifyVerificationCode,
+    getUsers,
+    getFaculty,
+    updateFaculty,
     getFaculty,
     setprofilepicture,
     getProfilePicture,

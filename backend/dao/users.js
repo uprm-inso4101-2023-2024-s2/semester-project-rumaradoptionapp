@@ -22,6 +22,11 @@ const getUsers = async (request,response) => {
     return result.rows
 }
 
+const getUserInfo = async (request, response) => {
+    const result = await db.pool.query("select firstname, lastname, username, email, faculty, location from users")
+    return result.rows
+}
+
 //Query responsible of adding new users to our database. (Query used during signup)
 const addNewUser = async (request,response) =>{
 
@@ -46,7 +51,7 @@ const addNewUser = async (request,response) =>{
 const login = async(request, response) =>{
     
     const username = request.username
-    const result = await db.pool.query('select password,user_id from users where username = $1', [username])
+    const result = await db.pool.query('select password,user_id,foster,faculty from users where username = $1', [username])
     
     return result.rows[0]
 }
@@ -127,6 +132,11 @@ const setProfilePictureQuery = async (request) => {
     return result.rows[0] 
 }
 
+const updateFacultyStatus = async (request) => {
+    const username = request.username;
+    const faculty = request.faculty;
+    const checked = await db.pool.query("UPDATE users SET faculty = $1 WHERE username = $2", [faculty, username]);
+}
 
 const getProfilepictureQuery = async (request) => {
     const user_id = request.session.user_id;
@@ -184,6 +194,9 @@ module.exports={
     getFoster,
     verifyVerificationCode,
     setVerifiedStatus,
+    getUserInfo,
+    getFaculty,
+    updateFacultyStatus,
     getFaculty,
     setProfilePictureQuery,
     getProfilepictureQuery,
