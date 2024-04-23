@@ -104,10 +104,17 @@
             color: #333;
         }
 
-        .strength-indicator {
-            height: 5px;
+        .strength-indicator-container {
+            width: 100%;
+            height: 10px;
+            background-color: #f0f0f0;
+            border-radius: 4px;
             margin-top: 5px;
-            border-radius: 2px;
+        }
+
+        .strength-indicator {
+            height: 100%;
+            border-radius: 4px;
         }
 
         .weak {
@@ -151,7 +158,9 @@
                 <label for="password">Password:</label>
                 <input type="password" id="password" name="password" placeholder="Enter your password" required class="green-text">
                 <div id="password-strength" class="password-strength">Password Strength:</div>
-                <div class="strength-indicator weak"></div>
+                <div class="strength-indicator-container">
+                    <div class="strength-indicator weak"></div>
+                </div>
             </div>
             <div class="form-group">
                 <label for="gender">Gender:</label>
