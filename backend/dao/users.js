@@ -51,7 +51,7 @@ const addNewUser = async (request,response) =>{
 const login = async(request, response) =>{
     
     const username = request.username
-    const result = await db.pool.query('select password,user_id from users where username = $1', [username])
+    const result = await db.pool.query('select password,user_id,foster,faculty from users where username = $1', [username])
     
     return result.rows[0]
 }
@@ -133,7 +133,6 @@ const setProfilePictureQuery = async (request) => {
 }
 
 const updateFacultyStatus = async (request) => {
-    console.log(request);
     const username = request.username;
     const faculty = request.faculty;
     const checked = await db.pool.query("UPDATE users SET faculty = $1 WHERE username = $2", [faculty, username]);

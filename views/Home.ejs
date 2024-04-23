@@ -87,8 +87,12 @@
                     <a class="text-sm font-normal text-lime-700 hover:text-lime-200" href="/petListings">Pet Listing</a>
                     <% if (LoggedIn) { %>
                       <!-- Render the button if loggedIn is true -->
-                      <a class="text-sm font-normal text-lime-700 hover:text-lime-200" href="/petRegistration">Pet Registration</a></button>
-                      <a class="text-sm font-normal text-lime-700 hover:text-lime-200" href="/admin">Manage Users</a></button>
+                      <% if (isAdmin ||  isFoster) { %>
+                        <a class="text-sm font-normal text-lime-700 hover:text-lime-200" href="/petRegistration">Pet Registration</a></button>
+                      <% } %>
+                      <% if (isAdmin) { %>
+                        <a class="text-sm font-normal text-lime-700 hover:text-lime-200" href="/admin">Manage Users</a></button>
+                      <% } %>
                   <% } %>
                     <!-- <a class="text-sm font-normal text-lime-700 hover:text-lime-200" href="/petRegistration">Pet Registration</a></button> -->
                 </div>

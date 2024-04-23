@@ -44,9 +44,9 @@ app.set('views', path.join(__dirname, 'views'));
 app.get('/', async (req, res) => {
   if (req.session.user_id) {
     profilePicture = await usercontroller.getProfilePicture(req);
-    res.render('Home', { title: 'Express with EJS', LoggedIn: req.session.user_id, profilePicture });
+    res.render('Home', { title: 'Express with EJS', LoggedIn: req.session.user_id, isFoster: req.session.foster, isAdmin: req.session.faculty, profilePicture });
   } else {
-    res.render('Home', { title: 'Express with EJS', LoggedIn: req.session.user_id, profilePicture: "Help:D" });
+    res.render('Home', { title: 'Express with EJS', LoggedIn: req.session.user_id, isFoster: req.session.foster, isAdmin: req.session.faculty, profilePicture: "Help:D" });
   }
 });
 

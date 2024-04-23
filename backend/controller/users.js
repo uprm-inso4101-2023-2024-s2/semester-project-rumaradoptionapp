@@ -86,6 +86,8 @@ const login = async (request) =>{
             
             else{
                 request.session.user_id = result.user_id
+                request.session.faculty = result.faculty
+                request.session.foster = result.foster
                 return ("Success")
 
             }
