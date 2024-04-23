@@ -104,10 +104,15 @@
                       <!-- <button class="flex items-center justify-center w-10 h-10 rounded-full bg-lime-100 text-lime-600 hover:bg-lime-600 hover:text-white transition duration-300">logo</button>>
                       <!-- Render nothing if loggedIn is false -->
                       <div class="button-container">
-                        <button class="flex items-center justify-center w-10 h-10 rounded-full bg-lime-100 text-lime-600 hover:bg-lime-600 hover:text-white transition duration-300">  
-                          <img class="button_image"src=<%= profilePicture %> alt="Overlay Image">
-                          </button>
-                        </div>
+                        <button class="flex items-center justify-center w-10 h-10 rounded-full bg-lime-100 text-lime-600 hover:bg-lime-600 hover:text-white transition duration-300">
+                          <% if (profilePicture == "data:image/png;base64,null") { %>
+                            <span class="button_image"><%= Letter %></span>
+
+                          <% } else { %>
+                            <img class="button_image" src="<%= profilePicture %>" alt="<%= Letter %>">
+                          <% } %>
+                        </button>
+                      </div>
                       
                   <% } %>
 
@@ -135,9 +140,14 @@
                     <button class="flex items-center text-sm font-normal text-black">Log In</button>
                     <button class="flex items-center px-4 py-2 text-sm font-bold rounded-xl bg-lime-100 text-lime-600 hover:bg-lime-600 hover:text-white transition duration-300">Sign Up</button>
                     <div class="button-container">
-                      <button class="flex items-center justify-center w-10 h-10 rounded-full bg-lime-100 text-lime-600 hover:bg-lime-600 hover:text-white transition duration-300">  
-                        <img class="button_image"src=<%= profilePicture %> alt="Overlay Image">
-                        </button>
+                      <button class="flex items-center justify-center w-10 h-10 rounded-full bg-lime-100 text-lime-600 hover:bg-lime-600 hover:text-white transition duration-300">
+                        <% if (profilePicture == "data:image/png;base64,null") { %>
+                          <span class="button_image"><%= Letter %></span>
+
+                        <% } else { %>
+                          <img class="button_image" src="<%= profilePicture %>" alt="<%= Letter %>">
+                        <% } %>
+                      </button>
                     </div>
                     
 

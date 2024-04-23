@@ -88,6 +88,7 @@ const login = async (request) =>{
                 request.session.user_id = result.user_id
                 request.session.faculty = result.faculty
                 request.session.foster = result.foster
+                request.session.usernameFirstLetter = request.body.username[0].toUpperCase();
                 return ("Success")
 
             }
