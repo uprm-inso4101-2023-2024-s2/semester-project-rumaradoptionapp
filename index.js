@@ -43,6 +43,11 @@ app.get("/faculty", async (req, res) => {
     res.render("Faculty.ejs", { facultyMembers });
 })
 
+app.get("/admin", async (req, res) => {
+    const people = await usercontroller.getUsers();
+    res.render("Admin.ejs", { people });
+})
+
 app.get("/verify", (req, res) => {
     res.render("verificationCode.ejs", {title: 'Verify'});
 });
@@ -66,6 +71,14 @@ app.post('/login', async (request, response) =>{
 
     response.json(await usercontroller.login(request.body))
 
+})
+
+app.post("/admin", async (req, res) => {
+    const usersToUpdate = req.body;
+    
+    for (const { username, isFaculty } of usersToUpdate) {
+        await usercontroller.updateFaculty(username, isFaculty);
+    }
 })
 
 app.post('/petRegistration', petsController.petRegistration);

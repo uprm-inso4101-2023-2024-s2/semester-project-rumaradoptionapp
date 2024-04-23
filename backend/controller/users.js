@@ -21,6 +21,11 @@ const getFaculty = async () => {
     return faculty
 };
 
+const getUsers = async () => {
+    users = await dao.getUserInfo()
+    return users
+}
+
 // Function responsible of calling the query that will add users to the database and it will also manage the result
 const signup = async (credentials) => {
 
@@ -117,6 +122,12 @@ const verifyVerificationCode = async (formData) => {
     }
 }
 
+const updateFaculty = async (username, isFaculty) => {
+
+    placeholder = await dao.updateFacultyStatus(username, isFaculty);
+    return placeholder;
+}
+
 
 module.exports={
     getAllUsers,
@@ -124,5 +135,7 @@ module.exports={
     login,
     getFoster,
     verifyVerificationCode,
-    getFaculty
+    getUsers,
+    getFaculty,
+    updateFaculty
 }

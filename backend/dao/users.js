@@ -20,6 +20,12 @@ const getUsers = async (request,response) => {
     return result.rows
 }
 
+const getUserInfo = async (request, response) => {
+    const result = await db.pool.query("select * from users")
+
+    return result.rows
+}
+
 //Query responsible of adding new users to our database. (Query used during signup)
 const addNewUser = async (request,response) =>{
 
@@ -108,7 +114,9 @@ const getFaculty = async (request,response) => {
     return faculty.rows
 }
 
-
+const updateFacultyStatus = async (userId, isFaculty) => {
+    const checked = await db.pool.query("UPDATE users SET faculty = $1 WHERE username = $2", [isFaculty, username]);
+};
 
 module.exports={
     getUsers,
@@ -121,5 +129,7 @@ module.exports={
     getFoster,
     verifyVerificationCode,
     setVerifiedStatus,
-    getFaculty
+    getUserInfo,
+    getFaculty,
+    updateFacultyStatus,
 }
