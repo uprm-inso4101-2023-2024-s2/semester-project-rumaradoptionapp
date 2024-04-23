@@ -271,11 +271,11 @@
             // Calculate width based on password strength
             let width = 0;
             if (strength === 'Weak') {
-                width = 30; // Adjust as needed
-            } else if (strength === 'Medium') {
                 width = 50; // Adjust as needed
+            } else if (strength === 'Medium') {
+                width = 70; // Adjust as needed
             } else {
-                width = 80; // Adjust as needed
+                width = 100; // Adjust as needed
             }
             indicator.style.width = width + '%';
         });
