@@ -255,14 +255,23 @@
             const indicator = document.getElementById('passwordStrengthIndicator');
             indicator.className = 'strength-indicator ' + strength;
 
+            // Set colors based on password strength
+            if (strength === 'Weak') {
+                indicator.style.backgroundColor = '#ff5252'; // Red for weak
+            } else if (strength === 'Medium') {
+                indicator.style.backgroundColor = '#ffa726'; // Orange for medium
+            } else {
+                indicator.style.backgroundColor = '#66bb6a'; // Green for strong
+            }
+
             // Calculate width based on password strength
             let width = 0;
             if (strength === 'Weak') {
-                width = 30; // Adjust as needed
+                width = 10; // Adjust as needed
             } else if (strength === 'Medium') {
-                width = 60; // Adjust as needed
+                width = 30; // Adjust as needed
             } else {
-                width = 100; // Adjust as needed
+                width = 60; // Adjust as needed
             }
             indicator.style.width = width + '%';
         });
