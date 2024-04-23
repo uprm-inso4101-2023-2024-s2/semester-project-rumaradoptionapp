@@ -1,5 +1,6 @@
 const dao = require('../dao/users')
 const argon2 = require('argon2')
+const { generateTemporaryPassword } = require('../dao/users');
 const { sendEmail } = require('../../sendEmail'); // Import the sendEmail function
 
 // Function responsible of obtaining all of the users in databse. Currently used as an example.
@@ -65,27 +66,27 @@ const signup = async (credentials) => {
 }
 
 // Function responsible of calling the query that will check that the user has a valid password and username and it will also manage the result
-const login = async (user_info) =>{
+const login = async (request) =>{
 
-    const unhashed_password = user_info.password
-    result = await dao.login(user_info)
+    const unhashed_password = request.body.password
+    result = await dao.login(request.body)
     
     //console.log(emailVerified.verified)
     
-    if(result){
+    if(result.password){
 
         
         if(await argon2.verify(result.password, unhashed_password)){
 
-            emailVerified = await dao.getVerified(user_info)
+            emailVerified = await dao.getVerified(request.body)
 
             if(!emailVerified.verified){
                 return ("Email not verified")
             }
             
             else{
-
-            return ("Success")
+                request.session.user_id = result.user_id
+                return ("Success")
 
             }
             
@@ -121,14 +122,84 @@ const verifyVerificationCode = async (formData) => {
         return "Failure wrong username";
     }
 }
+const setprofilepicture = async (request) => {
+    const result = await dao.setProfilePictureQuery(request);
+    if(result){
+        console.log("We dit it!!!!");
+    }else{
+        console.log("womp womp");
+    }
 
-const updateFaculty = async (username, isFaculty) => {
+}
+const sendTemporaryPasswordEmail = async (email, temporaryPassword) => {
+    try {
+        await sendEmail(email, `Your temporary password is: ${temporaryPassword}. Please use this password to log in and reset your password.`);
+    } catch (error) {
+        console.error('Error sending password reset email:', error);
+        throw error;
+    }
+};
 
-    placeholder = await dao.updateFacultyStatus(username, isFaculty);
-    return placeholder;
+const verifyTemporaryPassword = async (email, temporaryPassword) => {
+    try {
+        const result = await dao.verifyTemporaryPassword(email, temporaryPassword);
+        return result;
+    } catch (error) {
+        console.error('Error verifying temporary password:', error);
+        return false;
+    }
+};
+
+const forgotPassword = async (email) => {
+    try {
+        // Generate a temporary password
+        const temporaryPassword = await generateTemporaryPassword(email);
+
+        // Send the temporary password to the user's email
+        await sendTemporaryPasswordEmail(email, temporaryPassword);
+
+        return "Password reset email sent successfully.";
+    } catch (error) {
+        console.error('Error initiating password reset:', error);
+        throw error;
+    }
+};
+
+const resetPassword = async (email, newPassword) => {
+    try {
+        // Call your data access layer function to update the password
+        const result = await dao.updatePasswordByEmail(email, newPassword);
+
+        // Check if the password update was successful
+        if (result) {
+            return "Reset Password Success";
+        } else {
+            return "Error resetting password. Please try again."; // Return an error message if the update failed
+        }
+    } catch (error) {
+        console.error('Error resetting password:', error);
+        throw new Error('An error occurred while resetting the password');
+    }
+};
+
+const updateFaculty = async (request) => {
+    for (let i=0; i < request.length; i++) {
+        await dao.updateFacultyStatus(request[i]);
+    }
 }
 
 
+
+
+
+const getProfilePicture = async (request) => {
+    const result = await dao.getProfilepictureQuery(request);
+
+    const picture ="data:image/png;base64," + result;
+
+    return picture;
+
+}
 module.exports={
     getAllUsers,
     signup,
@@ -137,5 +208,12 @@ module.exports={
     verifyVerificationCode,
     getUsers,
     getFaculty,
-    updateFaculty
+    updateFaculty,
+    getFaculty,
+    setprofilepicture,
+    getProfilePicture,
+    sendTemporaryPasswordEmail,
+    forgotPassword,
+    verifyTemporaryPassword,
+    resetPassword
 }

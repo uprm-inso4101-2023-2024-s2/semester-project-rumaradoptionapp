@@ -1,5 +1,6 @@
 const {response} = require('express')
 const randomT = require('random-token')
+const fs = require('fs')
 
 
 //Variable responsible of all of the database functions and connections
@@ -9,6 +10,7 @@ const db = require('../config/pg_config')
 //Variable responsible of the hashing of the password. (argon2 is the hashing algorithm)
 const argon2 = require('argon2')
 const randomToken = require('random-token')
+const { getprofilepicture } = require('../controller/users')
 
 
 
@@ -21,8 +23,7 @@ const getUsers = async (request,response) => {
 }
 
 const getUserInfo = async (request, response) => {
-    const result = await db.pool.query("select * from users")
-
+    const result = await db.pool.query("select firstname, lastname, username, email, faculty, location from users")
     return result.rows
 }
 
@@ -50,7 +51,7 @@ const addNewUser = async (request,response) =>{
 const login = async(request, response) =>{
     
     const username = request.username
-    const result = await db.pool.query('select password from users where username = $1', [username])
+    const result = await db.pool.query('select password,user_id from users where username = $1', [username])
     
     return result.rows[0]
 }
@@ -113,9 +114,74 @@ const getFaculty = async (request,response) => {
     const faculty = await db.pool.query("select firstname, lastname, email, location, gender from users where faculty = true")
     return faculty.rows
 }
+const setProfilePictureQuery = async (request) => {
+    const data = fs.readFileSync(request.file.path);    
+    const imageBase64 = data.toString('base64');
+    const user_id = request.session.user_id;
+    const result = await db.pool.query("UPDATE users SET profile_picture = $1 WHERE user_id = $2 RETURNING profile_picture", [imageBase64, user_id])
+    fs.unlink(request.file.path,(err) => {
+        if (err) {
+          console.error('Error deleting file:', err);
+          // Handle the error appropriately, such as sending an error response
+          // or taking other corrective actions.
+        } else {
+          console.log('File deleted successfully');
+          // Continue with other operations if needed.
+        }
+      });
+    return result.rows[0] 
+}
 
-const updateFacultyStatus = async (userId, isFaculty) => {
-    const checked = await db.pool.query("UPDATE users SET faculty = $1 WHERE username = $2", [isFaculty, username]);
+const updateFacultyStatus = async (request) => {
+    console.log(request);
+    const username = request.username;
+    const faculty = request.faculty;
+    const checked = await db.pool.query("UPDATE users SET faculty = $1 WHERE username = $2", [faculty, username]);
+}
+
+const getProfilepictureQuery = async (request) => {
+    const user_id = request.session.user_id;
+    const result = await db.pool.query("select profile_picture from users where user_id = $1",[user_id]);
+    return result.rows[0].profile_picture
+}
+
+const generateTemporaryPassword = async (email) => {
+    try {
+        const temporaryPassword = await randomT(10);
+        await db.pool.query('UPDATE users SET temporary_password = $1 WHERE email = $2', [temporaryPassword, email]);
+        return temporaryPassword;
+    } catch (error) {
+        console.error('Error generating temporary password:', error);
+        throw error;
+    }
+};
+
+const verifyTemporaryPassword = async (email, temporaryPassword) => {
+    try {
+        const result = await db.pool.query('SELECT email, temporary_password FROM users WHERE email = $1', [email]);
+        const storedTemporaryPassword = result.rows[0].temporary_password;
+        if (storedTemporaryPassword == temporaryPassword){
+            return true;
+        }
+        else {
+            return false;
+        }
+    } catch (error) {
+        console.error('Error verifying temporary password:', error);
+        return false;
+    }
+};
+
+const updatePasswordByEmail = async (email, newPassword) => {
+    try {
+        const hashedPassword = await argon2.hash(newPassword);
+        const query = 'UPDATE users SET password = $1 WHERE email = $2';
+        const result = await db.pool.query(query, [hashedPassword, email]);
+        return result.rowCount > 0;
+    } catch (error) {
+        console.error('Error updating password:', error);
+        throw new Error('An error occurred while updating the password');
+    }
 };
 
 module.exports={
@@ -132,4 +198,10 @@ module.exports={
     getUserInfo,
     getFaculty,
     updateFacultyStatus,
+    getFaculty,
+    setProfilePictureQuery,
+    getProfilepictureQuery,
+    generateTemporaryPassword,
+    verifyTemporaryPassword,
+    updatePasswordByEmail
 }

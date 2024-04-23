@@ -102,8 +102,8 @@
                     <span><h2>Email: </h2><%= user.email %></span>
                     <span><h2>Location: </h2><%= user.location %></span>
                     <span>
-                        <input type="checkbox" id="facultyCheckbox<%= user.id %>" <% if (user.faculty) { %>checked<% } %>>
-                        <label class="checkbox-label" for="facultyCheckbox<%= user.id %>">Faculty</label>
+                        <input type="checkbox" id="facultyCheckbox<%= user.username %>" <% if (user.faculty) { %>checked<% } %>>
+                        <label class="checkbox-label" for="facultyCheckbox<%= user.username %>">Faculty</label>
                     </span>
                 </div>
             </li>
@@ -112,13 +112,14 @@
     <button id="saveChangesButton">Save Changes</button>
 </body>
 <script>
+
+
     document.getElementById("saveChangesButton").addEventListener("click", async () => {
-        // Gather selected users and their faculty status
         const usersToUpdate = [];
         document.querySelectorAll('input[type="checkbox"]').forEach(checkbox => {
-            const userId = checkbox.id.replace("facultyCheckbox", "");
-            const isFaculty = checkbox.checked;
-            usersToUpdate.push({ userId, isFaculty });
+            const username = checkbox.id.replace("facultyCheckbox", "");
+            const faculty = checkbox.checked;
+            usersToUpdate.push({ username, faculty });
         });
 
         // Send data to backend

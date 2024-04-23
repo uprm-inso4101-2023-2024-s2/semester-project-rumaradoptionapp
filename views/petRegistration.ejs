@@ -137,7 +137,14 @@
                     <option value="male">Male</option>
                 </select>
             </div>
-            <button type="submit" class="submit-btn">Register Pet</button>
+            <button type="submit" class="submit-btn" onclick="redirectPetRegistration()">Register Pet</button>
+        
+            <script>
+                // Function to redirect to the post pet registration form
+                function redirectPetRegistration() {
+                    window.location.href = "/postPetRegistration";
+                }
+            </script>
         </form>
     </div>
 </body>

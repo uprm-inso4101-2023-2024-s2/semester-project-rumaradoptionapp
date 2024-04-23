@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Change Username/Password</title>
+    <style>
+        body {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 110vh;
+            background-image: url('https://www.uprm.edu/portales/wp-content/uploads/sites/55/2022/05/Tarzan_7896.png'); /* Specify the path to your image */
+            background-size: contain; /* Cover the entire background */
+            background-position: cover; /* Center the background image */
+            background-repeat: no-repeat; /* Prevent the background image from repeating */
+        }
+
+        .form-container {
+            width: 300px; /* Adjust the width as needed */
+            padding: 20px;
+            background-color: white;
+            border-radius: 8px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+            text-align: center;
+        }
+
+        .form-group {
+            margin-bottom: 15px;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 5px;
+            color: black; /* Optional: Set the label text color */
+        }
+
+        .form-group input {
+            width: 100%;
+            padding: 8px;
+            border-radius: 4px;
+            border: 1px solid #ccc;
+            background-color: #66bb6a; /* Set the more lively green background color for smaller boxes */
+            color: white; /* Set the text color for smaller boxes */
+            box-sizing: border-box; /* Include padding and border in the element's total width and height */
+        }
+
+        .form-group input::placeholder {
+            color: white; /* Set the placeholder text color to white */
+        }
+
+        .submit-btn {
+            width: 100%;
+            padding: 10px;
+            background-color: white; /* Set the background color for the big box */
+            color: black; /* Set the text color for the big box */
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+
+        .submit-btn:hover {
+            background-color: #ccc; /* Set the button background color on hover */
+        }
+    </style>
+</head>
+<body>
+    <div class="form-container">
+        <h2>Change Username</h2>
+        <form id="changeUsernameForm" action="/change-username" method="post">
+            <div class="form-group">
+                <label for="newUsername">New Username:</label>
+                <input type="text" id="newUsername" name="newUsername" placeholder="Enter your new username" required autocomplete="off">
+            </div>
+            <button type="submit" class="submit-btn">Change Username</button>
+        </form>
+
+        <hr>
+
+        <h2>Change Password</h2>
+        <form id="changePasswordForm" action="/change-password" method="post">
+            <div class="form-group">
+                <label for="newPassword">New Password:</label>
+                <input type="password" name="newPassword" id="newPassword" placeholder="Enter your new password" required>
+            </div>
+            <button type="submit" class="submit-btn">Change Password</button>
+        </form>
+
+        <hr>
+
+        <h2>Change Email</h2>
+        <form id="changeEmailForm" action="/change-email" method="post">
+            <div class="form-group">
+                <label for="newEmail">New Email:</label>
+                <input type="text" name="newEmail" id="newEmail" placeholder="Enter your new email" required>
+            </div>
+            <button type="submit" class="submit-btn">Change Email</button>
+        </form>
+
+        <hr>
+
+        <h2>Change Profile Picture</h2>
+        <form id="changeProfilePic" action="/change-profile-pic" method="post" enctype="multipart/form-data">
+            <div class="form-group">
+                <label for="profile_picture">Change Image:</label>
+                <input type="file" name="profile_picture" id="profile_picture" required>
+            </div>
+            <button type="submit" class="submit-btn">Upload Image</button>
+        </form>
+    </div>
+
+
+
+
+</body>
+</html>
