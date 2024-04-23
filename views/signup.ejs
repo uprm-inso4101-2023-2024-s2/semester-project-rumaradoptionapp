@@ -159,7 +159,7 @@
                 <input type="password" id="password" name="password" placeholder="Enter your password" required class="green-text">
                 <div id="password-strength" class="password-strength">Password Strength:</div>
                 <div class="strength-indicator-container">
-                    <div class="strength-indicator weak"></div>
+                    <div class="strength-indicator weak" id="passwordStrengthIndicator"></div>
                 </div>
             </div>
             <div class="form-group">
@@ -250,8 +250,19 @@
 
             document.getElementById('password-strength').textContent = 'Password Strength: ' + strength.charAt(0).toUpperCase() + strength.slice(1);
 
-            const indicator = document.querySelector('.strength-indicator');
+            const indicator = document.getElementById('passwordStrengthIndicator');
             indicator.className = 'strength-indicator ' + strength;
+
+            // Calculate width based on password strength
+            let width = 0;
+            if (strength === 'Weak') {
+                width = 30; // Adjust as needed
+            } else if (strength === 'Medium') {
+                width = 60; // Adjust as needed
+            } else {
+                width = 100; // Adjust as needed
+            }
+            indicator.style.width = width + '%';
         });
     </script>
 </body>
