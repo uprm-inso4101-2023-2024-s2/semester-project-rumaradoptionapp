@@ -166,6 +166,11 @@
                 </div>
             </div>
             <div class="form-group">
+                <label for="confirm_password">Confirm Password:</label>
+                <input type="password" id="confirm_password" name="confirm_password" placeholder="Confirm your password" required class="green-text">
+                <div id="password-mismatch-error" style="display: none; color: red;">Passwords do not match.</div>
+            </div>
+            <div class="form-group">
                 <label for="gender">Gender:</label>
                 <select name="gender" id="gender" required class="green-text">
                     <option value="">Select Gender</option>
@@ -204,13 +209,21 @@
         document.getElementById('signupForm').addEventListener('submit', async function(event) {
             event.preventDefault();
 
+            const password = document.getElementById('password').value;
+            const confirmPassword = document.getElementById('confirm_password').value;
+
+            if (password !== confirmPassword) {
+                document.getElementById('password-mismatch-error').style.display = 'block';
+                return; // Prevent form submission if passwords don't match
+            }
+
             const formData = {
                 firstname: document.getElementById('firstname').value,
                 lastname: document.getElementById('lastname').value,
                 location: document.getElementById('location').value,
                 username: document.getElementById('username').value,
                 email: document.getElementById('email').value,
-                password: document.getElementById('password').value,
+                password: password,
                 gender: document.getElementById('gender').value,
                 foster: document.getElementById('foster').checked ? 'true' : 'false'
             };
@@ -244,6 +257,18 @@
                 }
             } catch (error) {
                 console.error('Error:', error);
+            }
+        });
+
+        // Real-time validation for confirm password field
+        document.getElementById('confirm_password').addEventListener('input', function() {
+            const password = document.getElementById('password').value;
+            const confirmPassword = this.value;
+
+            if (password === confirmPassword) {
+                document.getElementById('password-mismatch-error').style.display = 'none';
+            } else {
+                document.getElementById('password-mismatch-error').style.display = 'block';
             }
         });
 
