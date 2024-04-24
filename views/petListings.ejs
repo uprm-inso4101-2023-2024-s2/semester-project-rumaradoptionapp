@@ -58,23 +58,52 @@
         }
 
         .pet-image {
-            width: 100%; 
-            height: 200px; 
-            overflow: hidden; 
-            margin: 0 auto 20px; 
+            position: relative; 
+            width: 100%;
+            height: 200px;
+            overflow: hidden;
+            margin: 0 auto 20px;
         }
 
-        /* .pet-image img {
+        
+        .pet-image img {
             width: 100%;
             height: 100%;
             object-fit: cover;
-        } */ 
-        .pet-image img {
-            width: auto; 
-            height: 100%; 
-            object-fit: cover; 
-            object-position: center; 
         }
+
+        .like-btn {
+            color: gainsboro; 
+            background-color: rgba(255, 255, 255, 0.3); 
+            font-size: 40px;
+            cursor: pointer;
+            border: none; 
+            padding: 0; 
+            outline: none; 
+            position: absolute; 
+            top: 10px; 
+            right: 10px; 
+            z-index: 1; 
+            width: 40px; 
+            height: 40px; 
+            border-radius: 50%; 
+            display: flex; 
+            justify-content: center; 
+            align-items: center; 
+            transition: background-color 0.3s; 
+        }
+        .like-btn:hover {
+            background-color: rgba(255, 255, 255, 1); 
+        }
+        .like-btn:focus {
+            outline: none; 
+        }
+
+        .like-btn.liked {
+            color: red; 
+        }
+
+
 
         .pet-name {
             font-size: 1.5rem;
@@ -143,6 +172,7 @@
         </div>
         <div class="filter-tabs">
             <button class="tab active" data-type="all">All Pets</button>
+            <button class="tab" data-type="liked">Liked Pets</button>
             <button class="tab" data-type="dog">Dogs</button>
             <button class="tab" data-type="cat">Cats</button>
         </div>
@@ -157,8 +187,9 @@
             </div>
         </div>
         <div class="pet-listing">
-            <div class="pet-card" data-size="small" data-age="2" data-type="cat">
+            <div class="pet-card" data-size="medium" data-age="2" data-type="cat">
                 <div class="pet-image">
+                    <button class="like-btn" onclick="toggleLike(this)">&#x2665;</button> 
                     <img src="https://med.stanford.edu/content/dam/sm-news/images/2021/09/cat_by-Kateryna-T-Unsplash.jpg" alt="Pet Image">
                 </div>
                 <div class="pet-name">Misty</div>
@@ -168,14 +199,16 @@
             
             <div class="pet-card" data-size="small" data-type="dog">
                 <div class="pet-image">
+                    <button class="like-btn" onclick="toggleLike(this)">&#x2665;</button> 
                     <img src="https://www.princeton.edu/sites/default/files/styles/1x_full_2x_half_crop/public/images/2022/02/KOA_Nassau_2697x1517.jpg?itok=Bg2K7j7J" alt="Pet Image">
                 </div>
                 <div class="pet-name">Ares</div>
                 <div class="pet-details">Age: 1 month | Breed: Golden Retriever</div>
                 <button class="view-details-btn">View Details</button>
             </div>
-            <div class="pet-card" data-size="small" data-age="2" data-type="dog">
+            <div class="pet-card" data-size="large" data-age="1" data-type="dog">
                 <div class="pet-image">
+                    <button class="like-btn" onclick="toggleLike(this)">&#x2665;</button> 
                     <img src="https://www.pitpat.com/wp-content/uploads/2020/07/Dog_-rights_MS_outdoors_stationary_sitting-on-path-in-woods_golden-retriever_meganwilliams-1024x683.jpg" alt="Pet Image">
                 </div>
                 <div class="pet-name">Maximus</div>
@@ -184,6 +217,7 @@
             </div>
             <div class="pet-card" data-size="small" data-age="2" data-type="dog">
                 <div class="pet-image">
+                    <button class="like-btn" onclick="toggleLike(this)">&#x2665;</button> 
                     <img src="https://hips.hearstapps.com/hmg-prod/images/small-dog-breeds-659dd5cce053b.jpeg?crop=0.669xw:1.00xh;0.166xw,0&resize=640:*" alt="Pet Image">
                 </div>
                 <div class="pet-name">Zara</div>
@@ -193,10 +227,36 @@
         </div>
     </div>
     <script>
+        let likedPets = []; 
+
+        function toggleLike(button) {
+            const petCard = button.closest('.pet-card');
+            const petName = petCard.querySelector('.pet-name').textContent;
+            const petImage = petCard.querySelector('.pet-image img').src;
+            const petAge = petCard.getAttribute('data-age');
+            const petBreed = petCard.querySelector('.pet-details').textContent.split(':')[1].trim();
+
+            const isLiked = button.classList.toggle('liked'); // Toggle the 'liked' class on the heart button
+
+            if (isLiked) {
+          
+                petCard.classList.add('liked');
+               
+                likedPets.push({ name: petName, image: petImage, age: petAge, breed: petBreed });
+            } else {
+              
+                petCard.classList.remove('liked');
+             
+                likedPets = likedPets.filter(pet => pet.name !== petName);
+            }
+
+            console.log(likedPets); 
+        }
         document.addEventListener("DOMContentLoaded", function() {
             const sizeFilter = document.getElementById("size-filter");
             const petCards = document.querySelectorAll(".pet-card");
             const tabs = document.querySelectorAll(".tab");
+            const likedPetsButton = document.querySelector('.tab[data-type="liked"]');
     
             sizeFilter.addEventListener("change", filterPets);
             tabs.forEach(tab => tab.addEventListener("click", function() {
@@ -208,19 +268,45 @@
             function filterPets() {
                 const selectedSize = sizeFilter.value;
                 const selectedType = document.querySelector(".tab.active").getAttribute("data-type");
-    
+
                 petCards.forEach(card => {
                     const petSize = card.getAttribute("data-size");
                     const petType = card.getAttribute("data-type");
-    
-                    if ((selectedSize === "all" || petSize === selectedSize) &&
-                        (selectedType === "all" || petType === selectedType || selectedType === "all")) {
-                        card.style.display = "block";
+                    const isLiked = card.classList.contains('liked');
+
+                    if (selectedType === "liked") {
+                        if (isLiked && (selectedSize === "all" || petSize === selectedSize)) {
+                            card.style.display = "block";
+                        } else {
+                            card.style.display = "none";
+                        }
                     } else {
-                        card.style.display = "none";
+                        if ((selectedSize === "all" || petSize === selectedSize) &&
+                            (selectedType === "all" || petType === selectedType || selectedType === "all")) {
+                            card.style.display = "block";
+                        } else {
+                            card.style.display = "none";
+                        }
                     }
                 });
             }
+            function showLikedPets() {
+                const likedPets = document.querySelectorAll('.pet-card.liked');
+                likedPets.forEach(pet => {
+                    pet.style.display = "block";
+                });
+
+                const unlikedPets = document.querySelectorAll('.pet-card:not(.liked)');
+                unlikedPets.forEach(pet => {
+                    pet.style.display = "none";
+                });
+            }
+
+            likedPetsButton.addEventListener("click", function() {
+                tabs.forEach(t => t.classList.remove('active'));
+                this.classList.add('active');
+                showLikedPets();
+            });
         });
     </script>
 </body>
