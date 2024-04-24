@@ -36,8 +36,23 @@
             color: #666;
         }
 
-        .filter-dropdown {
+        .filter-tabs {
+            text-align: center;
             margin-bottom: 20px;
+        }
+
+        .tab {
+            display: inline-block;
+            margin: 0 15px;
+            cursor: pointer;
+            padding: 12px 20px;
+            background-color: #eee;
+            border-radius: 5px;
+        }
+
+        .tab.active {
+            background-color: #67c36a;
+            color: white;
         }
 
         .filter-dropdown select {
@@ -119,6 +134,13 @@
             <h2>Pet Listings</h2>
             <p>Browse through our available pets ready for adoption.</p>
         </div>
+        <div class="filter-tabs">
+            <div class="tab active">All</div>
+            <div class="tab">Dogs</div>
+            <div class="tab">Cats</div>
+            <div class="tab">Birds</div>
+            <!-- Add more tabs as needed -->
+        </div>
         <div class="filter-dropdown">
             <select id="gender-filter">
                 <option value="">Select Gender</option>
@@ -134,15 +156,16 @@
         </div>
         <div class="pet-listing">
             <!-- Pet cards will be dynamically generated here -->
-            <div class="pet-card" data-gender="male" data-age="adult">
-                <div class="pet-image">
-                    <img src="pet_image_url" alt="Pet Image">
+            <% pets.forEach(pet => { %>
+                <div class="pet-card" data-size="<%= pet.size %>" data-age="<%= pet.age %>" data-type="<%= pet.species %>">
+                    <div class="pet-image">
+                        <img src="<%= pet.image_url || 'default-image-url.jpg' %>" alt="Pet Image">
+                    </div>
+                    <div class="pet-name"><%= pet.name %></div>
+                    <div class="pet-details">Age: <%= pet.age %> | Breed: <%= pet.species %></div>
+                    <a href="/petProfile/<%= pet.id %>" class="view-details-btn">View Details</a>
                 </div>
-                <div class="pet-name">Pet Name</div>
-                <div class="pet-details">Age: Adult | Gender: Male</div>
-                <a href="/petProfile/pet_id" class="view-details-btn">View Details</a>
-            </div>
-            <!-- Add more pet cards here -->
+            <% }); %>
         </div>
     </div>
 
