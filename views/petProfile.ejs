@@ -62,6 +62,16 @@
         a:hover {
             color: #45a049;
         }
+
+        .redirect-btn {
+            padding: 10px 20px;
+            background-color: #06aa0e;
+            color: #fff;
+            border: none;
+            cursor: pointer;
+            margin-top: 20px; /* Adjust margin top to position button lower */
+            align-content: center;
+        }
     </style>
 </head>
 <body>
@@ -80,7 +90,16 @@
             <p>Personality: <%= pet.personality %></p>
             <p>Sex: <%= pet.sex %></p>
             <!-- Add more pet details as needed -->
+            <button type="redirect-btn" onclick="redirect()">Fill Adoption Form</button>
         </div>
+        
     </div>
+
+    <script>
+        function redirect(){
+            window.location.href="/fillForm"
+        }
+    </script>
 </body>
 </html>
+
