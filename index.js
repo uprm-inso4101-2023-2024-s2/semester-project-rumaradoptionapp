@@ -34,6 +34,14 @@ const Authentication = async (request, response, next) => {
   }
 };
 
+const facultyAuthentication = async (request, response, next) => {
+  if (request.session.user_id && request.session.faculty) { // Check if user is logged in and is a faculty member
+    next(); // User is authenticated, proceed to next middleware
+  } else {
+    response.redirect("/"); // Redirect to home page if user is not authenticated or not a faculty member
+  }
+};
+
 // Set EJS as the view engine
 app.set('view engine', 'ejs');
 
@@ -92,7 +100,7 @@ app.get("/resetPassword", (req, res) => {
   res.render("resetPassword.ejs", { title: 'Reset Password' });
 });
 
-app.get("/petRegistration", (req, res) => {
+app.get("/petRegistration", facultyAuthentication, (req, res) => {
   res.render("petRegistration.ejs", { title: 'Pet Registration' });
 });
 
