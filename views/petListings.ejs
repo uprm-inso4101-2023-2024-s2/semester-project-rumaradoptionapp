@@ -36,23 +36,9 @@
             color: #666;
         }
 
-        .filter-tabs {
+        .filter-dropdown {
             text-align: center;
             margin-bottom: 20px;
-        }
-
-        .tab {
-            display: inline-block;
-            margin: 0 15px;
-            cursor: pointer;
-            padding: 12px 20px;
-            background-color: #eee;
-            border-radius: 5px;
-        }
-
-        .tab.active {
-            background-color: #67c36a;
-            color: white;
         }
 
         .filter-dropdown select {
@@ -134,16 +120,9 @@
             <h2>Pet Listings</h2>
             <p>Browse through our available pets ready for adoption.</p>
         </div>
-        <div class="filter-tabs">
-            <div class="tab active">All</div>
-            <div class="tab">Dogs</div>
-            <div class="tab">Cats</div>
-            <div class="tab">Birds</div>
-            <!-- Add more tabs as needed -->
-        </div>
         <div class="filter-dropdown">
-            <select id="gender-filter">
-                <option value="">Select Gender</option>
+            <select id="sex-filter">
+                <option value="">Select Sex</option>
                 <option value="male">Male</option>
                 <option value="female">Female</option>
             </select>
@@ -157,7 +136,7 @@
         <div class="pet-listing">
             <!-- Pet cards will be dynamically generated here -->
             <% pets.forEach(pet => { %>
-                <div class="pet-card" data-size="<%= pet.size %>" data-age="<%= pet.age %>" data-type="<%= pet.species %>">
+                <div class="pet-card" data-sex="<%= pet.sex %>" data-age="<%= pet.age %>">
                     <div class="pet-image">
                         <img src="<%= pet.image_url || 'default-image-url.jpg' %>" alt="Pet Image">
                     </div>
@@ -171,27 +150,40 @@
 
     <script>
         document.addEventListener("DOMContentLoaded", function () {
-            const genderFilter = document.getElementById("gender-filter");
+            const sexFilter = document.getElementById("sex-filter");
             const ageFilter = document.getElementById("age-filter");
             const petCards = document.querySelectorAll(".pet-card");
 
-            genderFilter.addEventListener("change", filterPets);
+            sexFilter.addEventListener("change", filterPets);
             ageFilter.addEventListener("change", filterPets);
 
             function filterPets() {
-                const selectedGender = genderFilter.value;
+                const selectedSex = sexFilter.value;
                 const selectedAge = ageFilter.value;
 
                 petCards.forEach((card) => {
-                    const cardGender = card.dataset.gender;
+                    const cardSex = card.dataset.sex;
                     const cardAge = card.dataset.age;
 
                     const showCard =
-                        (!selectedGender || cardGender === selectedGender) &&
-                        (!selectedAge || cardAge === selectedAge);
+                        (!selectedSex || cardSex === selectedSex) &&
+                        (!selectedAge || checkAgeRange(cardAge, selectedAge));
 
                     card.style.display = showCard ? "block" : "none";
                 });
+            }
+
+            function checkAgeRange(age, range) {
+                switch (range) {
+                    case "puppy":
+                        return age >= 1 && age <= 4;
+                    case "adult":
+                        return age >= 5 && age <= 10;
+                    case "senior":
+                        return age > 10;
+                    default:
+                        return false;
+                }
             }
         });
     </script>
