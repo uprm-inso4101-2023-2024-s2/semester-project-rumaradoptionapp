@@ -33,7 +33,7 @@ const getPetById = async (req, res) => {
 
 const getAllPets = async (req, res) => {
   try {
-    req.session.pet_id=null
+      req.session.pet_id=null
       const pets = await petsDao.getAllPets();
       res.render('petListings', { pets });
   } catch (error) {
