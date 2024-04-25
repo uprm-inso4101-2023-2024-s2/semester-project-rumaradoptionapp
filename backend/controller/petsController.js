@@ -21,6 +21,7 @@ const getPetById = async (req, res) => {
       const petId = req.params.id;
       const pet = await petsDao.getPetById(petId);
       if (pet) {
+        req.session.pet_id= petId
         res.render('petProfile', { pet });
       } else {
           res.status(404).send('Pet not found');
@@ -32,6 +33,7 @@ const getPetById = async (req, res) => {
 
 const getAllPets = async (req, res) => {
   try {
+    req.session.pet_id=null
       const pets = await petsDao.getAllPets();
       res.render('petListings', { pets });
   } catch (error) {

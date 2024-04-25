@@ -5,18 +5,16 @@ const dao = require('../dao/AdoptionForm')
 
 
 
-const FillForm = async (form_Data,id_Data) =>{
+const FillForm = async (request) =>{
 
 
-    form_id = await dao.Form_Query(id_Data)
+    form_id = await dao.Form_Query(request)
 
-    result = await dao.AddNewForm(form_Data,form_id)
-
+    result = await dao.AddNewForm(request.body,form_id)
+    request.session.pet_id = null
     if(result){
-        console.log('Success')
         return "Form submitted successfully"
     }else{
-        console.log("Failure")
         return "Error submitting form"
     }
 

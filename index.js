@@ -113,7 +113,7 @@ app.get("/foster", async (req, res) => {
   res.render("Foster.ejs", { fosterMembers });
 });
 
-app.get("/fillForm/:user_id/:id", async (req, res) => {
+app.get("/fillForm",Authentication, async (req, res) => {
   res.render("AdoptionForm.ejs", { title: "Pet Adoption Form" });
 });
 
@@ -191,8 +191,9 @@ app.post("/resetPassword", async (req, res) => {
   }
 });
 
-app.post("/fillForm/:user_id/:id", async (req, res) => {
-  res.json(await adoptionController.FillForm(req.body, req.params));
+app.post("/fillForm", async (req, res) => {
+  res.json(await adoptionController.FillForm(req));
+  
 });
 
 app.post("/change-profile-pic", upload.single('profile_picture'), async (req, res) => {

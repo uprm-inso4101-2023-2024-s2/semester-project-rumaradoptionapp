@@ -10,8 +10,8 @@ const db = require('../config/pg_config')
 
 const Form_Query = async (request,response) =>{
 
-    const user_id = request.user_id
-    const pet_id = request.id
+    const user_id = request.session.user_id
+    const pet_id = request.session.pet_id
 
 
     const result = await db.pool.query("insert into forms (user_id,pet_id) values ($1,$2) returning f_id",[user_id,pet_id])
