@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Favorite Pets</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f5f5f5;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+            color: #333;
+        }
+
+        .section-header {
+            text-align: center;
+            margin-bottom: 40px;
+        }
+
+        .section-header h2 {
+            font-size: 2rem;
+            font-weight: bold;
+            color: #333;
+            margin-bottom: 10px;
+        }
+
+        .section-header p {
+            font-size: 1.2rem;
+            color: #666;
+            margin-bottom: 20px;
+        }
+
+        #favorite-pets {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            grid-gap: 20px;
+        }
+
+        .pet-profile {
+            background-color: #fff;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            border-radius: 10px;
+            padding: 20px;
+            text-align: center;
+        }
+
+        .pet-profile h2 {
+            font-size: 1.5rem;
+            margin-bottom: 10px;
+            color: #333;
+        }
+
+        
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="section-header">
+            <h2>Favorite Pets</h2>
+            <p>Here are the pets you've marked as favorites.</p>
+        </div>
+        <div id="favorite-pets">
+            <!-- Favorite pets will be dynamically generated here -->
+        </div>
+    </div>
+
+    <script>
+        document.addEventListener("DOMContentLoaded", function () {
+            const favorites = JSON.parse(localStorage.getItem("favorites")) || [];
+            const favoritePetsContainer = document.getElementById("favorite-pets");
+
+            // Iterate through favorite pets and display them
+            favorites.forEach(petId => {
+                // Fetch pet details from API or use preloaded data
+                // Here, I'm assuming you have a function to fetch pet details by ID
+                const pet = getPetById(petId); // Function to fetch pet details by ID
+                if (pet) {
+                    const petElement = createPetElement(pet);
+                    favoritePetsContainer.appendChild(petElement);
+                }
+            });
+
+            // Function to create HTML element for pet
+            function createPetElement(pet) {
+                const petDiv = document.createElement("div");
+                petDiv.classList.add("pet-profile");
+
+                const petName = document.createElement("h2");
+                petName.textContent = pet.name;
+                petDiv.appendChild(petName);
+
+                // Add more pet details as needed
+
+                return petDiv;
+            }
+
+            // Function to fetch pet details by ID (example)
+            function getPetById(id) {
+                // Dummy function, replace with actual API call or preloaded data
+                const petsData = [
+                    { id: ped_id, name: pe, species: "Dog", age: "3", /* Add more details */ },
+                    { id: "2", name: "Whiskers", species: "Cat", age: "5", /* Add more details */ },
+                    // More pet data...
+                ];
+                return petsData.find(pet => pet.id === id);
+            }
+        });
+    </script>
+</body>
+</html>

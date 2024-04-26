@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Pet Profile - <%= pet.name %></title>
     <style>
-        body {
+        .body {
             font-family: 'Poppins', sans-serif;
             margin: 0;
             padding: 0;
@@ -79,8 +79,29 @@
             <p>Weight: <%= pet.weight %> kg</p>
             <p>Personality: <%= pet.personality %></p>
             <p>Sex: <%= pet.sex %></p>
-            <!-- Add more pet details as needed -->
+            <!-- Add a button to mark as favorite -->
+            <button id="favorite-btn">Favorite</button>
         </div>
     </div>
+
+    <script>
+        document.addEventListener("DOMContentLoaded", function () {
+            const favoriteBtn = document.getElementById("favorite-btn");
+            const petId = '<%= pet.id %>'; // Assume each pet has a unique ID
+
+            favoriteBtn.addEventListener("click", function () {
+                // Check if the pet is already marked as a favorite
+                let favorites = JSON.parse(localStorage.getItem("favorites")) || [];
+                if (!favorites.includes(petId)) {
+                    // Add the pet to favorites
+                    favorites.push(petId);
+                    localStorage.setItem("favorites", JSON.stringify(favorites));
+                    alert("Pet added to favorites!");
+                } else {
+                    alert("Pet is already in favorites!");
+                }
+            });
+        });
+    </script>
 </body>
 </html>
