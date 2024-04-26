@@ -42,6 +42,14 @@ const Authentication = async (request, response, next) => {
   }
 };
 
+const facultyAuthentication = async (request, response, next) => {
+  if (request.session.user_id && request.session.faculty) { // Check if user is logged in and is a faculty member
+    next(); // User is authenticated, proceed to next middleware
+  } else {
+    response.redirect("/"); // Redirect to home page if user is not authenticated or not a faculty member
+  }
+};
+
 // Set EJS as the view engine
 app.set('view engine', 'ejs');
 
@@ -100,7 +108,7 @@ app.get("/resetPassword", (req, res) => {
   res.render("resetPassword.ejs", { title: 'Reset Password' });
 });
 
-app.get("/petRegistration", (req, res) => {
+app.get("/petRegistration", facultyAuthentication, (req, res) => {
   res.render("petRegistration.ejs", { title: 'Pet Registration' });
 });
 
@@ -118,7 +126,7 @@ app.get("/foster", async (req, res) => {
   res.render("Foster.ejs", { fosterMembers });
 });
 
-app.get("/fillForm/:user_id/:id", async (req, res) => {
+app.get("/fillForm",Authentication, async (req, res) => {
   res.render("AdoptionForm.ejs", { title: "Pet Adoption Form" });
 });
 
@@ -196,8 +204,9 @@ app.post("/resetPassword", async (req, res) => {
   }
 });
 
-app.post("/fillForm/:user_id/:id", async (req, res) => {
-  res.json(await adoptionController.FillForm(req.body, req.params));
+app.post("/fillForm", async (req, res) => {
+  res.json(await adoptionController.FillForm(req));
+  
 });
 
 app.post("/change-profile-pic", upload.single('profile_picture'), async (req, res) => {

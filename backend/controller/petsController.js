@@ -25,6 +25,7 @@ const getPetById = async (req, res) => {
       // Fetch the newest image for the pet
       const newestImage = await petImageDao.getNewestPetImage(pet.id);
       pet.image = newestImage; // Add the image to the pet object
+        req.session.pet_id= petId
       res.render('petProfile', { pet });
     } else {
       res.status(404).send('Pet not found');
@@ -36,6 +37,7 @@ const getPetById = async (req, res) => {
 
 const getAllPets = async (req, res) => {
   try {
+      req.session.pet_id=null
     const pets = await petsDao.getAllPets();
     
     // Fetch the newest image for each pet

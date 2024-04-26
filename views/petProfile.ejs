@@ -17,6 +17,26 @@
             height: auto;
             margin-bottom: 20px;
         }
+
+        .redirect-btn {
+            padding: 10px 20px;
+            background-color: #06aa0e;
+            color: #fff;
+            border: none;
+            cursor: pointer;
+            margin-top: 20px; /* Adjust margin top to position button lower */
+            align-content: center;
+        }
+
+        .redirect-btn {
+            padding: 10px 20px;
+            background-color: #06aa0e;
+            color: #fff;
+            border: none;
+            cursor: pointer;
+            margin-top: 20px; /* Adjust margin top to position button lower */
+            align-content: center;
+        }
     </style>
 </head>
 <body>
@@ -34,6 +54,8 @@
             <p>Weight: <%= pet.weight %> kg</p>
             <p>Personality: <%= pet.personality %></p>
             <p>Sex: <%= pet.sex %></p>
+            <!-- Add more pet details as needed -->
+            <button type="redirect-btn" onclick="redirect()">Fill Adoption Form</button>
         </div>
         <% if (pet.image && pet.image.image_url) { %>
             <img id="petImage" src="<%= pet.image.image_url %>" alt="Image of <%= pet.name %>">
@@ -41,5 +63,12 @@
             <img src="/NoPictureFoundPicture.jpg" alt="Default image for <%= pet.name %>">
         <% } %>
     </div>
+
+    <script>
+        function redirect(){
+            window.location.href="/fillForm"
+        }
+    </script>
 </body>
 </html>
+
