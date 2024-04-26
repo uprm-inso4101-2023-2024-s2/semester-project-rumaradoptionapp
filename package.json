@@ -12,7 +12,7 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "@supabase/supabase-js": "^2.39.8",
+    "@supabase/supabase-js": "^2.42.7",
     "argon2": "^0.31.2",
     "body-parser": "^1.20.2",
     "cors": "^2.8.5",

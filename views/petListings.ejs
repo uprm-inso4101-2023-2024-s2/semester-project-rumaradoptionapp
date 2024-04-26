@@ -82,16 +82,9 @@
             transform: scale(1.05); 
         }
 
-        .pet-image {
+        .pet-image img {
             width: 100%; 
             height: 200px; 
-            overflow: hidden; 
-            margin: 0 auto 20px; 
-        }
-
-        .pet-image img {
-            width: auto; 
-            height: 100%; 
             object-fit: cover; 
             object-position: center; 
         }
@@ -157,9 +150,14 @@
         <div class="pet-listing">
             <!-- Pet cards will be dynamically generated here -->
             <% pets.forEach(pet => { %>
-                <div class="pet-card" data-size="<%= pet.size %>" data-age="<%= pet.age %>" data-type="<%= pet.species %>">
+                <div class="pet-card" data-size="<%= pet.size %>" data-age="<%= pet.age %>" data-gender="<%= pet.sex %>" data-type="<%= pet.species %>">
                     <div class="pet-image">
-                        <img src="<%= pet.image_url || 'default-image-url.jpg' %>" alt="Pet Image">
+                        <% if (pet.image && pet.image.image_url) { %>
+                            <img src="<%= pet.image.image_url %>" alt="Image of <%= pet.name %>" />
+                        <% } else { %>
+                            <!-- Display default image if there's no pet image -->
+                            <img src="/NoPictureFoundPicture.jpg" alt="No picture found for <%= pet.name %>" />
+                        <% } %>
                     </div>
                     <div class="pet-name"><%= pet.name %></div>
                     <div class="pet-details">Age: <%= pet.age %> | Breed: <%= pet.species %></div>
@@ -167,6 +165,7 @@
                 </div>
             <% }); %>
         </div>
+        
     </div>
 
     <script>

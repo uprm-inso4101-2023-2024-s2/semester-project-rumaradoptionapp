@@ -4,6 +4,7 @@ const path = require('path');
 const cors = require('cors')
 const usercontroller = require('./backend/controller/users')
 const petsController = require('./backend/controller/petsController');
+const petImageController = require('./backend/controller/petimageController');
 const adoptionController = require('./backend/controller/AdoptionForm')
 const app = express();
 const session  = require('express-session')
@@ -13,6 +14,13 @@ const { profile } = require('console');
 const upload = multer({ dest: 'imageProfileUploads/' });
 const { generateTemporaryPassword } = require('./backend/dao/users');
 const dao = require('./backend/dao/users');
+app.use(express.static('public'));
+const { supabase } = require('./backend/config/config');
+const petImageDao = require('./backend/dao/Petimage');
+
+
+
+
 
 // Body parser middleware
 app.use(bodyParser.urlencoded({ extended: false }));
@@ -100,9 +108,6 @@ app.get("/postPetRegistration", (req, res) => {
   res.render("postPetRegistration.ejs", { title: 'Post Pet Registration' });
 });
 
-// app.get('/petListings', (req, res) => {
-//     res.render("petListings.ejs", {title: 'Pet Listings'});
-// });
 
 app.get('/petListings', petsController.getAllPets);
 
@@ -199,6 +204,23 @@ app.post("/change-profile-pic", upload.single('profile_picture'), async (req, re
   await usercontroller.setprofilepicture(req);
   res.redirect("/");
 });
+
+// Route to add a pet image
+app.post('/addPetImage/:pet_id', upload.single('image'), async (req, res) => {
+  try {
+    const { file } = req;
+    const { pet_id } = req.params;
+    // Upload file to Supabase Storage and retrieve URL
+    const { publicURL, error: uploadError } = await supabase.storage.from('pet-images').upload(`images/${file.filename}`, file.stream);
+    if (uploadError) throw uploadError;
+    // Store the image URL in the database
+    const result = await petImageDao.addPetImage(pet_id, publicURL);
+    res.json(result);
+  } catch (error) {
+    res.status(500).json({ error: error.message });
+  }
+});
+
 
 
 // Start server
