@@ -141,6 +141,9 @@ app.get('/logout', (req, res) => {
     });
   });
   
+app.get('/donations', (req, res) => {
+    res.render("donations.ejs", {title: 'Donations'});
+});
 
 app.post('/signup', async (request, response) => {
   response.json(await usercontroller.signup(request.body));
