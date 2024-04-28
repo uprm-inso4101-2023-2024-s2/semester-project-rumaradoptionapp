@@ -12,42 +12,38 @@
             padding: 20px;
             text-align: center;
         }
-        img {
-            width: 80%;
-            height: auto;
-            margin-bottom: 20px;
+        .container {
+            display: flex;
+            justify-content: space-between; /* Adjusts the spacing between elements */
+            align-items: center; /* Aligns items vertically */
+            padding: 0 200px; /* Adds padding on both sides */
         }
-
+        #pet-details {
+            width: 50%; /* Takes up half of the container width */
+            text-align: left; /* Text aligned to the left */
+        }
+        #petImage {
+            width: 666.66px; /* Fixed width for the image */
+            height: 500px; /* Fixed height for the image */
+            object-fit: cover; /* Ensures the image covers the space without stretching */
+            border: 3px solid #67c36a; /* Adds a green border similar to the button color */
+        }
         .redirect-btn {
             padding: 10px 20px;
-            background-color: #06aa0e;
+            background-color: #67c36a;
             color: #fff;
             border: none;
             cursor: pointer;
             margin-top: 20px; /* Adjust margin top to position button lower */
-            align-content: center;
-        }
-
-        .redirect-btn {
-            padding: 10px 20px;
-            background-color: #06aa0e;
-            color: #fff;
-            border: none;
-            cursor: pointer;
-            margin-top: 20px; /* Adjust margin top to position button lower */
-            align-content: center;
         }
     </style>
 </head>
 <body>
     <div class="container">
-        <div class="section-header">
-            <h2>Pet Profile</h2>
-            <p>Meet <%= pet.name %>, ready for a loving home.</p>
-        </div>
-
         <div id="pet-details">
-            <h2 class="pet-name"><%= pet.name %></h2>
+            <h2 class="section-header">Pet Profile</h2>
+            <p>Meet <%= pet.name %>, ready for a loving home.</p>
+            <h3 class="pet-name"><%= pet.name %></h3>
             <p>Age: <%= pet.age %></p>
             <p>Breed: <%= pet.species %></p>
             <p>Size: <%= pet.size %></p>
@@ -55,12 +51,12 @@
             <p>Personality: <%= pet.personality %></p>
             <p>Sex: <%= pet.sex %></p>
             <!-- Add more pet details as needed -->
-            <button type="redirect-btn" onclick="redirect()">Fill Adoption Form</button>
+            <button class="redirect-btn" onclick="redirect()">Fill Adoption Form</button>
         </div>
         <% if (pet.image && pet.image.image_url) { %>
             <img id="petImage" src="<%= pet.image.image_url %>" alt="Image of <%= pet.name %>">
         <% } else { %>
-            <img src="/NoPictureFoundPicture.jpg" alt="Default image for <%= pet.name %>">
+            <img id="petImage" src="/NoPictureFoundPicture.jpg" alt="Default image for <%= pet.name %>">
         <% } %>
     </div>
 
@@ -71,4 +67,3 @@
     </script>
 </body>
 </html>
-
